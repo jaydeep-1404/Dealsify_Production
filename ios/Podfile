@@ -32,7 +32,7 @@ target 'Runner' do
   use_modular_headers!
 
   # Add Firebase Core dependency
-  pod 'Firebase/Core', '~> 11.2.0'  # Adjust the version as needed
+#   pod 'Firebase/Core', '~> 11.2.0'  # Adjust the version as needed
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 
