@@ -1,10 +1,14 @@
+import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
+import 'package:dealsify_production/src/screens/po_view/po_view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
 class ConstRoute {
   static const String splashScreen = '/splashScreen',
-      loginPage = '/loginPage';
+      loginPage = '/loginPage',
+      dashboard = '/dashboard',
+      poView = '/poView';
 }
 
 class RoutePage {
@@ -16,6 +20,8 @@ class RoutePage {
       right = Transition.leftToRight;
 
   static List<GetPage> routes = [
-    GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen())
+    GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
+    GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
+    GetPage(name: ConstRoute.poView, page: () => const PoView()),
   ];
 }

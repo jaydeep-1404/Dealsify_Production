@@ -1,5 +1,6 @@
 import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/api/get/get_po_list.dart';
+import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +55,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 childCount: po.items.length, (BuildContext context, int index) {
                   final item = po.items[index];
                   return ListTile(
+                    onTap: () {
+                      Get.toNamed(ConstRoute.poView);
+                    },
                     leading: const Icon(Icons.inventory),
                     title: Text(item.customerId!.customerName ?? ''),
                   );

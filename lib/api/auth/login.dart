@@ -4,6 +4,7 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import '../../core/routs/routs.dart';
 import '../../core/services/local_storage.dart';
 import '../../core/services/server_urls.dart';
 import '../../core/services/strings.dart';
@@ -45,7 +46,7 @@ class AuthController extends GetxController {
         pref.set(userInfo);
 
         // Open.credential_true_snackBar();
-        // Get.offNamedUntil(ConstRoute.bottomNavigationBarPage, (_) => false);
+        Get.offNamedUntil(ConstRoute.dashboard, (_) => false);
 
       } else {
         // Open.credential_fail_snackBar();
