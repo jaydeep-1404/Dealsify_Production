@@ -4,11 +4,11 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../core/services/local_storage.dart';
-import '../core/services/server_urls.dart';
-import '../core/services/strings.dart';
-import '../src/common_functions/snackbars.dart';
-import '../src/state_controllers/login.dart';
+import '../../core/services/local_storage.dart';
+import '../../core/services/server_urls.dart';
+import '../../core/services/strings.dart';
+import '../../src/common_functions/snackbars.dart';
+import '../../src/state_controllers/login.dart';
 
 class AuthController extends GetxController {
   final Map<String, String> _authHeaders = <String, String>{

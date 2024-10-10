@@ -1,4 +1,4 @@
-import 'package:dealsify_production/api/login.dart';
+import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

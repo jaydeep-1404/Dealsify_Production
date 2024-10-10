@@ -2,7 +2,7 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../api/login.dart';
+import '../../api/auth/login.dart';
 
 class LoginHandler extends GetxController {
   final _controller = WebViewController()
