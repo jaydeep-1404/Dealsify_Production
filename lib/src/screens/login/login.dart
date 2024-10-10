@@ -1,3 +1,4 @@
+import 'package:dealsify_production/api/login.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,7 +105,9 @@ class _LoginScreenState extends State<LoginScreen> {
       alignment: Alignment.centerRight,
       child: ElevatedButton(
         onPressed: () => controller.check_validation_and_login(loginKey),
-        child: const Text('Login'),
+        child:  Get.put(AuthController()).isLoading.isTrue ?
+        const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 2,),) :
+        const Text('Login'),
       ),
     );
   }
