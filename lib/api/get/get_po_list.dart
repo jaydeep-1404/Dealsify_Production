@@ -7,7 +7,6 @@ import '../../core/services/server_urls.dart';
 import '../../core/services/strings.dart';
 import '../../core/services/user_credentials.dart';
 import '../Models/POModel.dart';
-import '../Models/po_model_class.dart';
 
 class PurchaseOrderController extends GetxController {
   var items = <ProductionOrder>[].obs;
@@ -43,8 +42,6 @@ class PurchaseOrderController extends GetxController {
       AccessToken.expired(data);
       if (data[BKD.status] == true) {
         final items = List<ProductionOrder>.from(data[BKD.data].map((item) => ProductionOrder.fromJson(item)));
-        // print("CUSTOMER NAME : ${items.first.customerName}");
-        data.printFormattedJson();
         if (startIndex != null) {
           this.items.addAll(items);
           loading(false);
@@ -74,42 +71,6 @@ class PurchaseOrderController extends GetxController {
   void clear(){
     _startIndex = 1;
     loading = true.obs;
-    // items.clear();
+    items.clear();
   }
 }
-
-// class PurchaseOrderListModel {
-//   final String? id;
-//   final String? orderDate;
-//   final String? dispatchDate;
-//   final String? expectedDate;
-//   final String? productionOrderNo;
-//   final String? isAutoGenSeq;
-//   final String? customerId;
-//
-//   PurchaseOrderListModel({
-//     this.id,
-//     this.orderDate,
-//     this.dispatchDate,
-//     this.expectedDate,
-//     this.productionOrderNo,
-//     this.isAutoGenSeq,
-//     this.customerId,
-//   });
-//
-//   factory PurchaseOrderListModel.fromJson(Map<String, dynamic> json) {
-//     return PurchaseOrderListModel(
-//       id: json['_id']?.toString() ?? '',
-//       orderDate: json['orderDate']?.toString() ?? '',
-//       dispatchDate: json['dispatchDate']?.toString() ?? '',
-//       expectedDate: json['expectedDate']?.toString() ?? '',
-//       productionOrderNo: json['productionOrderNo']?.toString() ?? '',
-//       isAutoGenSeq: json['isAutoGenSeq']?.toString() ?? '',
-//       customerId: json['customerId']?['_id']?.toString() ?? '',
-//       customerId: json['customerId']?['_id']?.toString() ?? '',
-//       customerId: json['customerId']?['_id']?.toString() ?? '',
-//       customerId: json['customerId']?['_id']?.toString() ?? '',
-//     );
-//   }
-//
-// }
