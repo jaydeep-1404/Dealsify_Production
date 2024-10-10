@@ -3,10 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_controllers/login.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final controller = Get.put(LoginHandler());
-  LoginScreen({super.key});
+  late FocusNode focusNodeEmail = FocusNode(), focusNodePass = FocusNode();
   final loginKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    Get.closeAllSnackbars();
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    focusNodeEmail.dispose();
+    focusNodePass.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +54,10 @@ class LoginScreen extends StatelessWidget {
     return Obx(() {
       return TextFormField(
         initialValue: controller.email.value,
+        focusNode: focusNodeEmail,
         onChanged: controller.updateEmail,
         validator: controller.validatorEmail,
+        onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
         autofillHints: const [AutofillHints.email],
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -53,7 +75,9 @@ class LoginScreen extends StatelessWidget {
   Widget _buildPassword(){
     return Obx(() {
       return TextFormField(
+        initialValue: controller.password.value,
         onChanged: controller.updatePassword,
+        focusNode: focusNodePass,
         obscureText: controller.passwordVisible.isFalse ? true : false ,
         validator: controller.validatorPassword,
         autofillHints: const [AutofillHints.password],
@@ -79,16 +103,9 @@ class LoginScreen extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
-        onPressed: () {
-          if (loginKey.currentState!.validate()){
-            "Login Success".show();
-          } else {
-            "Login Fail".show();
-          }
-        },
+        onPressed: () => controller.check_validation_and_login(loginKey),
         child: const Text('Login'),
       ),
     );
   }
-
 }
