@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class ProductionOrder {
+class ProductionOrderModel {
   String? id;
   String? orderDate;
   String? dispatchDate;
@@ -19,7 +19,7 @@ class ProductionOrder {
   ProductionOrderStatus? productionOrderStatus;
   List<Item>? items;
 
-  ProductionOrder({
+  ProductionOrderModel({
     this.id,
     this.orderDate,
     this.dispatchDate,
@@ -39,8 +39,8 @@ class ProductionOrder {
     this.items,
   });
 
-  factory ProductionOrder.fromJson(Map<String, dynamic> json) {
-    return ProductionOrder(
+  factory ProductionOrderModel.fromJson(Map<String, dynamic> json) {
+    return ProductionOrderModel(
       id: json['_id']?.toString() ?? '',
       orderDate: json['orderDate']?.toString() ?? '',
       dispatchDate: json['dispatchDate']?.toString() ?? '',

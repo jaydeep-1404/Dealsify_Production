@@ -9,7 +9,7 @@ import '../../core/services/user_credentials.dart';
 import '../Models/POModel.dart';
 
 class PurchaseOrderController extends GetxController {
-  var items = <ProductionOrder>[].obs;
+  var items = <ProductionOrderModel>[].obs;
   var loading = true.obs;
   var get_more = true.obs;
 
@@ -41,7 +41,7 @@ class PurchaseOrderController extends GetxController {
       Map<String,dynamic> data = json.decode(response.body);
       AccessToken.expired(data);
       if (data[BKD.status] == true) {
-        final items = List<ProductionOrder>.from(data[BKD.data].map((item) => ProductionOrder.fromJson(item)));
+        final items = List<ProductionOrderModel>.from(data[BKD.data].map((item) => ProductionOrderModel.fromJson(item)));
         if (startIndex != null) {
           this.items.addAll(items);
           loading(false);
