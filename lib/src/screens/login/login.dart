@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../state_controllers/login.dart';
 
 class LoginScreen extends StatelessWidget {
-  final _loginController = Get.put(LoginController());
+  final controller = Get.put(LoginHandler());
   LoginScreen({super.key});
   final loginKey = GlobalKey<FormState>();
 
@@ -33,13 +33,9 @@ class LoginScreen extends StatelessWidget {
   Widget _buildEmail(){
     return Obx(() {
       return TextFormField(
-        initialValue: _loginController.email.value,
-        onChanged: (value) => _loginController.email(value),
-        validator: (value) {
-          if (value!.isEmpty) return 'Enter your email';
-          if (value.isValidMail.isFalse) return 'Enter valid email';
-          return null;
-        },
+        initialValue: controller.email.value,
+        onChanged: controller.updateEmail,
+        validator: controller.validatorEmail,
         autofillHints: const [AutofillHints.email],
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -57,12 +53,9 @@ class LoginScreen extends StatelessWidget {
   Widget _buildPassword(){
     return Obx(() {
       return TextFormField(
-        onChanged: (value) => _loginController.password(value),
-        obscureText: _loginController.hidePassword.isFalse ? true : false ,
-        validator: (value) {
-          if (value!.isEmpty) return "Enter password";
-          return null;
-          },
+        onChanged: controller.updatePassword,
+        obscureText: controller.passwordVisible.isFalse ? true : false ,
+        validator: controller.validatorPassword,
         autofillHints: const [AutofillHints.password],
         decoration: InputDecoration(
           labelText: 'Password',
@@ -70,12 +63,10 @@ class LoginScreen extends StatelessWidget {
           labelStyle: const TextStyle(fontSize: 15),
           hintStyle: const TextStyle(fontSize: 15),
           suffixIcon: IconButton(
-            onPressed: () {
-              _loginController.hidePassword.value = !_loginController.hidePassword.value;
-            },
-            icon: _loginController.hidePassword.isTrue ?
+            onPressed: controller.updateShowPassword,
+            icon: controller.passwordVisible.isTrue ?
             const Icon(Icons.visibility,) :
-            const Icon(Icons.visibility_off,) ,
+            const Icon(Icons.visibility_off,),
           ),
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),  // Smaller padding
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(30),),
