@@ -2,19 +2,19 @@ import 'dart:convert';
 
 class ProductionOrder {
   String? id;
-  DateTime? orderDate;
-  DateTime? dispatchDate;
-  DateTime? expectedDate;
-  bool? isAutoGenSeq;
+  String? orderDate;
+  String? dispatchDate;
+  String? expectedDate;
+  String? isAutoGenSeq;
   String? notes;
-  bool? confirmBOMCompletion;
-  int? productionPriorityLevel;
+  String? confirmBOMCompletion;
+  String? productionPriorityLevel;
   String? companyId;
   String? createdId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? productionOrderNo;
-  int? v;
+  String? createdAt;
+  String? updatedAt;
+  String? productionOrderNo;
+  String? v;
   Customer? customerId;
   ProductionOrderStatus? productionOrderStatus;
   List<Item>? items;
@@ -41,20 +41,20 @@ class ProductionOrder {
 
   factory ProductionOrder.fromJson(Map<String, dynamic> json) {
     return ProductionOrder(
-      id: json['_id'],
-      orderDate: json['orderDate'] != null ? DateTime.parse(json['orderDate']) : null,
-      dispatchDate: json['dispatchDate'] != null ? DateTime.parse(json['dispatchDate']) : null,
-      expectedDate: json['expectedDate'] != null ? DateTime.parse(json['expectedDate']) : null,
-      isAutoGenSeq: json['isAutoGenSeq'] ?? false,
-      notes: json['notes'],
-      confirmBOMCompletion: json['confirmBOMCompletion'] ?? false,
-      productionPriorityLevel: json['productionPriorityLevel'],
-      companyId: json['companyId'],
-      createdId: json['createdId'],
-      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
-      productionOrderNo: json['productionOrderNo'],
-      v: json['__v'],
+      id: json['_id']?.toString() ?? '',
+      orderDate: json['orderDate']?.toString() ?? '',
+      dispatchDate: json['dispatchDate']?.toString() ?? '',
+      expectedDate: json['expectedDate']?.toString() ?? '',
+      isAutoGenSeq: json['isAutoGenSeq']?.toString() ?? '',
+      notes: json['notes']?.toString() ?? '',
+      confirmBOMCompletion: json['confirmBOMCompletion']?.toString() ?? '',
+      productionPriorityLevel: json['productionPriorityLevel']?.toString() ?? '',
+      companyId: json['companyId']?.toString() ?? '',
+      createdId: json['createdId']?.toString() ?? '',
+      createdAt: json['createdAt']?.toString() ?? '',
+      updatedAt: json['updatedAt']?.toString() ?? '',
+      productionOrderNo: json['productionOrderNo']?.toString() ?? '',
+      v: json['__v']?.toString() ?? '',
       customerId: json['customerId'] != null ? Customer.fromJson(json['customerId']) : null,
       productionOrderStatus: json['productionOrderStatus'] != null
           ? ProductionOrderStatus.fromJson(json['productionOrderStatus'])
