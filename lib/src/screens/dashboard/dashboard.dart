@@ -30,19 +30,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            // Get.toNamed(ConstRoute.poView);
+          },
+          elevation: 0,
+          disabledElevation: 0,
+          child: const Icon(Icons.add)
+      ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             expandedHeight: 200.0,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text('Dashboard'),
-              background: Image.network(
-                'https://via.placeholder.com/350x150',
-                fit: BoxFit.cover,
-              ),
+              // title: Text('Dashboard'),
+              // background: Image.network(
+              //   'https://via.placeholder.com/350x150',
+              //   fit: BoxFit.cover,
+              // ),
             ),
+            backgroundColor: Colors.yellow,
           ),
           Obx(() {
             if (po.loading.value) {

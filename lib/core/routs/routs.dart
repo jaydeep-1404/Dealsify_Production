@@ -4,11 +4,14 @@ import 'package:dealsify_production/src/screens/po_view/po_view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
+import '../../src/screens/PO/add_po.dart';
+
 class ConstRoute {
   static const String splashScreen = '/splashScreen',
       loginPage = '/loginPage',
       dashboard = '/dashboard',
-      poView = '/poView';
+      poView = '/poView',
+      poCreate = '/poCreate';
 }
 
 class RoutePage {
@@ -23,5 +26,6 @@ class RoutePage {
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
     GetPage(name: ConstRoute.poView, page: () => const PoView()),
+    GetPage(name: ConstRoute.poCreate, page: () => const CreatePurchaseOrder()),
   ];
 }
