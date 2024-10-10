@@ -5,7 +5,7 @@ class ConstUrl {
   static String base_url  = dotenv.env['BASE_URL'] ?? '',
       auth_login_url          = '${base_url}auth/login';
 
-  static String po  = "${base_url}production-order";
+  static String po  = "${base_url}production-order?&";
 
 }
 

@@ -1,6 +1,6 @@
 class BKD {
   static String
-  size           = '100',
+  size           = '1',
       current_value  = '1',
       with_contains   = 'contains',
       with_is   = 'is',

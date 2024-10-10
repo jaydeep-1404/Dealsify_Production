@@ -1,4 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names, camel_case_types
+import 'package:dealsify_production/core/services/strings.dart';
+
 import 'local_storage.dart';
 
 /// Token handler [AccessToken]
@@ -12,11 +14,11 @@ class AccessToken {
     return header;
   }
 
-  // static void expired(response) async {
-  //   if(response[BKD.errors] == BKD.Unauthorized){
-  //     Api.clearApiCaughtOnLogout();
-  //     Get.off(() => const LoginPage());
-  //     Open.warningSnackBar("Session expired try to login");
-  //   }
-  // }
+  static void expired(response) async {
+    if(response[BKD.errors] == BKD.Unauthorized){
+      // Api.clearApiCaughtOnLogout();
+      // Get.off(() => const LoginPage());
+      // Open.warningSnackBar("Session expired try to login");
+    }
+  }
 }
