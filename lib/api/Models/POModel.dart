@@ -332,7 +332,7 @@ class ProductionOrderStatus {
 
 class Item {
   String? categoryId;
-  List<Product>? productionMeta;
+  List<ProductionMetadata>? productionMeta;
   String? categoryName;
   String? itemId;
   String? itemName;
@@ -355,7 +355,7 @@ class Item {
     var item = Item(
       categoryId: json['categoryId']?.toString() ?? '',
       productionMeta: json['productionMeta'] != null
-          ? List<Product>.from(json['productionMeta'].map((x) => Product.fromJson(x)))
+          ? List<ProductionMetadata>.from(json['productionMeta'].map((x) => ProductionMetadata.fromJson(x)))
           : null,
       // productionMeta: json['productionMeta'] != null ? Product.fromJson(json['productionMeta']) : null,
       categoryName: json['categoryName']?.toString() ?? '',
@@ -369,7 +369,7 @@ class Item {
   }
 }
 
-class Product {
+class ProductionMetadata {
   String? serialNo;
   String? srRange;
   String? id;
@@ -378,7 +378,7 @@ class Product {
   List<Labels>? headerArrayLabels;
   List<DispatchValues>? dispatchValues;
 
-  Product({
+  ProductionMetadata({
     this.serialNo,
     this.srRange,
     this.id,
@@ -388,8 +388,8 @@ class Product {
     this.dispatchValues,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
+  factory ProductionMetadata.fromJson(Map<String, dynamic> json) {
+    return ProductionMetadata(
       serialNo: json['serialNo']?.toString() ?? '',
       srRange: json['srRange']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',

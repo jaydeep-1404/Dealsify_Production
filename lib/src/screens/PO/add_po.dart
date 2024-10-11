@@ -12,7 +12,9 @@ class _CreatePurchaseOrderState extends State<CreatePurchaseOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Create PO"),
+      ),
       body: ListView(
         children: [
 

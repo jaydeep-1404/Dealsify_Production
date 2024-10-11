@@ -32,7 +32,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            // Get.toNamed(ConstRoute.poView);
+            Get.toNamed(ConstRoute.poCreate);
           },
           elevation: 0,
           disabledElevation: 0,

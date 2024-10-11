@@ -1,6 +1,7 @@
+import 'package:dealsify_production/src/screens/PO/metadata_list.dart';
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
-import 'package:dealsify_production/src/screens/po_view/po_view.dart';
+import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
@@ -11,6 +12,7 @@ class ConstRoute {
       loginPage = '/loginPage',
       dashboard = '/dashboard',
       poView = '/poView',
+      productionMetaData = '/productionMetaData',
       poCreate = '/poCreate';
 }
 
@@ -26,6 +28,7 @@ class RoutePage {
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
     GetPage(name: ConstRoute.poView, page: () => const PoView()),
+    GetPage(name: ConstRoute.productionMetaData, page: () => const ProductionMetaDataList()),
     GetPage(name: ConstRoute.poCreate, page: () => const CreatePurchaseOrder()),
   ];
 }

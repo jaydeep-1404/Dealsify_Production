@@ -1,4 +1,5 @@
 
+import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_controllers/production_order_states.dart';
@@ -17,6 +18,7 @@ class _PoViewState extends State<PoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Items'),
         backgroundColor: Colors.green,
       ),
       body: ListView(
@@ -25,12 +27,13 @@ class _PoViewState extends State<PoView> {
               shrinkWrap: true,
               itemCount: record.poRecord.items!.length,
               itemBuilder: (context, index) {
-                // final item = record.poRecord.items.first.productionMeta;
+                final item = record.poRecord.items![index];
                 return ItemBox(
                   onTap: () {
+                    // record.saveProductionMetaData(item.productionMeta);
+                    Get.toNamed(ConstRoute.productionMetaData);
                   },
-                  // itemName: item.,
-                  quantity: "10",
+                  itemName: item.itemName,
                 );
               },
             ),
@@ -86,57 +89,6 @@ class ItemBox extends StatelessWidget {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            // Quantity
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Text(
-                quantity?.toString() ?? '',
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            PopupMenuButton<String>(
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.white,
-              ),
-              itemBuilder: (BuildContext context) {
-                return [
-                  const PopupMenuItem<String>(
-                    value: 'edit',
-                    child: Text('Edit'),
-                  ),
-                ];
-              },
-              onSelected: (String value) {
-                if (value == 'edit') {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Edit Item'),
-                        content: Text('Editing $itemName'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                            },
-                            child: const Text('Close'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
             ),
           ],
         ),
