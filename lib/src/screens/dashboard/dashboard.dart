@@ -1,5 +1,7 @@
+import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/api/get/get_po_list.dart';
 import 'package:dealsify_production/core/routs/routs.dart';
+import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_controllers/production_order_states.dart';
@@ -75,9 +77,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     record.saveRecord(item);
                     Get.toNamed(ConstRoute.poView);
                   },
-                  itemName: item.customerId!.shortName,
-                  itemDescription: item.customerId!.notes,
-                  status: item.productionOrderStatus!.priority,
+                  customerName: item.customerId!.shortName,
+                  no: item.productionOrderNo,
+                  status: item.productionOrderStatus!.statusLabel,
+                  statusColor: item.productionOrderStatus!.statusColor!.setColor(),
                 );
               },
               ),
@@ -91,30 +94,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
 class DashboardItemBox extends StatelessWidget {
   final void Function()? onTap;
-  final String? itemName;
-  final String? itemDescription;
+  final String? customerName;
   final String? status;
+  final dynamic statusColor;
+  final String? no;
 
   const DashboardItemBox({
     super.key,
     this.onTap,
-    this.itemName,
-    this.itemDescription,
+    this.customerName,
     this.status,
+    this.statusColor,
+    this.no,
   });
-
-  Color getStatusColor(String status) {
-    switch (status) {
-      case '1':
-        return Colors.red;
-      case '2':
-        return Colors.yellow;
-      case '3':
-        return Colors.green;
-      default:
-        return Colors.grey;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,68 +114,59 @@ class DashboardItemBox extends StatelessWidget {
       onTap: onTap ?? () {},
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Colors.blueAccent, Colors.cyan],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              blurRadius: 10,
-              spreadRadius: 3,
-              offset: const Offset(4, 4),
-            ),
-          ],
-          border: Border.all(
-            width: 1.5,
-            color: Colors.blueAccent,
-          ),
+          color: Colors.white,
+          border: Border.all(width: 1.5,color: Colors.black26),
+          borderRadius: BorderRadius.circular(13)
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              itemName ?? 'Item Name',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              itemDescription ?? 'Description',
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white70,
-              ),
-            ),
-            const SizedBox(height: 5),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                  decoration: BoxDecoration(
-                    color: getStatusColor(status ?? ''),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      status ?? 'Status',
-                      style: const TextStyle(
-                        fontSize: 10,
-                        color: Colors.white,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                    customerName ?? '',
+                    style: const TextStyle(
+                      fontSize: 15,
                     ),
                   ),
                 ),
-              ],
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 3),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    border: Border.all(color: Colors.black87),
+                    color: statusColor ?? Colors.transparent,
+                  ),
+                  child: Text(
+                    status ?? '',
+                    style: const TextStyle(
+                        fontSize: 10,
+                        color: Colors.white
+                    ),
+                  ),
+                ),
+                ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "# ${no ?? ''}",
+                  style: const TextStyle(
+                      fontSize: 10,
+                      color: Colors.black87
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -191,5 +174,3 @@ class DashboardItemBox extends StatelessWidget {
     );
   }
 }
-
-

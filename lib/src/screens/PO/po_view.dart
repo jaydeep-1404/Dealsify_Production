@@ -18,8 +18,19 @@ class _PoViewState extends State<PoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Items'),
-        backgroundColor: Colors.green,
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(ConstRoute.dashboard);
+          },
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
+        title: const Column(
+          children: [
+            Text("Items")
+            ],
+        ),
+        centerTitle: false,
+        backgroundColor: Colors.yellow,
       ),
       body: ListView(
           children: [
@@ -44,6 +55,7 @@ class _PoViewState extends State<PoView> {
 }
 
 
+
 class ItemBox extends StatelessWidget {
   final String? itemName;
   final String? quantity;
@@ -64,20 +76,8 @@ class ItemBox extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Colors.orangeAccent, Colors.pinkAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          border: Border.all(width: 1.5,color: Colors.black26),
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: const Offset(4, 4),
-            ),
-          ],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,7 +85,7 @@ class ItemBox extends StatelessWidget {
             Text(
               itemName?.toString() ?? '',
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.grey,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),

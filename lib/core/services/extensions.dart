@@ -1,7 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, file_names, prefer_typing_uninitialized_variables, must_be_immutable
 import 'dart:convert';
+import 'dart:ui';
 import 'package:dealsify_production/core/services/strings.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 extension UrlExtractors on String {
   /// Extracts the full domain from a URL, including subdomains.
@@ -78,4 +80,30 @@ extension StringExtensions on String {
     return substring(0, 1).toUpperCase() + substring(1).toLowerCase();
   }
 
+  Color setColor() {
+    String resultString = replaceAll("#", "").trim();
+    Color myColor = Colors.transparent;
+
+    try {
+      if (resultString.isEmpty) {
+        throw const FormatException("Input string is empty or contains only whitespace.");
+      }
+      if (!RegExp(r'^[0-9a-fA-F]{6}$').hasMatch(resultString) &&
+          !RegExp(r'^[0-9a-fA-F]{8}$').hasMatch(resultString)) {
+        throw const FormatException("Invalid hexadecimal color string.");
+      }
+      if (resultString.length == 6) {
+        resultString = 'FF$resultString';
+      }
+      int myInt = int.parse(resultString, radix: 16);
+      myColor = Color(myInt);
+    } catch (e) {
+      debugPrint("Error: $e");
+    }
+
+    return myColor;
+  }
+
+
 }
+

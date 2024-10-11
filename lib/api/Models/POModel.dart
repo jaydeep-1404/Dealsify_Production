@@ -357,7 +357,6 @@ class Item {
       productionMeta: json['productionMeta'] != null
           ? List<ProductionMetadata>.from(json['productionMeta'].map((x) => ProductionMetadata.fromJson(x)))
           : null,
-      // productionMeta: json['productionMeta'] != null ? Product.fromJson(json['productionMeta']) : null,
       categoryName: json['categoryName']?.toString() ?? '',
       itemId: json['itemId']?.toString() ?? '',
       itemName: json['itemName']?.toString() ?? '',
