@@ -41,7 +41,7 @@ class _PoViewState extends State<PoView> {
                 final item = record.poRecord.items![index];
                 return ItemBox(
                   onTap: () {
-                    // record.saveProductionMetaData(item.productionMeta);
+                    record.savePOItemIndex(index);
                     Get.toNamed(ConstRoute.productionMetaData);
                   },
                   itemName: item.itemName,
@@ -73,11 +73,11 @@ class ItemBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ?? () {},
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           border: Border.all(width: 1.5,color: Colors.black26),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +86,6 @@ class ItemBox extends StatelessWidget {
               itemName?.toString() ?? '',
               style: const TextStyle(
                 color: Colors.grey,
-                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -22,15 +22,16 @@ class _ProductionMetaDataListState extends State<ProductionMetaDataList> {
       ),
       body: ListView(
         children: [
-          // ListView.builder(
-          //   shrinkWrap: true,
-          //   itemCount: record.productionMetadata.,
-          //   itemBuilder: (context, index) {
-          //     return ItemBoxBox(
-          //       itemName: 'Products',
-          //     );
-          //   },
-          // )
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: record.poRecord.items![record.poItemIndex.value].productionMeta!.length,
+            itemBuilder: (context, index) {
+              final item = record.poRecord.items![record.poItemIndex.value].productionMeta![index];
+              return ItemBoxBox(
+                itemName: item.serialNo,
+              );
+            },
+          )
         ],
       ),
     );
