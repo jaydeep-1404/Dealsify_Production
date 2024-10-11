@@ -23,14 +23,13 @@ class _PoViewState extends State<PoView> {
           children: [
             ListView.builder(
               shrinkWrap: true,
-              // itemCount: 2,
               itemCount: record.poRecord.items!.length,
               itemBuilder: (context, index) {
+                // final item = record.poRecord.items.first.productionMeta;
                 return ItemBox(
                   onTap: () {
-                    // prn
                   },
-                  itemName: "Customer 1",
+                  // itemName: item.,
                   quantity: "10",
                 );
               },

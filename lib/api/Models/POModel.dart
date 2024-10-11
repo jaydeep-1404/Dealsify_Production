@@ -331,92 +331,215 @@ class ProductionOrderStatus {
 }
 
 class Item {
+  String? categoryId;
+  List<Product>? productionMeta;
+  String? categoryName;
+  String? itemId;
+  String? itemName;
+  String? unitId;
+  String? unitName;
   String? id;
-  Product? productId;
-  String? orderQuantity;
-  String? producedQuantity;
-  String? createdId;
-  String? createdAt;
-  String? updatedAt;
-  String? v;
 
   Item({
+    this.categoryId,
+    this.productionMeta,
+    this.categoryName,
+    this.itemId,
+    this.itemName,
+    this.unitId,
+    this.unitName,
     this.id,
-    this.productId,
-    this.orderQuantity,
-    this.producedQuantity,
-    this.createdId,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
-    return Item(
+    var item = Item(
+      categoryId: json['categoryId']?.toString() ?? '',
+      productionMeta: json['productionMeta'] != null
+          ? List<Product>.from(json['productionMeta'].map((x) => Product.fromJson(x)))
+          : null,
+      // productionMeta: json['productionMeta'] != null ? Product.fromJson(json['productionMeta']) : null,
+      categoryName: json['categoryName']?.toString() ?? '',
+      itemId: json['itemId']?.toString() ?? '',
+      itemName: json['itemName']?.toString() ?? '',
+      unitId: json['unitId']?.toString() ?? '',
+      unitName: json['unitName']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',
-      productId: json['product_id'] != null ? Product.fromJson(json['product_id']) : null,
-      orderQuantity: json['orderQuantity']?.toString() ?? '',
-      producedQuantity: json['producedQuantity']?.toString() ?? '',
-      createdId: json['created_id']?.toString() ?? '',
-      createdAt: json['createdAt']?.toString() ?? '',
-      updatedAt: json['updatedAt']?.toString() ?? '',
-      v: json['__v']?.toString() ?? '',
     );
+    return item;
   }
 }
 
 class Product {
+  String? serialNo;
+  String? srRange;
   String? id;
-  String? productName;
-  String? productNo;
-  String? companyId;
-  String? productCategoryId;
-  String? itemType;
-  String? unit;
-  String? isProductSaleable;
-  String? isProductPurchasable;
-  String? isProductManufacturable;
-  String? isActive;
-  String? createdId;
-  String? createdAt;
-  String? updatedAt;
-  String? v;
+  List<ProductionStages>? productionStages;
+  List<Headers>? headerArrayHeaders;
+  List<Labels>? headerArrayLabels;
+  List<DispatchValues>? dispatchValues;
 
   Product({
+    this.serialNo,
+    this.srRange,
     this.id,
-    this.productName,
-    this.productNo,
-    this.companyId,
-    this.productCategoryId,
-    this.itemType,
-    this.unit,
-    this.isProductSaleable,
-    this.isProductPurchasable,
-    this.isProductManufacturable,
-    this.isActive,
-    this.createdId,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
+    this.productionStages,
+    this.headerArrayHeaders,
+    this.headerArrayLabels,
+    this.dispatchValues,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      serialNo: json['serialNo']?.toString() ?? '',
+      srRange: json['srRange']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',
-      productName: json['product_name']?.toString() ?? '',
-      productNo: json['product_no']?.toString() ?? '',
-      companyId: json['company_id']?.toString() ?? '',
-      productCategoryId: json['product_category_id']?.toString() ?? '',
-      itemType: json['item_type']?.toString() ?? '',
-      unit: json['unit']?.toString() ?? '',
-      isProductSaleable: json['is_product_saleable']?.toString() ?? '',
-      isProductPurchasable: json['is_product_purchasable']?.toString() ?? '',
-      isProductManufacturable: json['is_product_manufacturable']?.toString() ?? '',
-      isActive: json['isActive']?.toString() ?? '',
-      createdId: json['created_id']?.toString() ?? '',
-      createdAt: json['createdAt']?.toString() ?? '',
-      updatedAt: json['updatedAt']?.toString() ?? '',
-      v: json['__v']?.toString() ?? '',
+      productionStages: json['productionStages'] != null
+          ? List<ProductionStages>.from(json['productionStages'].map((x) => ProductionStages.fromJson(x)))
+          : null,
+      headerArrayHeaders: json['headerArray']['headers'] != null
+          ? List<Headers>.from(json['headerArray']['headers'].map((x) => Headers.fromJson(x)))
+          : null,
+      headerArrayLabels: json['headerArray']['labels'] != null
+          ? List<Labels>.from(json['headerArray']['labels'].map((x) => Labels.fromJson(x)))
+          : null,
+      dispatchValues: json['dispatchValues'] != null
+          ? List<DispatchValues>.from(json['dispatchValues'].map((x) => DispatchValues.fromJson(x)))
+          : null,
+    );
+  }
+}
+
+class ProductionStages {
+  String? id;
+  String? stageId;
+  String? label;
+  String? priority;
+  String? inspector;
+  String? isStageCompleted;
+  List<ProductionChildStages>? productionChildStages;
+  List<dynamic>? mandatoryStages;
+
+
+  ProductionStages({
+    this.id,
+    this.stageId,
+    this.label,
+    this.priority,
+    this.inspector,
+    this.isStageCompleted,
+    this.productionChildStages,
+    this.mandatoryStages,
+  });
+
+  factory ProductionStages.fromJson(Map<String, dynamic> json) {
+    return ProductionStages(
+      id: json['_id']?.toString() ?? '',
+      stageId: json['stageId']?.toString() ?? '',
+      label: json['label']?.toString() ?? '',
+      priority: json['priority']?.toString() ?? '',
+      inspector: json['inspector']?.toString() ?? '',
+      isStageCompleted: json['isStageCompleted']?.toString() ?? '',
+      productionChildStages: json['productionChildStages'] != null
+          ? List<ProductionChildStages>.from(json['productionChildStages'].map((x) => ProductionChildStages.fromJson(x)))
+          : null,
+      mandatoryStages: json['mandatoryStages'] ?? [],
+
+    );
+  }
+}
+
+class ProductionChildStages {
+  String? id;
+  String? label;
+  String? labelSlug;
+  String? isRequired;
+  String? priority;
+  String? approxProcessTimeInHours;
+
+  ProductionChildStages({
+    this.id,
+    this.label,
+    this.labelSlug,
+    this.isRequired,
+    this.priority,
+    this.approxProcessTimeInHours,
+  });
+
+  factory ProductionChildStages.fromJson(Map<String, dynamic> json) {
+    return ProductionChildStages(
+      id: json['_id']?.toString() ?? '',
+      label: json['label']?.toString() ?? '',
+      labelSlug: json['labelSlug']?.toString() ?? '',
+      isRequired: json['isRequired']?.toString() ?? '',
+      priority: json['priority']?.toString() ?? '',
+      approxProcessTimeInHours: json['approxProcessTimeInHours']?.toString() ?? '',
+
+    );
+  }
+}
+
+class Headers {
+  String? headerLabel;
+  String? headerId;
+  String? id;
+
+  Headers({
+    this.headerLabel,
+    this.headerId,
+    this.id,
+  });
+
+  factory Headers.fromJson(Map<String, dynamic> json) {
+    return Headers(
+      headerLabel: json['headerLabel']?.toString() ?? '',
+      headerId: json['headerId']?.toString() ?? '',
+      id: json['_id']?.toString() ?? '',
+    );
+  }
+}
+
+class Labels {
+  String? label;
+  String? headerId;
+  String? headerLabel;
+  String? value;
+  String? id;
+
+  Labels({
+    this.label,
+    this.headerId,
+    this.headerLabel,
+    this.value,
+    this.id,
+  });
+
+  factory Labels.fromJson(Map<String, dynamic> json) {
+    return Labels(
+      label: json['label']?.toString() ?? '',
+      headerId: json['headerId']['_id']?.toString() ?? '',
+      headerLabel: json['headerId']['headerLabel']?.toString() ?? '',
+      value: json['value']?.toString() ?? '',
+      id: json['_id']?.toString() ?? '',
+    );
+  }
+}
+
+class DispatchValues {
+  String? label;
+  String? dispatchId;
+  String? id;
+
+  DispatchValues({
+    this.label,
+    this.dispatchId,
+    this.id,
+  });
+
+  factory DispatchValues.fromJson(Map<String, dynamic> json) {
+    return DispatchValues(
+      label: json['label']?.toString() ?? '',
+      dispatchId: json['dispatchId']?.toString() ?? '',
+      id: json['_id']?.toString() ?? '',
     );
   }
 }
