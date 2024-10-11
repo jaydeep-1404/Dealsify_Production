@@ -3,6 +3,9 @@ import 'package:dealsify_production/src/state_controllers/production_order_state
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../../../core/routs/routs.dart';
 
 class ProductionMetaDataList extends StatefulWidget {
   const ProductionMetaDataList({super.key});
@@ -16,18 +19,26 @@ class _ProductionMetaDataListState extends State<ProductionMetaDataList> {
 
   @override
   Widget build(BuildContext context) {
+    final itemMetaData = record.poRecord.items![record.poItemIndex.value].productionMeta!;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Production Metadata'),
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(ConstRoute.poItems);
+          },
+          icon: const Icon(Icons.arrow_back_ios,),
+        ),
       ),
       body: ListView(
         children: [
           ListView.builder(
             shrinkWrap: true,
-            itemCount: record.poRecord.items![record.poItemIndex.value].productionMeta!.length,
+            itemCount: itemMetaData.length,
             itemBuilder: (context, index) {
-              final item = record.poRecord.items![record.poItemIndex.value].productionMeta![index];
-              return ItemBoxBox(
+              final item = itemMetaData[index];
+              return ItemMetaData(
                 itemName: item.serialNo,
               );
             },
@@ -38,15 +49,15 @@ class _ProductionMetaDataListState extends State<ProductionMetaDataList> {
   }
 }
 
-class ItemBoxBox extends StatelessWidget {
+class ItemMetaData extends StatelessWidget {
   final String? itemName;
-  final String? quantity;
+  final String? unit;
   final void Function()? onTap;
 
-  const ItemBoxBox({
+  const ItemMetaData({
     Key? key,
     this.itemName,
-    this.quantity,
+    this.unit,
     this.onTap,
   }) : super(key: key);
 
@@ -55,34 +66,26 @@ class ItemBoxBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ?? () {},
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Colors.orangeAccent, Colors.pinkAccent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 10,
-              offset: const Offset(4, 4),
-            ),
-          ],
+          border: Border.all(width: 1.5,color: Colors.black26),
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              itemName?.toString() ?? '',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  itemName?.toString() ?? '',
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

@@ -48,7 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              // title: Text('Dashboard'),
+              title: Text('Dashboard'),
               // background: Image.network(
               //   'https://via.placeholder.com/350x150',
               //   fit: BoxFit.cover,
@@ -76,7 +76,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return DashboardItemBox(
                   onTap: () {
                     record.saveRecord(item);
-                    Get.toNamed(ConstRoute.poView);
+                    Get.toNamed(ConstRoute.poItems);
                   },
                   customerName: item.customerId!.shortName,
                   no: item.productionOrderNo,
@@ -135,6 +135,7 @@ class DashboardItemBox extends StatelessWidget {
                     customerName ?? '',
                     style: const TextStyle(
                       fontSize: 15,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -142,20 +143,19 @@ class DashboardItemBox extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3),
-                    border: Border.all(color: Colors.black87),
+                    border: Border.all(color: Colors.black45),
                     color: statusColor ?? Colors.transparent,
                   ),
                   child: Text(
                     status ?? '',
                     style: const TextStyle(
-                        fontSize: 10,
-                        color: Colors.white
+                      fontSize: 10,
+                      color: Colors.white,
                     ),
                   ),
                 ),
                 ],
             ),
-
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: Align(

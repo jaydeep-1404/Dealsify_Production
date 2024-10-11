@@ -18,15 +18,20 @@ class _PoViewState extends State<PoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80,
+        leadingWidth: 40,
         leading: IconButton(
           onPressed: () {
             Get.toNamed(ConstRoute.dashboard);
           },
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios,),
         ),
-        title: const Column(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Items")
+            const Text("Items"),
+            Text("${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
+            Text("${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
             ],
         ),
         centerTitle: false,
@@ -45,6 +50,7 @@ class _PoViewState extends State<PoView> {
                     Get.toNamed(ConstRoute.productionMetaData);
                   },
                   itemName: item.itemName,
+                  unit: item.unitName,
                 );
               },
             ),
@@ -74,27 +80,33 @@ class ItemBox extends StatelessWidget {
       onTap: onTap ?? () {},
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           border: Border.all(width: 1.5,color: Colors.black26),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              itemName?.toString() ?? '',
-              style: const TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              unit?.toString() ?? '',
-              style: const TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 Text(
+                   itemName?.toString() ?? '',
+                   style: const TextStyle(
+                     color: Colors.black54,
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
+                 Text(
+                   "Unit : $unit",
+                   style: const TextStyle(
+                     fontSize: 13,
+                     color: Colors.black54,
+                     fontWeight: FontWeight.bold,
+                   ),
+                 ),
+               ],
             ),
           ],
         ),

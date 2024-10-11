@@ -11,7 +11,7 @@ class ConstRoute {
   static const String splashScreen = '/splashScreen',
       loginPage = '/loginPage',
       dashboard = '/dashboard',
-      poView = '/poView',
+      poItems = '/poItems',
       productionMetaData = '/productionMetaData',
       poCreate = '/poCreate';
 }
@@ -27,7 +27,7 @@ class RoutePage {
   static List<GetPage> routes = [
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
-    GetPage(name: ConstRoute.poView, page: () => const PoView()),
+    GetPage(name: ConstRoute.poItems, page: () => const PoView()),
     GetPage(name: ConstRoute.productionMetaData, page: () => const ProductionMetaDataList()),
     GetPage(name: ConstRoute.poCreate, page: () => const CreatePurchaseOrder()),
   ];
