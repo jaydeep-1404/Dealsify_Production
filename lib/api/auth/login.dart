@@ -8,7 +8,6 @@ import '../../core/routs/routs.dart';
 import '../../core/services/local_storage.dart';
 import '../../core/services/server_urls.dart';
 import '../../core/services/strings.dart';
-import '../../src/common_functions/snackbars.dart';
 import '../../src/state_controllers/login.dart';
 
 class AuthController extends GetxController {

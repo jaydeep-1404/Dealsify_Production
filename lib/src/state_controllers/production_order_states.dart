@@ -19,5 +19,4 @@ class PORecordCtrl extends GetxController {
     poItemIndex = 0.obs;
     productionMetaDataIndex = 0.obs;
   }
-
 }

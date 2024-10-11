@@ -58,13 +58,13 @@ class _PoViewState extends State<PoView> {
 
 class ItemBox extends StatelessWidget {
   final String? itemName;
-  final String? quantity;
+  final String? unit;
   final void Function()? onTap;
 
   const ItemBox({
     Key? key,
     this.itemName,
-    this.quantity,
+    this.unit,
     this.onTap,
   }) : super(key: key);
 
@@ -79,11 +79,18 @@ class ItemBox extends StatelessWidget {
           border: Border.all(width: 1.5,color: Colors.black26),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               itemName?.toString() ?? '',
+              style: const TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              unit?.toString() ?? '',
               style: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,

@@ -1,4 +1,3 @@
-import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/api/get/get_po_list.dart';
 import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
@@ -32,6 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
           onPressed: (){
             Get.toNamed(ConstRoute.poCreate);
@@ -43,6 +43,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
+            leading: Stack(),
             expandedHeight: 200.0,
             floating: false,
             pinned: true,
