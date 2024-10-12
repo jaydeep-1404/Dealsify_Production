@@ -75,7 +75,7 @@ class OpenBillingAddress extends StatelessWidget {
                                                 children: [
                                                   datePicker(
                                                     label: "Start date",
-                                                    msg: controller.startDates[index].toLocal().toString().split(' ')[0],
+                                                    msg: controller.startDates[index] == null ? "Select date..." : controller.startDates[index].toLocal().toString().split(' ')[0],
                                                     onTap:() async {
                                                       DateTime? pickedDate = await showDatePicker(
                                                         context: context,
@@ -91,7 +91,7 @@ class OpenBillingAddress extends StatelessWidget {
                                                   const SizedBox(height: 10,),
                                                   timePicker(
                                                     label: "Start time",
-                                                    msg: controller.startTimes[index].format(context),
+                                                    msg:  controller.startTimes[index] == null ? "Select time..." : controller.startTimes[index].format(context),
                                                     onTap:() async {
                                                       final TimeOfDay? picked = await showTimePicker(
                                                         context: context,
@@ -110,7 +110,7 @@ class OpenBillingAddress extends StatelessWidget {
                                                 children: [
                                                   datePicker(
                                                     label: "End date",
-                                                    msg: controller.endDates[index].toLocal().toString().split(' ')[0],
+                                                    msg:  controller.endDates[index] == null ? "Select date..." : controller.endDates[index].toLocal().toString().split(' ')[0],
                                                     onTap:() async {
                                                       DateTime? pickedDate = await showDatePicker(
                                                         context: context,
@@ -126,7 +126,7 @@ class OpenBillingAddress extends StatelessWidget {
                                                   const SizedBox(height: 10,),
                                                   timePicker(
                                                     label: "End date",
-                                                    msg: controller.endTimes[index].format(context),
+                                                    msg:  controller.endTimes[index] == null ? "Select time..." : controller.endTimes[index].format(context),
                                                     onTap:() async {
                                                       final TimeOfDay? picked = await showTimePicker(
                                                         context: context,
@@ -186,12 +186,14 @@ class OpenBillingAddress extends StatelessWidget {
           Text('${label ?? ''}'),
           Container(
             height: 30,
-            width: 100,
+            width: 150,
+            padding: const EdgeInsets.only(left: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.black,width: 1),
             ),
-            child: Center(
+            child: Align(
+              alignment: Alignment.centerLeft,
               child: Text("$msg"),
             ),
           ),
@@ -209,12 +211,14 @@ class OpenBillingAddress extends StatelessWidget {
           Text('${label ?? ''}'),
           Container(
             height: 30,
-            width: 100,
+            width: 150,
+            padding: const EdgeInsets.only(left: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.black,width: 1),
             ),
-            child: Center(
+            child: Align(
+              alignment: Alignment.centerLeft,
               child: Text("$msg"),
             ),
           ),

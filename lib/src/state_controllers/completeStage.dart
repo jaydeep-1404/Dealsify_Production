@@ -6,23 +6,23 @@ class PageControllerGetX extends GetxController {
   final PageController pageController = PageController();
   List<ProductionStages>? items = [];
   var currentPage = 0.obs;
-  var startDates = <DateTime>[].obs;
-  var endDates = <DateTime>[].obs;
-  var startTimes = <TimeOfDay>[].obs;
-  var endTimes = <TimeOfDay>[].obs;
+  var startDates = <dynamic>[].obs;
+  var endDates = <dynamic>[].obs;
+  var startTimes = <dynamic>[].obs;
+  var endTimes = <dynamic>[].obs;
 
   PageControllerGetX() {
-    startDates.value = List.generate(items!.length, (index) => DateTime.now());
-    endDates.value = List.generate(items!.length, (index) => DateTime.now());
-    startTimes.value = List.generate(items!.length, (index) => TimeOfDay.now());
-    endTimes.value = List.generate(items!.length, (index) => TimeOfDay.now());
+    startDates.value = List.generate(items!.length, (index) => null);
+    endDates.value = List.generate(items!.length, (index) => null);
+    startTimes.value = List.generate(items!.length, (index) => null);
+    endTimes.value = List.generate(items!.length, (index) => null);
   }
 
   setDateLength(index){
-    startDates.value = List.generate(index, (index) => DateTime.now());
-    endDates.value = List.generate(index, (index) => DateTime.now());
-    startTimes.value = List.generate(index, (index) => TimeOfDay.now());
-    endTimes.value = List.generate(index, (index) => TimeOfDay.now());
+    startDates.value = List.generate(index, (index) => null);
+    endDates.value = List.generate(index, (index) => null);
+    startTimes.value = List.generate(index, (index) => null);
+    endTimes.value = List.generate(index, (index) => null);
   }
 
   void updateStartDate(int index, DateTime date) {

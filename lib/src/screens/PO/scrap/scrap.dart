@@ -88,31 +88,42 @@ class _ScraptScreenState extends State<ScraptScreen> {
                           child: Text("Item ${index + 1}"),
                         ),
                       ),
-                      Obx(() {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                          child: DropdownButton<DemoList>(
-                            hint: const Text('Select an item'),
-                            value: scrap.selectedItems[index],
-                            isExpanded: true,
-                            underline: const SizedBox(),
-                            onChanged: (DemoList? newValue) {
-                              scrap.updateSelectedItem(index, newValue);
-                            },
-                            items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
-                              return DropdownMenuItem<DemoList>(
-                                value: item,
-                                child: Text(item.name),
-                              );
-                            }).toList(),
-                          ),
-                        );
-                      }),
+                      // Obx(() {
+                      //   return Container(
+                      //     margin: const EdgeInsets.symmetric(horizontal: 8),
+                      //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      //     decoration: BoxDecoration(
+                      //       border: Border.all(color: Colors.grey),
+                      //       borderRadius: BorderRadius.circular(4.0),
+                      //     ),
+                      //     child: DropdownButton<DemoList>(
+                      //       hint: const Text('Select an item'),
+                      //       value: scrap.selectedItems[index],
+                      //       isExpanded: true,
+                      //       underline: const SizedBox(),
+                      //       onChanged: (DemoList? newValue) {
+                      //         scrap.updateSelectedItem(index, newValue);
+                      //       },
+                      //       items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
+                      //         return DropdownMenuItem<DemoList>(
+                      //           value: item,
+                      //           child: Text(item.name),
+                      //         );
+                      //       }).toList(),
+                      //     ),
+                      //   );
+                      // }),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Align(
+                          child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}"),
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

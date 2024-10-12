@@ -74,9 +74,11 @@ class _POItemsPageState extends State<POItemsPage> {
                                     );
                                     break;
                                   case "Scrap":
+                                    record.savePOItemIndex(index);
                                     Get.to(const ScraptScreen());
                                     break;
                                   case "Adon":
+                                    record.savePOItemIndex(index);
                                     Get.to(const AdonScreen());
                                     break;
                                 }
