@@ -158,7 +158,6 @@ class OpenBillingAddress extends StatelessWidget {
                                   return Container(
                                     width: double.infinity,
                                     height: double.infinity,
-                                    color: Colors.blue,
                                     padding: const EdgeInsets.symmetric(horizontal: 10),
                                     alignment: Alignment.center,
                                     child: Column(
@@ -252,24 +251,17 @@ class OpenBillingAddress extends StatelessWidget {
                                 },
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                cancelButton(
-                                  onPressed: () {
-                                    Get.back();
-                                    controller.dispose();
-                                  },
-                                ),
-                                nextButton(
-                                  label: "Next",
-                                  onPressed: () {
-                                    controller.currentPage.value < controller.items!.length - 1
-                                        ? controller.nextPage()
-                                        : null;
-                                  },
-                                ),
-                            ],)
+                            saveAndNextButton(
+                              onCancel: () {
+                                Get.back();
+                                controller.dispose();
+                              },
+                              onNext: () {
+                                controller.currentPage.value < controller.items!.length - 1
+                                    ? controller.nextPage()
+                                    : null;
+                              },
+                            ),
                           ],
                         )
                     )
@@ -327,6 +319,37 @@ class OpenBillingAddress extends StatelessWidget {
     );
   }
 
+  Widget saveAndNextButton({required Null Function() onCancel,required Null Function() onNext}){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: ElevatedButton(
+            onPressed: onCancel,
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.only(),
+              shape: const ContinuousRectangleBorder(),
+              backgroundColor: Colors.blueAccent,
+            ),
+            child: const Text(
+              "Cancel",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: onNext,
+          style: ElevatedButton.styleFrom(
+            shape: const ContinuousRectangleBorder(),
+            backgroundColor: Colors.blueAccent,
+          ),
+          child: const Text("Next"),
+        )
+      ],
+    );
+  }
+
 
   Widget saveButton({required Null Function() onPressed,label}){
     return Align(
@@ -343,28 +366,6 @@ class OpenBillingAddress extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
         ),
       ),
-    );
-  }
-
-  Widget nextButton({required Null Function() onPressed,label}){
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape: const ContinuousRectangleBorder(),
-        backgroundColor: Colors.blueAccent,
-      ),
-      child: Text("${label ?? "Next"}"),
-    );
-  }
-
-  Widget cancelButton({required Null Function() onPressed}){
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape: const ContinuousRectangleBorder(),
-        backgroundColor: Colors.white70,
-      ),
-      child: const Text("Cancel"),
     );
   }
 
