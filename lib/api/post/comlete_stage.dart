@@ -10,7 +10,7 @@ class CompleteStageController extends GetxController {
   Future<void> post(id,payload) async {
     try {
       loading(true);
-      var response = await ApiRequest.post(Uri.parse((ConstUrl.updateStages + id)), jsonEncode(payload));
+      var response = await ApiRequest.patch(Uri.parse((ConstUrl.updateStages + id)), payload);
       print("URL : ${ConstUrl.updateStages + id}");
       Map<String, dynamic> responseData = jsonDecode(response.body);
       responseData.printFormattedJson();

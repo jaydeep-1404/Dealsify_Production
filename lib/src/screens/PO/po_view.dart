@@ -1,5 +1,4 @@
 
-import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/state_controllers/completeStage.dart';
@@ -79,8 +78,6 @@ class _PoViewState extends State<PoView> {
       ),
     );
   }
-
-
 }
 
 class CustomExpansionTile extends StatelessWidget {
@@ -122,7 +119,6 @@ class OpenBillingAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final item = record.poRecord.items![index];
-    final firstStage = item.findFirstIncompleteStage();
     final inCompleteStages = item.incompleteStages();
     controller.items = inCompleteStages;
     controller.setDateLength(controller.items!.length);
@@ -134,7 +130,7 @@ class OpenBillingAddress extends StatelessWidget {
             return true;
           },
           child: Container(
-            height: Get.height * 0.7,
+            height: Get.height * 0.5,
             margin: const EdgeInsets.symmetric(horizontal: 3),
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -150,27 +146,30 @@ class OpenBillingAddress extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           children: [
                             const SizedBox(height: 5),
-                            Text("Customer Name : ${record.poRecord.customerId!.shortName.toString()}"),
-                            Text(item.itemName.toString()),
-                            Text(firstStage!.label.toString()),
-                            Text(firstStage.inspector.toString()),
-                            const Divider(),
                             SizedBox(
-                              height: 300,
+                              height: 350,
                               width: double.infinity,
                               child: PageView.builder(
                                 controller: controller.pageController,
                                 itemCount: controller.items!.length,
                                 onPageChanged: controller.onPageChanged,
                                 itemBuilder: (context, index) {
+                                  final i = controller.items![index];
                                   return Container(
                                     width: double.infinity,
                                     height: double.infinity,
-                                    // color: Colors.blue,
+                                    color: Colors.blue,
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
                                     alignment: Alignment.center,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
+                                        Text("Customer Name : ${record.poRecord.customerId!.shortName.toString()}"),
+                                        Text("Item : ${item.itemName}"),
+                                        Text("Stage : ${i.label}"),
+                                        Text("Inspector : ${i.inspector}"),
+                                        const Divider(),
                                         Obx(() {
                                           return Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,11 +239,13 @@ class OpenBillingAddress extends StatelessWidget {
                                               ),
                                             ],);
                                         },),
+                                        const SizedBox(height: 10),
                                         saveButton(
                                           onPressed: () {
-                                            saveStage.post(item.id,controller.payload(index, context));
+                                            controller.payload(index, context).printFormattedJson();
+                                            saveStage.post(record.poRecord.id,controller.payload(index, context));
                                           },
-                                        )
+                                        ),
                                       ],
                                     ),
                                   );
@@ -263,11 +264,9 @@ class OpenBillingAddress extends StatelessWidget {
                                 nextButton(
                                   label: "Next",
                                   onPressed: () {
-                                    // controller.payload(controller.currentPage.value,context).printFormattedJson();
-                                    // controller.
-                                    // controller.currentPage.value < controller.items!.length - 1
-                                    //     ? controller.nextPage()
-                                    //     : null;
+                                    controller.currentPage.value < controller.items!.length - 1
+                                        ? controller.nextPage()
+                                        : null;
                                   },
                                 ),
                             ],)
@@ -330,14 +329,22 @@ class OpenBillingAddress extends StatelessWidget {
 
 
   Widget saveButton({required Null Function() onPressed,label}){
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        shape: const ContinuousRectangleBorder(),
-        backgroundColor: Colors.blueAccent,
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.only(),
+          shape: const ContinuousRectangleBorder(),
+          backgroundColor: Colors.blueAccent,
+        ),
+        child: Text(
+          "${label ?? "Next"}",
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
-      child: Text("${label ?? "Next"}"),
-    );  }
+    );
+  }
 
   Widget nextButton({required Null Function() onPressed,label}){
     return ElevatedButton(
