@@ -28,15 +28,15 @@ class _ScraptScreenState extends State<ScraptScreen> {
     super.dispose();
   }
 
-  void _saveForm() {
-    if (_formKey.currentState!.validate() && scrap.validateFields()) {
-      Get.snackbar('Success', 'All fields are valid!',
-          snackPosition: SnackPosition.BOTTOM);
-    } else {
-      Get.snackbar('Error', 'Please fill all fields correctly.',
-          snackPosition: SnackPosition.BOTTOM);
-    }
-  }
+  // void _saveForm() {
+  //   if (_formKey.currentState!.validate() && scrap.validateFields()) {
+  //     Get.snackbar('Success', 'All fields are valid!',
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   } else {
+  //     Get.snackbar('Error', 'Please fill all fields correctly.',
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +67,9 @@ class _ScraptScreenState extends State<ScraptScreen> {
           itemCount: scrap.qtyCtrl.length + 1,
           itemBuilder: (context, index) {
             if (index == scrap.qtyCtrl.length) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: ElevatedButton(
-                  onPressed: _saveForm,
-                  child: const Text('Save'),
-                ),
-              );
+              return saveButton(onTap: () {
+
+                });
             }
             return Column(
               children: [
@@ -92,67 +88,39 @@ class _ScraptScreenState extends State<ScraptScreen> {
                           child: Text("Item ${index + 1}"),
                         ),
                       ),
+                      Obx(() {
+                        return Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: DropdownButton<DemoList>(
+                            hint: const Text('Select an item'),
+                            value: scrap.selectedItems[index],
+                            isExpanded: true,
+                            underline: const SizedBox(),
+                            onChanged: (DemoList? newValue) {
+                              scrap.updateSelectedItem(index, newValue);
+                            },
+                            items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
+                              return DropdownMenuItem<DemoList>(
+                                value: item,
+                                child: Text(item.name),
+                              );
+                            }).toList(),
+                          ),
+                        );
+                      }),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: scrap.qtyCtrl[index],
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                decoration: const InputDecoration(
-                                  labelText: 'Qty',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: TextFormField(
-                                controller: scrap.currentQtyCtrl[index],
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly,
-                                ],
-                                decoration: const InputDecoration(
-                                  labelText: 'Current qty ',
-                                  border: OutlineInputBorder(),
-                                  contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
+                          qtyField(controller: scrap.qtyCtrl[index]),
+                          currentQtyField(controller: scrap.currentQtyCtrl[index]),
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          controller: scrap.currentQtyCtrl[index],
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 12,
-                            ),
-                            labelText: 'Description',
-                          ),
-                        ),
-                      ),
+                      description(controller: scrap.currentQtyCtrl[index]),
                     ],
                   ),
                 ),
@@ -169,12 +137,131 @@ class _ScraptScreenState extends State<ScraptScreen> {
       ),
     );
   }
+
+  Widget saveButton({void Function()? onTap}){
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: Row(
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: GestureDetector(
+              onTap: onTap ?? () {
+
+              },
+              child: Container(
+                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10,),
+                decoration: const BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.all(Radius.circular(3)),
+                ),
+                child: const Center(
+                  child: Text("Save",style: TextStyle(color: Colors.white),),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget qtyField({controller}){
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          controller: controller,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          decoration: const InputDecoration(
+            labelText: 'Qty',
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget currentQtyField({controller}){
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          decoration: const InputDecoration(
+            labelText: 'Current qty ',
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 12,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget description({controller}){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 12,
+          ),
+          labelText: 'Description',
+        ),
+      ),
+    );
+  }
+
+
 }
+
+class DemoList {
+  final int id;
+  final String name;
+
+  DemoList({required this.id, required this.name});
+}
+
+
 
 class ScrapController extends GetxController {
   var qtyCtrl = <TextEditingController>[].obs;
   var currentQtyCtrl = <TextEditingController>[].obs;
   var descriptionCtrl = <TextEditingController>[].obs;
+
+  List<DemoList> items = [
+    DemoList(id: 1, name: 'Item 1'),
+    DemoList(id: 2, name: 'Item 2'),
+    DemoList(id: 3, name: 'Item 3'),
+  ];
+
+  var selectedItems = <int, DemoList?>{}.obs;
+
+  void updateSelectedItem(int recordId, DemoList? item) {
+    selectedItems[recordId] = item;
+    if (item != null) {
+      print('Selected ID for Record $recordId: ${item.id}');
+    }
+  }
 
   @override
   void onInit() {
