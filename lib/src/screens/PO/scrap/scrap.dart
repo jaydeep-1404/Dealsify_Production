@@ -25,6 +25,7 @@ class _ScraptScreenState extends State<ScraptScreen> {
 
   @override
   void dispose() {
+    scrap.clearAllData();
     super.dispose();
   }
 
@@ -54,8 +55,8 @@ class _ScraptScreenState extends State<ScraptScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("Items"),
-            Text("${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
-            Text("${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
+            Text("PO No. :-  ${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
+            Text("Item :-  ${record.poRecord.items![record.poItemIndex.value].itemName}",style: const TextStyle(fontSize: 15),),
           ],
         ),
         centerTitle: false,
@@ -73,70 +74,78 @@ class _ScraptScreenState extends State<ScraptScreen> {
             }
             return Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black26,width: 1),
-                      borderRadius: BorderRadius.circular(5)
-                  ),
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15,top: 5),
-                          child: Text("Item ${index + 1}"),
-                        ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                  child: Material(
+                    elevation: 1,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      // margin: const EdgeInsets.only(left: 10,right: 10,top: 5),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black26,width: 1),
+                          borderRadius: BorderRadius.circular(5)
                       ),
-                      // Obx(() {
-                      //   return Container(
-                      //     margin: const EdgeInsets.symmetric(horizontal: 8),
-                      //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      //     decoration: BoxDecoration(
-                      //       border: Border.all(color: Colors.grey),
-                      //       borderRadius: BorderRadius.circular(4.0),
-                      //     ),
-                      //     child: DropdownButton<DemoList>(
-                      //       hint: const Text('Select an item'),
-                      //       value: scrap.selectedItems[index],
-                      //       isExpanded: true,
-                      //       underline: const SizedBox(),
-                      //       onChanged: (DemoList? newValue) {
-                      //         scrap.updateSelectedItem(index, newValue);
-                      //       },
-                      //       items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
-                      //         return DropdownMenuItem<DemoList>(
-                      //           value: item,
-                      //           child: Text(item.name),
-                      //         );
-                      //       }).toList(),
-                      //     ),
-                      //   );
-                      // }),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(4.0),
-                        ),
-                        child: Align(
-                          child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}"),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      child: Column(
                         children: [
-                          qtyField(controller: scrap.qtyCtrl[index]),
-                          currentQtyField(controller: scrap.currentQtyCtrl[index]),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15,top: 5),
+                              child: Text("Item ${index + 1}"),
+                            ),
+                          ),
+                          // Obx(() {
+                          //   return Container(
+                          //     margin: const EdgeInsets.symmetric(horizontal: 8),
+                          //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          //     decoration: BoxDecoration(
+                          //       border: Border.all(color: Colors.grey),
+                          //       borderRadius: BorderRadius.circular(4.0),
+                          //     ),
+                          //     child: DropdownButton<DemoList>(
+                          //       hint: const Text('Select an item'),
+                          //       value: scrap.selectedItems[index],
+                          //       isExpanded: true,
+                          //       underline: const SizedBox(),
+                          //       onChanged: (DemoList? newValue) {
+                          //         scrap.updateSelectedItem(index, newValue);
+                          //       },
+                          //       items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
+                          //         return DropdownMenuItem<DemoList>(
+                          //           value: item,
+                          //           child: Text(item.name),
+                          //         );
+                          //       }).toList(),
+                          //     ),
+                          //   );
+                          // }),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                            child: Align(
+                              child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}"),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              qtyField(controller: scrap.qtyCtrl[index]),
+                              currentQtyField(controller: scrap.currentQtyCtrl[index]),
+                            ],
+                          ),
+                          description(controller: scrap.currentQtyCtrl[index]),
                         ],
                       ),
-                      description(controller: scrap.currentQtyCtrl[index]),
-                    ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 3,),
-                const Divider(indent: 10,endIndent: 10,height: 1,)
+                
+                // const SizedBox(height: 3,),
+                // const Divider(indent: 10,endIndent: 10,height: 1,)
               ],);
           },
         )),
@@ -264,6 +273,12 @@ class ScrapController extends GetxController {
     DemoList(id: 2, name: 'Item 2'),
     DemoList(id: 3, name: 'Item 3'),
   ];
+
+  clearAllData(){
+    qtyCtrl = <TextEditingController>[].obs;
+    currentQtyCtrl = <TextEditingController>[].obs;
+    descriptionCtrl = <TextEditingController>[].obs;
+  }
 
   var selectedItems = <int, DemoList?>{}.obs;
 

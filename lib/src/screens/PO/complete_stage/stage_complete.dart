@@ -27,7 +27,7 @@ class OpenBillingAddress extends StatelessWidget {
             return true;
           },
           child: Container(
-            height: Get.height * 0.5,
+            height: Get.height * 0.55,
             margin: const EdgeInsets.symmetric(horizontal: 3),
             decoration: const BoxDecoration(
                 color: Colors.white,
@@ -42,6 +42,16 @@ class OpenBillingAddress extends StatelessWidget {
                         child: ListView(
                           padding: const EdgeInsets.symmetric(horizontal: 5),
                           children: [
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                onPressed: () {
+                                  Get.back();
+                                  controller.dispose();
+                                },
+                                icon: const Icon(Icons.close),
+                              ),
+                            ),
                             const SizedBox(height: 5),
                             SizedBox(
                               height: 350,
@@ -157,8 +167,9 @@ class OpenBillingAddress extends StatelessWidget {
                             ),
                             saveAndNextButton(
                               onCancel: () {
-                                Get.back();
-                                controller.dispose();
+                                controller.currentPage.value < controller.items!.length - 1
+                                    ? controller.previousPage()
+                                    : null;
                               },
                               onNext: () {
                                 controller.currentPage.value < controller.items!.length - 1
@@ -186,7 +197,7 @@ class OpenBillingAddress extends StatelessWidget {
           Text('${label ?? ''}'),
           Container(
             height: 30,
-            width: 150,
+            width: 170,
             padding: const EdgeInsets.only(left: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -211,7 +222,7 @@ class OpenBillingAddress extends StatelessWidget {
           Text('${label ?? ''}'),
           Container(
             height: 30,
-            width: 150,
+            width: 170,
             padding: const EdgeInsets.only(left: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -236,12 +247,11 @@ class OpenBillingAddress extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onCancel,
             style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.only(),
-              shape: const ContinuousRectangleBorder(),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
               backgroundColor: Colors.grey[300],
             ),
             child: const Text(
-              "Cancel",
+              "Previous",
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -251,11 +261,11 @@ class OpenBillingAddress extends StatelessWidget {
         ElevatedButton(
           onPressed: onNext,
           style: ElevatedButton.styleFrom(
-            shape: const ContinuousRectangleBorder(),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
             backgroundColor: Colors.blueAccent,
           ),
           child: const Text(
-            "Next",
+            "    Next   ",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -272,9 +282,8 @@ class OpenBillingAddress extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.only(),
-          shape: const ContinuousRectangleBorder(),
-          backgroundColor: Colors.blueAccent,
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+          backgroundColor: Colors.green[900],
         ),
         child: Text(
           "${label ?? "Save"}",

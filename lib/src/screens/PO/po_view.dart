@@ -34,8 +34,8 @@ class _POItemsPageState extends State<POItemsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("Items"),
-            Text("${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
-            Text("${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
+            Text("Customer :-  ${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
+            Text("PO No. :-  ${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
             ],
         ),
         centerTitle: false,
