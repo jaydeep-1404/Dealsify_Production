@@ -330,11 +330,13 @@ class OpenBillingAddress extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.only(),
               shape: const ContinuousRectangleBorder(),
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Colors.grey[300],
             ),
             child: const Text(
               "Cancel",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                  color: Colors.black,
+              ),
             ),
           ),
         ),
@@ -344,7 +346,12 @@ class OpenBillingAddress extends StatelessWidget {
             shape: const ContinuousRectangleBorder(),
             backgroundColor: Colors.blueAccent,
           ),
-          child: const Text("Next"),
+          child: const Text(
+            "Next",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         )
       ],
     );
