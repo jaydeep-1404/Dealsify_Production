@@ -1,4 +1,3 @@
-import 'package:dealsify_production/src/screens/PO/metadata_list.dart';
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
@@ -28,7 +27,7 @@ class RoutePage {
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
     GetPage(name: ConstRoute.poItems, page: () => const PoView()),
-    GetPage(name: ConstRoute.productionMetaData, page: () => const ProductionMetaDataList()),
+    // GetPage(name: ConstRoute.productionMetaData, page: () => const ProductionMetaDataList()),
     GetPage(name: ConstRoute.poCreate, page: () => const CreatePurchaseOrder()),
   ];
 }

@@ -377,7 +377,6 @@ class Item {
       allStages.addAll(meta.productionStages as Iterable<ProductionStages>);
     }
     allStages.sort((a, b) => a.priority!.compareTo(b.priority!));
-    print("TOTAL STAGES : ${allStages.length}");
     return allStages;
   }
 
@@ -399,7 +398,6 @@ class Item {
         inCompleteList.add(stage);
       }
     }
-    print("INCOMPLETE STAGES : ${inCompleteList.length}");
     return inCompleteList;
   }
 }
