@@ -42,19 +42,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
+          SliverAppBar(
             leading: Stack(),
             expandedHeight: 200.0,
             floating: false,
             pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
+            flexibleSpace: const FlexibleSpaceBar(
               title: Text('Dashboard'),
               // background: Image.network(
               //   'https://via.placeholder.com/350x150',
               //   fit: BoxFit.cover,
               // ),
             ),
-            backgroundColor: Colors.yellow,
+            backgroundColor: Colors.blueGrey[300],
           ),
           Obx(() {
             if (po.loading.value) {

@@ -338,6 +338,7 @@ class Item {
   String? unitId;
   String? unitName;
   String? id;
+  List<ProductionMetadata>? metaList;
 
   Item({
     this.categoryId,
@@ -348,10 +349,15 @@ class Item {
     this.unitId,
     this.unitName,
     this.id,
+    this.metaList,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) {
-    var item = Item(
+    var metaList = (json['productionMeta'] as List)
+        .map((meta) => ProductionMetadata.fromJson(meta))
+        .toList();
+    return Item(
+      metaList: metaList,
       categoryId: json['categoryId']?.toString() ?? '',
       productionMeta: json['productionMeta'] != null
           ? List<ProductionMetadata>.from(json['productionMeta'].map((x) => ProductionMetadata.fromJson(x)))
@@ -363,7 +369,38 @@ class Item {
       unitName: json['unitName']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',
     );
-    return item;
+  }
+
+  List<ProductionStages> getAllProductionStages() {
+    List<ProductionStages> allStages = [];
+    for (var meta in metaList!) {
+      allStages.addAll(meta.productionStages as Iterable<ProductionStages>);
+    }
+    allStages.sort((a, b) => a.priority!.compareTo(b.priority!));
+    print("TOTAL STAGES : ${allStages.length}");
+    return allStages;
+  }
+
+  ProductionStages? findFirstIncompleteStage() {
+    List<ProductionStages> allStages = getAllProductionStages();
+    for (var stage in allStages) {
+      if (stage.isStageCompleted == false) {
+        return stage;
+      }
+    }
+    return null;
+  }
+
+  List<ProductionStages> incompleteStages() {
+    List<ProductionStages> allStages = getAllProductionStages();
+    List<ProductionStages> inCompleteList = [];
+    for (var stage in allStages) {
+      if (stage.isStageCompleted == false) {
+        inCompleteList.add(stage);
+      }
+    }
+    print("INCOMPLETE STAGES : ${inCompleteList.length}");
+    return inCompleteList;
   }
 }
 
@@ -375,6 +412,7 @@ class ProductionMetadata {
   List<Headers>? headerArrayHeaders;
   List<Labels>? headerArrayLabels;
   List<DispatchValues>? dispatchValues;
+  List<ProductionStages>? stages;
 
   ProductionMetadata({
     this.serialNo,
@@ -384,10 +422,17 @@ class ProductionMetadata {
     this.headerArrayHeaders,
     this.headerArrayLabels,
     this.dispatchValues,
+    this.stages,
   });
 
   factory ProductionMetadata.fromJson(Map<String, dynamic> json) {
+    var stages = (json['productionStages'] as List)
+        .map((stage) => ProductionStages.fromJson(stage))
+        .toList();
+
+
     return ProductionMetadata(
+      stages: stages,
       serialNo: json['serialNo']?.toString() ?? '',
       srRange: json['srRange']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',
@@ -411,9 +456,9 @@ class ProductionStages {
   String? id;
   String? stageId;
   String? label;
-  String? priority;
+  num? priority;
   String? inspector;
-  String? isStageCompleted;
+  bool? isStageCompleted;
   List<ProductionChildStages>? productionChildStages;
   List<dynamic>? mandatoryStages;
 
@@ -434,9 +479,9 @@ class ProductionStages {
       id: json['_id']?.toString() ?? '',
       stageId: json['stageId']?.toString() ?? '',
       label: json['label']?.toString() ?? '',
-      priority: json['priority']?.toString() ?? '',
+      priority: json['priority'] ?? 0,
       inspector: json['inspector']?.toString() ?? '',
-      isStageCompleted: json['isStageCompleted']?.toString() ?? '',
+      isStageCompleted: json['isStageCompleted'] ?? false,
       productionChildStages: json['productionChildStages'] != null
           ? List<ProductionChildStages>.from(json['productionChildStages'].map((x) => ProductionChildStages.fromJson(x)))
           : null,

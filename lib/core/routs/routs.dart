@@ -18,7 +18,7 @@ class ConstRoute {
 
 class RoutePage {
   static const initial = ConstRoute.splashScreen;
-  static const login = ConstRoute.loginPage;
+  static const login = ConstRoute.dashboard;
 
   static const duration = Duration(milliseconds: 100),
       left = Transition.rightToLeft,

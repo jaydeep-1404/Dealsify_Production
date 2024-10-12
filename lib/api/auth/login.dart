@@ -8,6 +8,7 @@ import '../../core/routs/routs.dart';
 import '../../core/services/local_storage.dart';
 import '../../core/services/server_urls.dart';
 import '../../core/services/strings.dart';
+import '../../src/common_functions/snackbars.dart';
 import '../../src/state_controllers/login.dart';
 
 class AuthController extends GetxController {
@@ -44,16 +45,16 @@ class AuthController extends GetxController {
         userInfo.user_id = "${responseData[BKD.data][BKD.id]}";
         pref.set(userInfo);
 
-        // Open.credential_true_snackBar();
+        Open.credential_true_snackBar();
         Get.offNamedUntil(ConstRoute.dashboard, (_) => false);
 
       } else {
-        // Open.credential_fail_snackBar();
+        Open.credential_fail_snackBar();
       }
     } catch (e,StackTrace) {
       'LOGIN : $e'.show();
       'LOGIN : $StackTrace'.show();
-      // Open.credential_fail_snackBar();
+      Open.credential_fail_snackBar();
     } finally {
       loading.value = false;
     }
