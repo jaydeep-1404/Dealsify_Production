@@ -110,18 +110,18 @@ class CustomExpansionTile extends StatelessWidget {
 
 
 class OpenBillingAddress extends StatelessWidget {
-
   final index;
   OpenBillingAddress({super.key, this.index});
   final record = Get.put(PORecordCtrl());
   final controller = Get.put(PageControllerGetX());
-
   @override
   Widget build(BuildContext context) {
     final item = record.poRecord.items![index];
     final firstStage = item.findFirstIncompleteStage();
     final inCompleteStages = item.incompleteStages();
     controller.items = inCompleteStages;
+    controller.setDateLength(controller.items!.length);
+    
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return WillPopScope(
@@ -150,7 +150,7 @@ class OpenBillingAddress extends StatelessWidget {
                             Text(firstStage!.label.toString()),
                             Text(firstStage.inspector.toString()),
                             const Divider(),
-                            Container(
+                            SizedBox(
                               height: 300,
                               width: double.infinity,
                               child: PageView.builder(
@@ -161,12 +161,77 @@ class OpenBillingAddress extends StatelessWidget {
                                   return Container(
                                     width: double.infinity,
                                     height: double.infinity,
-                                    color: Colors.blue,
+                                    // color: Colors.blue,
                                     alignment: Alignment.center,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("$index")
+                                        Obx(() {
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              datePicker(
+                                                msg: controller.startDates[index].toLocal().toString().split(' ')[0],
+                                                onTap:() async {
+                                                  DateTime? pickedDate = await showDatePicker(
+                                                    context: context,
+                                                    initialDate: controller.startDates[index],
+                                                    firstDate: DateTime(2000),
+                                                    lastDate: DateTime(2100),
+                                                  );
+                                                  if (pickedDate != null) {
+                                                    controller.updateStartDate(index, pickedDate);
+                                                  }
+                                                  },
+                                              ),
+                                              timePicker(
+                                                msg: controller.startTime[index].format(context),
+                                                onTap:() async {
+                                                  final TimeOfDay? picked = await showTimePicker(
+                                                    context: context,
+                                                    initialTime: controller.startTime[index],
+                                                  );
+                                                  if (picked != null) {
+                                                    controller.updateStartTime(index, picked);
+                                                  }
+                                                },
+                                              ),
+                                            ],);
+                                        },),
+                                        const SizedBox(height: 10,),
+                                        Obx(() {
+                                          return Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              datePicker(
+                                                msg: controller.endDates[index].toLocal().toString().split(' ')[0],
+                                                onTap:() async {
+                                                  DateTime? pickedDate = await showDatePicker(
+                                                    context: context,
+                                                    initialDate: controller.endDates[index],
+                                                    firstDate: DateTime(2000),
+                                                    lastDate: DateTime(2100),
+                                                  );
+                                                  if (pickedDate != null) {
+                                                    controller.updateEndDate(index, pickedDate);
+                                                  }
+                                                  },
+                                              ),
+                                              timePicker(
+                                                msg: controller.endTime[index].format(context),
+                                                onTap:() async {
+                                                  final TimeOfDay? picked = await showTimePicker(
+                                                    context: context,
+                                                    initialTime: controller.endTime[index],
+                                                  );
+                                                  if (picked != null) {
+                                                    controller.updateEndTime(index, picked);
+                                                  }
+                                                },
+                                              ),
+                                            ],);
+                                        },),
+
                                       ],
                                     ),
                                   );
@@ -176,28 +241,18 @@ class OpenBillingAddress extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                ElevatedButton(
+                                cancelButton(
                                   onPressed: () {
                                     Get.back();
                                     controller.dispose();
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const ContinuousRectangleBorder(),
-                                    backgroundColor: Colors.white70,
-                                  ),
-                                  child: const Text("Cancel"),
                                 ),
-                                ElevatedButton(
+                                nextButton(
                                   onPressed: () {
                                     controller.currentPage.value < controller.items!.length - 1
                                         ? controller.nextPage()
                                         : null;
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const ContinuousRectangleBorder(),
-                                    backgroundColor: Colors.blueAccent,
-                                  ),
-                                  child: const Text("Next"),
                                 ),
                             ],)
 
@@ -211,7 +266,65 @@ class OpenBillingAddress extends StatelessWidget {
       },
     );
   }
+
+  Widget datePicker({void Function()? onTap,msg}){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 30,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.black,width: 1),
+        ),
+        child: Center(
+          child: Text("$msg"),
+        ),
+      ),
+    );
+  }
+
+  Widget timePicker({void Function()? onTap,msg}){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 30,
+        width: 100,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.black,width: 1),
+        ),
+        child: Center(
+          child: Text("$msg"),
+        ),
+      ),
+    );
+  }
+
+  Widget nextButton({required Null Function() onPressed}){
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: const ContinuousRectangleBorder(),
+        backgroundColor: Colors.blueAccent,
+      ),
+      child: const Text("Next"),
+    );
+  }
+
+  Widget cancelButton({required Null Function() onPressed}){
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        shape: const ContinuousRectangleBorder(),
+        backgroundColor: Colors.white70,
+      ),
+      child: const Text("Cancel"),
+    );
+  }
+
 }
+
 
 
 // void data (){
