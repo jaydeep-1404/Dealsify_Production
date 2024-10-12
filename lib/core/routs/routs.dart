@@ -26,7 +26,7 @@ class RoutePage {
   static List<GetPage> routes = [
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
-    GetPage(name: ConstRoute.poItems, page: () => const PoView()),
+    GetPage(name: ConstRoute.poItems, page: () => const POItemsPage()),
     // GetPage(name: ConstRoute.productionMetaData, page: () => const ProductionMetaDataList()),
     GetPage(name: ConstRoute.poCreate, page: () => const CreatePurchaseOrder()),
   ];

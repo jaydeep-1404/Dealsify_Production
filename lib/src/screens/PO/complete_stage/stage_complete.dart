@@ -2,9 +2,9 @@
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../api/post/comlete_stage.dart';
-import '../../state_controllers/completeStage.dart';
-import '../../state_controllers/production_order_states.dart';
+import '../../../../api/post/comlete_stage.dart';
+import '../../../state_controllers/completeStage.dart';
+import '../../../state_controllers/production_order_states.dart';
 
 class OpenBillingAddress extends StatelessWidget {
   final index;

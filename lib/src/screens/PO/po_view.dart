@@ -1,24 +1,24 @@
 
 import 'package:dealsify_production/core/routs/routs.dart';
-import 'package:dealsify_production/src/screens/PO/stage_complete.dart';
+import 'package:dealsify_production/src/screens/PO/complete_stage/stage_complete.dart';
+import 'package:dealsify_production/src/screens/PO/scrap/scrap.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_controllers/production_order_states.dart';
 
-class PoView extends StatefulWidget {
-  const PoView({super.key});
+class POItemsPage extends StatefulWidget {
+  const POItemsPage({super.key});
 
   @override
-  State<PoView> createState() => _PoViewState();
+  State<POItemsPage> createState() => _POItemsPageState();
 }
 
-class _PoViewState extends State<PoView> {
+class _POItemsPageState extends State<POItemsPage> {
   final record = Get.put(PORecordCtrl());
 
   @override
   Widget build(BuildContext context) {
-    List<String> _boxes = List.generate(record.poRecord.items!.length, (index) => 'Box ${index + 1}');
-    Map<int, String> _selectedOptions = {};
+    Map<int, String> selectedOptions = {};
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -48,52 +48,42 @@ class _PoViewState extends State<PoView> {
               itemBuilder: (context, index) {
                 final item = record.poRecord.items![index];
                 final stage = item.findFirstIncompleteStage();
-                return GestureDetector(
-                  onTap: () {
-                    // FocusManager.instance.primaryFocus?.unfocus();
-                    // Get.bottomSheet(
-                    //   OpenBillingAddress(index: index),
-                    //   isScrollControlled: true,
-                    //   isDismissible: false,
-                    //   backgroundColor: Colors.transparent,
-                    // );
-                  },
-                  child: CustomExpansionTile(
-                    title: item.itemName.toString(),
-                    children: [
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(stage!.label.toString()),
-                            buildPopupMenuButton(
-                              boxIndex: index,
-                              options: ['Stage Complete', 'Scrap', 'Adon'],
-                              onSelected: (value) {
-                                setState(() {
-                                  _selectedOptions[index] = value;
-                                  switch (value) {
-                                    case "Stage Complete":
-                                      FocusManager.instance.primaryFocus?.unfocus();
-                                      Get.bottomSheet(
-                                        OpenBillingAddress(index: index),
-                                        isScrollControlled: true,
-                                        isDismissible: false,
-                                        backgroundColor: Colors.transparent,
-                                      );
-                                      break;
-                                    case "Scrap":
-                                      break;
-                                    case "Addon":
-                                      break;
-                                  }
-                                });
-                              },
-                            ),
-                          ],),
-                      ),
-                    ],
-                  ),
+                return CustomExpansionTile(
+                  title: item.itemName.toString(),
+                  children: [
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(stage!.label.toString()),
+                          buildPopupMenuButton(
+                            boxIndex: index,
+                            options: ['Complete stage', 'Scrap', 'Adon'],
+                            onSelected: (value) {
+                              setState(() {
+                                selectedOptions[index] = value;
+                                switch (value) {
+                                  case "Complete stage":
+                                    FocusManager.instance.primaryFocus?.unfocus();
+                                    Get.bottomSheet(
+                                      OpenBillingAddress(index: index),
+                                      isScrollControlled: true,
+                                      isDismissible: false,
+                                      backgroundColor: Colors.transparent,
+                                    );
+                                    break;
+                                  case "Scrap":
+                                    Get.to(const ScraptScreen());
+                                    break;
+                                  case "Addon":
+                                    break;
+                                }
+                              });
+                            },
+                          ),
+                        ],),
+                    ),
+                  ],
                 );
               },
             ),
@@ -109,6 +99,7 @@ class _PoViewState extends State<PoView> {
   }) {
     return PopupMenuButton<String>(
       onSelected: onSelected,
+      icon: const Icon(Icons.more_vert),
       itemBuilder: (BuildContext context) {
         return options.map((String option) {
           return PopupMenuItem<String>(
