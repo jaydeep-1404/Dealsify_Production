@@ -49,45 +49,52 @@ class _POItemsPageState extends State<POItemsPage> {
               itemBuilder: (context, index) {
                 final item = record.poRecord.items![index];
                 final stage = item.findFirstIncompleteStage();
-                return CustomExpansionTile(
-                  title: item.itemName.toString(),
-                  children: [
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(stage!.label.toString()),
-                          buildPopupMenuButton(
-                            boxIndex: index,
-                            options: ['Complete stage', 'Scrap', 'Adon'],
-                            onSelected: (value) {
-                              setState(() {
-                                selectedOptions[index] = value;
-                                switch (value) {
-                                  case "Complete stage":
-                                    FocusManager.instance.primaryFocus?.unfocus();
-                                    Get.bottomSheet(
-                                      OpenBillingAddress(index: index),
-                                      isScrollControlled: true,
-                                      isDismissible: false,
-                                      backgroundColor: Colors.transparent,
-                                    );
-                                    break;
-                                  case "Scrap":
-                                    record.savePOItemIndex(index);
-                                    Get.to(const ScraptScreen());
-                                    break;
-                                  case "Adon":
-                                    record.savePOItemIndex(index);
-                                    Get.to(const AdonScreen());
-                                    break;
-                                }
-                              });
-                            },
-                          ),
-                        ],),
+                return Padding(
+                  padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
+                  child: Material(
+                    elevation: 1,
+                    borderRadius: BorderRadius.circular(8),
+                    child: CustomExpansionTile(
+                      title: item.itemName.toString(),
+                      children: [
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(stage!.label.toString()),
+                              buildPopupMenuButton(
+                                boxIndex: index,
+                                options: ['Complete stage', 'Scrap', 'Adon'],
+                                onSelected: (value) {
+                                  setState(() {
+                                    selectedOptions[index] = value;
+                                    switch (value) {
+                                      case "Complete stage":
+                                        FocusManager.instance.primaryFocus?.unfocus();
+                                        Get.bottomSheet(
+                                          OpenBillingAddress(index: index),
+                                          isScrollControlled: true,
+                                          isDismissible: false,
+                                          backgroundColor: Colors.transparent,
+                                        );
+                                        break;
+                                      case "Scrap":
+                                        record.savePOItemIndex(index);
+                                        Get.to(const ScraptScreen());
+                                        break;
+                                      case "Adon":
+                                        record.savePOItemIndex(index);
+                                        Get.to(const AdonScreen());
+                                        break;
+                                    }
+                                  });
+                                },
+                              ),
+                            ],),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 );
               },
             ),
@@ -130,7 +137,7 @@ class CustomExpansionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue, width: 2),
+        // border: Border.all(color: Colors.blue, width: 2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: ExpansionTile(
