@@ -6,6 +6,7 @@ class ConstUrl {
       auth_login_url          = '${base_url}auth/login';
 
   static String po  = "${base_url}production-order?&";
+  static String updateStages = "${base_url}production-order/update-po-stages/";
 
 }
 

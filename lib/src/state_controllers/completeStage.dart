@@ -8,21 +8,21 @@ class PageControllerGetX extends GetxController {
   var currentPage = 0.obs;
   var startDates = <DateTime>[].obs;
   var endDates = <DateTime>[].obs;
-  var startTime = <TimeOfDay>[].obs;
-  var endTime = <TimeOfDay>[].obs;
+  var startTimes = <TimeOfDay>[].obs;
+  var endTimes = <TimeOfDay>[].obs;
 
   PageControllerGetX() {
     startDates.value = List.generate(items!.length, (index) => DateTime.now());
     endDates.value = List.generate(items!.length, (index) => DateTime.now());
-    startTime.value = List.generate(items!.length, (index) => TimeOfDay.now());
-    endTime.value = List.generate(items!.length, (index) => TimeOfDay.now());
+    startTimes.value = List.generate(items!.length, (index) => TimeOfDay.now());
+    endTimes.value = List.generate(items!.length, (index) => TimeOfDay.now());
   }
 
   setDateLength(index){
     startDates.value = List.generate(index, (index) => DateTime.now());
     endDates.value = List.generate(index, (index) => DateTime.now());
-    startTime.value = List.generate(index, (index) => TimeOfDay.now());
-    endTime.value = List.generate(index, (index) => TimeOfDay.now());
+    startTimes.value = List.generate(index, (index) => TimeOfDay.now());
+    endTimes.value = List.generate(index, (index) => TimeOfDay.now());
   }
 
   void updateStartDate(int index, DateTime date) {
@@ -36,12 +36,12 @@ class PageControllerGetX extends GetxController {
   }
 
   void updateStartTime(int index, TimeOfDay time) {
-    startTime[index] = time;
+    startTimes[index] = time;
     update();
   }
 
   void updateEndTime(int index, TimeOfDay time) {
-    endTime[index] = time;
+    endTimes[index] = time;
     update();
   }
 
@@ -59,5 +59,34 @@ class PageControllerGetX extends GetxController {
 
   void onPageChanged(int index) {
     currentPage.value = index;
+  }
+
+  Map<String, dynamic> payload(index,context) {
+    final item = items![index];
+    final startDate = startDates[index];
+    final endDate = endDates[index];
+    final startTime = startTimes[index];
+    final endTime = endTimes[index];
+    return {
+      // "productionStagesId": "67092b4f774fefc0bdf7970a",
+      // "inspector": "Satish patar",
+      // "isScrapMaterialEnable": false,
+      // "isAddOnMaterialEnable": false,
+      // "isStageCompleted": false,
+      // "startingTime": "07:00:00",
+      // "startingDate": "2024-10-12T18:30:00.000Z",
+      // "endingTime": "07:00:00",
+      // "endingDate": "2024-10-12T18:30:00.000Z"
+
+      "productionStagesId": item.stageId.toString(),
+      "inspector": item.inspector.toString(),
+      "isScrapMaterialEnable": false,
+      "isAddOnMaterialEnable": false,
+      "isStageCompleted": false,
+      "startingTime": "${startTime.hour}:${startTime.minute}:00",
+      "startingDate": startDate.toString(),
+      "endingTime": "${endTime.hour}:${endTime.minute}:00",
+      "endingDate": endDate.toString()
+    };
   }
 }
