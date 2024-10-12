@@ -1,5 +1,6 @@
 
 import 'package:dealsify_production/core/routs/routs.dart';
+import 'package:dealsify_production/src/screens/PO/adon/AdonScreen.dart';
 import 'package:dealsify_production/src/screens/PO/complete_stage/stage_complete.dart';
 import 'package:dealsify_production/src/screens/PO/scrap/scrap.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,8 @@ class _POItemsPageState extends State<POItemsPage> {
                                   case "Scrap":
                                     Get.to(const ScraptScreen());
                                     break;
-                                  case "Addon":
+                                  case "Adon":
+                                    Get.to(const AdonScreen());
                                     break;
                                 }
                               });

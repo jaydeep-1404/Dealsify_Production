@@ -5,16 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../state_controllers/production_order_states.dart';
 
-class ScraptScreen extends StatefulWidget {
+class AdonScreen extends StatefulWidget {
 
-  const ScraptScreen({super.key});
+  const AdonScreen({super.key});
 
   @override
-  State<ScraptScreen> createState() => _ScraptScreenState();
+  State<AdonScreen> createState() => _AdonScreenState();
 }
 
-class _ScraptScreenState extends State<ScraptScreen> {
-  final ScrapController scrap = Get.put(ScrapController());
+class _AdonScreenState extends State<AdonScreen> {
+  final AdonController scrap = Get.put(AdonController());
   final record = Get.put(PORecordCtrl());
   final _formKey = GlobalKey<FormState>();
 
@@ -171,7 +171,7 @@ class _ScraptScreenState extends State<ScraptScreen> {
   }
 }
 
-class ScrapController extends GetxController {
+class AdonController extends GetxController {
   var qtyCtrl = <TextEditingController>[].obs;
   var currentQtyCtrl = <TextEditingController>[].obs;
   var descriptionCtrl = <TextEditingController>[].obs;
@@ -213,15 +213,6 @@ class ScrapController extends GetxController {
 
   @override
   void onClose() {
-    // for (var controller in qtyCtrl) {
-    //   controller.dispose();
-    // }
-    // for (var controller in currentQtyCtrl) {
-    //   controller.dispose();
-    // }
-    // for (var controller in currentQtyCtrl) {
-    //   controller.dispose();
-    // }
     super.onClose();
   }
 }
