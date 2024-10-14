@@ -182,9 +182,11 @@ class DashboardItemBox extends StatelessWidget {
 */
 
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../api/get/get_po_list.dart';
+import '../../common_functions/animations.dart';
+import '../../state_controllers/production_order_states.dart';
+import '../PO/po_view.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -194,40 +196,21 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  String searchQuery = '';
-  int _selectedIndex = 0; // To track the selected index of the bottom navigation
+  final po = Get.put(PurchaseOrderController());
+  final record = Get.put(PORecordCtrl());
+  int _selectedIndex = 0;
 
-  final List<Map<String, String>> purchaseOrders = [
-    {
-      'orderNumber': 'PO-001',
-      'supplier': 'Supplier A',
-      'date': '2024-10-01',
-      'status': 'Pending',
-      'amount': '\$1000',
-    },
-    {
-      'orderNumber': 'PO-002',
-      'supplier': 'Supplier B with a long name',
-      'date': '2024-10-05',
-      'status': 'Completed',
-      'amount': '\$2000',
-    },
-    {
-      'orderNumber': 'PO-003',
-      'supplier': 'Supplier C',
-      'date': '2024-10-10',
-      'status': 'In Progress',
-      'amount': '\$1500',
-    },
-    {
-      'orderNumber': 'PO-004',
-      'supplier': 'Supplier D',
-      'date': '2024-10-12',
-      'status': 'Pending',
-      'amount': '\$3000',
-    },
-    // More orders...
-  ];
+  @override
+  void initState() {
+    super.initState();
+    po.get();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    po.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -237,12 +220,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 20,
-              right: 20,
-              bottom: 10,
-              top: 5,
-            ),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5,),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search Purchase Orders...',
@@ -254,11 +232,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 prefixIcon: const Icon(Icons.search, color: Colors.teal),
               ),
-              onChanged: (value) {
-                setState(() {
-                  searchQuery = value; // Update search query as user types
-                });
-              },
+              onChanged: (value) {},
             ),
           ),
         ),
@@ -268,21 +242,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: purchaseOrders.where((order) {
-                  return order['supplier']!.toLowerCase().contains(searchQuery.toLowerCase()) ||
-                      order['orderNumber']!.toLowerCase().contains(searchQuery.toLowerCase());
-                }).toList().length,
-                itemBuilder: (context, index) {
-                  final order = purchaseOrders.where((order) {
-                    return order['supplier']!.toLowerCase().contains(searchQuery.toLowerCase()) ||
-                        order['orderNumber']!.toLowerCase().contains(searchQuery.toLowerCase());
-                  }).toList()[index];
-                  return PurchaseOrderCard(order: order);
-                },
-              ),
-            ),
+            Obx(() {
+              if (po.loading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (po.items.isEmpty) {
+                return const Center(child: Text("No purchase orders available."));
+              }
+
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: po.items.length,
+                  itemBuilder: (context, index) {
+                    final item = po.items[index];
+                    return PurchaseOrderCard(
+                      onTap: (){
+                        record.saveRecord(item);
+                        navigateToPage(context, OrderDetailScreen());
+                        },
+                      orderNo: item.productionOrderNo,
+                      customer: item.customerId!.customerName,
+                      // orderDate: item.orderDate,
+                      // dispatchDate: item.dispatchDate,
+                    );
+                  },
+                ),
+              );
+            },),
           ],
         ),
       ),
@@ -290,20 +277,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         currentIndex: _selectedIndex,
         onTap: (index) {
           setState(() {
-            _selectedIndex = index; // Update selected index
-            // Navigate to different screens based on selected index
+            _selectedIndex = index;
             switch (index) {
               case 0:
-              // Navigate to Home
                 break;
               case 1:
-              // Navigate to Orders
                 break;
               case 2:
-              // Navigate to Profile
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
                 );
                 break;
             }
@@ -323,9 +306,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
 }
 
 class PurchaseOrderCard extends StatelessWidget {
-  final Map<String, String> order;
+  final orderNo;
+  final status;
+  final customer;
+  final orderDate;
+  final dispatchDate;
+  final onTap;
 
-  const PurchaseOrderCard({Key? key, required this.order}) : super(key: key);
+  const PurchaseOrderCard({Key? key, this.orderNo, this.status, this.customer, this.orderDate, this.dispatchDate, this.onTap, }) : super(key: key);
 
   Color _getStatusColor(String status) {
     switch (status) {
@@ -340,78 +328,94 @@ class PurchaseOrderCard extends StatelessWidget {
     }
   }
 
+  String convertDateFormat(String inputDate) {
+    DateTime dateTime = DateTime.parse(inputDate);
+    return '${dateTime.day}-${dateTime.month}-${dateTime.year}';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      elevation: 5,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Order Number: ${order['orderNumber']}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+    return GestureDetector(
+      onTap: onTap ?? () {},
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 2,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Customer: ${customer ?? ""}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal,
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _getStatusColor(order['status']!),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    order['status']!,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    'Supplier: ${order['supplier']}',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ),
-                Text('Date: ${order['date']}'),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'Amount: ${order['amount']}',
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Order Number: ${orderNo ?? ''}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                  if (status.toString().isNotEmpty && status != null)...[
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: _getStatusColor(status ?? ""),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        status,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ]
+                ],
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     // const SizedBox(height: 2),
+              //     Column(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Text(
+              //           'Order Date: ${convertDateFormat(orderDate) ?? ""}',
+              //           overflow: TextOverflow.ellipsis,
+              //           maxLines: 1,
+              //         ),
+              //         Text(
+              //           'Dispatch Date: ${convertDateFormat(dispatchDate) ?? ""}',
+              //           overflow: TextOverflow.ellipsis,
+              //           maxLines: 1,
+              //         ),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-// Placeholder for the Profile screen
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -421,8 +425,8 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: Center(
-        child: const Text('Profile Screen'),
+      body: const Center(
+        child: Text('Profile Screen'),
       ),
     );
   }

@@ -337,6 +337,7 @@ class Item {
   String? itemName;
   String? unitId;
   String? unitName;
+  String? qty;
   String? id;
   List<ProductionMetadata>? metaList;
 
@@ -348,6 +349,7 @@ class Item {
     this.itemName,
     this.unitId,
     this.unitName,
+    this.qty,
     this.id,
     this.metaList,
   });
@@ -367,6 +369,7 @@ class Item {
       itemName: json['itemName']?.toString() ?? '',
       unitId: json['unitId']?.toString() ?? '',
       unitName: json['unitName']?.toString() ?? '',
+      qty: json['qty']?.toString() ?? '',
       id: json['_id']?.toString() ?? '',
     );
   }

@@ -1,4 +1,5 @@
 
+import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
@@ -25,33 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
     userInfo = (await pref.get())!;
 
     if (userInfo.access_token != null && userInfo.access_token.isNotEmpty) {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          transitionDuration: const Duration(seconds: 1),
-          pageBuilder: (context, animation, secondaryAnimation) => const DashboardScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
-      );
+      navigateToPage(context, const DashboardScreen());
     } else {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          transitionDuration: const Duration(seconds: 1),
-          pageBuilder: (context, animation, secondaryAnimation) => const LoginScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
-      );
+      navigateToPage(context, const LoginScreen());
     }
   }
 
