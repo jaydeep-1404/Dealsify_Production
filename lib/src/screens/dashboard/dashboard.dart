@@ -1,3 +1,4 @@
+/*
 import 'package:dealsify_production/api/get/get_po_list.dart';
 import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
@@ -178,15 +179,24 @@ class DashboardItemBox extends StatelessWidget {
     );
   }
 }
+*/
 
-/*
+import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
+
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
   String searchQuery = '';
+  int _selectedIndex = 0; // To track the selected index of the bottom navigation
+
   final List<Map<String, String>> purchaseOrders = [
     {
       'orderNumber': 'PO-001',
@@ -244,6 +254,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 prefixIcon: const Icon(Icons.search, color: Colors.teal),
               ),
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value; // Update search query as user types
+                });
+              },
             ),
           ),
         ),
@@ -272,10 +287,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index; // Update selected index
+            // Navigate to different screens based on selected index
+            switch (index) {
+              case 0:
+              // Navigate to Home
+                break;
+              case 1:
+              // Navigate to Orders
+                break;
+              case 2:
+              // Navigate to Profile
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
+                break;
+            }
+          });
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'), // Added Profile item
         ],
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.teal,
@@ -372,4 +409,21 @@ class PurchaseOrderCard extends StatelessWidget {
       ),
     );
   }
-}*/
+}
+
+// Placeholder for the Profile screen
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
+      body: Center(
+        child: const Text('Profile Screen'),
+      ),
+    );
+  }
+}

@@ -49,7 +49,7 @@ class Open {
   }
 
   static snackBarComingSon(){
-    return  Get.rawSnackbar(
+    return Get.rawSnackbar(
       message: "Coming soon!",
       snackPosition: SnackPosition.TOP,
       duration: const Duration(seconds: 2),
@@ -84,47 +84,87 @@ class Open {
   //   }
   // }
 
-  static credential_fail_snackBar(){
-    return Get.snackbar(
-      '',
-      "Wrong username and password",
-      icon: const Icon(Icons.close, color: Colors.white,size: 18),
-      backgroundColor: Colors.red,
-      snackPosition: SnackPosition.TOP,
-      colorText: Colors.white,
-      padding: symmetric(h: 5, v: 0),
-      margin: all(10),
-      maxWidth: double.infinity,
-      borderRadius: 5,
-      isDismissible: true,
-      titleText: const Stack(),
-      messageText: Padding(
-        padding: only(b: 5),
-        child: const Text("Wrong username and password" ,style: TextStyle(color: Colors.white,fontSize: 13),),
+
+  static credential_true_snackBar(context) {
+    final snackBar = SnackBar(
+      content: const Text(
+        "Welcome! You've logged in successfully.",
+        style: TextStyle(color: Colors.white, fontSize: 16),
       ),
-      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.teal,
+      duration: const Duration(seconds: 2),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      margin: const EdgeInsets.all(16),
     );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  static credential_true_snackBar(){
-    return Get.snackbar(
-      '',
-      "Welcome! You've logged in successfully.",
-      icon: const Icon(Icons.check, color: Colors.white,size: 18),
-      backgroundColor: Colors.green,
-      snackPosition: SnackPosition.TOP,
-      colorText: Colors.white,
-      padding: symmetric(h: 5, v: 0),
-      margin: all(10),
-      maxWidth: double.infinity,
-      borderRadius: 5,
-      isDismissible: true,
-      titleText: const Stack(),
-      messageText: Padding(
-        padding: only(b: 5),
-        child: const Text("Welcome! You've logged in successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
+
+  static credential_fail_snackBar(context) {
+    final errorSnackBar = SnackBar(
+      content: const Text(
+        "Wrong username and password",
+        style: TextStyle(color: Colors.white, fontSize: 16),
       ),
+      backgroundColor: Colors.red, // Error background color
       duration: const Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      margin: const EdgeInsets.all(16),
     );
+
+    ScaffoldMessenger.of(context).showSnackBar(errorSnackBar);
   }
+
+
+  // static credential_true_snackBar(context){
+  //   return Get.snackbar(
+  //     '',
+  //     "Welcome! You've logged in successfully.",
+  //     icon: const Icon(Icons.check, color: Colors.white,size: 18),
+  //     backgroundColor: Colors.green,
+  //     snackPosition: SnackPosition.TOP,
+  //     colorText: Colors.white,
+  //     padding: symmetric(h: 5, v: 0),
+  //     margin: all(10),
+  //     maxWidth: double.infinity,
+  //     borderRadius: 5,
+  //     isDismissible: true,
+  //     titleText: const Stack(),
+  //     messageText: Padding(
+  //       padding: only(b: 5),
+  //       child: const Text("Welcome! You've logged in successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
+  //     ),
+  //     duration: const Duration(seconds: 3),
+  //   );
+  // }
+
+  // static credential_fail_snackBar(){
+  //   return Get.snackbar(
+  //     '',
+  //     "Wrong username and password",
+  //     icon: const Icon(Icons.close, color: Colors.white,size: 18),
+  //     backgroundColor: Colors.red,
+  //     snackPosition: SnackPosition.TOP,
+  //     colorText: Colors.white,
+  //     padding: symmetric(h: 5, v: 0),
+  //     margin: all(10),
+  //     maxWidth: double.infinity,
+  //     borderRadius: 5,
+  //     isDismissible: true,
+  //     titleText: const Stack(),
+  //     messageText: Padding(
+  //       padding: only(b: 5),
+  //       child: const Text("Wrong username and password" ,style: TextStyle(color: Colors.white,fontSize: 13),),
+  //     ),
+  //     duration: const Duration(seconds: 3),
+  //   );
+  // }
+
 }

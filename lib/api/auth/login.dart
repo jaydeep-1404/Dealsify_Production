@@ -47,17 +47,16 @@ class AuthController extends GetxController {
         userInfo.user_id = "${responseData[BKD.data][BKD.id]}";
         pref.set(userInfo);
 
-        Open.credential_true_snackBar();
+        Open.credential_true_snackBar(context);
         navigateToPage(context, const DashboardScreen());
-        // Get.offNamedUntil(ConstRoute.dashboard, (_) => false);
 
       } else {
-        Open.credential_fail_snackBar();
+        Open.credential_fail_snackBar(context);
       }
     } catch (e,StackTrace) {
       'LOGIN : $e'.show();
       'LOGIN : $StackTrace'.show();
-      Open.credential_fail_snackBar();
+      Open.credential_fail_snackBar(context);
     } finally {
       loading.value = false;
     }
