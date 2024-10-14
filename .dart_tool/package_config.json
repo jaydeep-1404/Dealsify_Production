@@ -2,12 +2,6 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "args",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/args-2.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "async",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
@@ -38,52 +32,10 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "connectivity_plus",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus-2.3.9",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "connectivity_plus_linux",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus_linux-1.3.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "connectivity_plus_macos",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus_macos-1.2.6",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "connectivity_plus_platform_interface",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus_platform_interface-1.2.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "connectivity_plus_web",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus_web-1.2.5",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "connectivity_plus_windows",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/connectivity_plus_windows-1.2.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8",
       "packageUri": "lib/",
       "languageVersion": "3.1"
-    },
-    {
-      "name": "dbus",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/dbus-0.7.10",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
     },
     {
       "name": "equatable",
@@ -158,12 +110,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "js",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/js-0.6.7",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "leak_tracker",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/leak_tracker-10.0.5",
       "packageUri": "lib/",
@@ -206,12 +152,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "nm",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/nm-0.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "path",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
@@ -232,12 +172,6 @@
     {
       "name": "path_provider_windows",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/path_provider_windows-2.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
-      "name": "petitparser",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/petitparser-6.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.2"
     },
@@ -392,19 +326,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "xml",
-      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/xml-6.5.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.2"
-    },
-    {
       "name": "dealsify_production",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-10T05:28:25.362320Z",
+  "generated": "2024-10-12T14:34:11.322379Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/jaydeepmakwana/development/flutter",

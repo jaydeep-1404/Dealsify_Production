@@ -147,11 +147,11 @@ class OpenBillingAddress extends StatelessWidget {
                                                       }
                                                     },
                                                   ),
-                                                ],);
+                                                ],
+                                              );
                                             },),
                                           ],
                                         ),
-
                                         const SizedBox(height: 10),
                                         saveButton(
                                           onPressed: () {

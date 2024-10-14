@@ -1,6 +1,7 @@
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
+import 'package:dealsify_production/src/screens/splash/splash.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 
@@ -24,6 +25,7 @@ class RoutePage {
       right = Transition.leftToRight;
 
   static List<GetPage> routes = [
+    GetPage(name: ConstRoute.splashScreen, page: () => const SplashScreen()),
     GetPage(name: ConstRoute.loginPage, page: () => const LoginScreen()),
     GetPage(name: ConstRoute.dashboard, page: () => const DashboardScreen()),
     GetPage(name: ConstRoute.poItems, page: () => const POItemsPage()),
