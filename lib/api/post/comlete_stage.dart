@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
-import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/state_controllers/completeStage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';

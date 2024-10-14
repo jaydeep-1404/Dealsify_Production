@@ -244,11 +244,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(height: 10),
             Obx(() {
               if (po.loading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return const Expanded(child: Center(child: CircularProgressIndicator()));
               }
 
               if (po.items.isEmpty) {
-                return const Center(child: Text("No purchase orders available."));
+                return const Expanded(child: Center(child: Text("No purchase orders available.")));
               }
 
               return Expanded(
@@ -262,7 +262,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         navigateToPage(context, const OrderDetailScreen());
                         },
                       orderNo: item.productionOrderNo,
-                      customer: item.customerId!.customerName,
+                      customer: item.customerId!.shortName,
                     );
                   },
                 ),

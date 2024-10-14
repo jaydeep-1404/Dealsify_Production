@@ -171,7 +171,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Order: ${record.poRecord.customerId?.customerName}', style: const TextStyle(fontSize: 16)),
+            Text('Order: ${record.poRecord.customerId?.shortName}', style: const TextStyle(fontSize: 16)),
             Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
           ],
         ),
