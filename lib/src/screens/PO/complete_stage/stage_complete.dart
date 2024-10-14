@@ -273,7 +273,7 @@ class OpenBillingAddress extends StatelessWidget {
           onPressed: () {
             controller.payload(controller.currentPage.value, context).printFormattedJson();
             saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
-            controller.nextPage();
+            // controller.nextPage();
             // controller.addToCompletedItems(controller.currentPage.value);
 
             // if (controller.currentPage.value < controller.items!.length - 1) {

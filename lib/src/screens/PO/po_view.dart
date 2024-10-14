@@ -162,6 +162,7 @@ class OrderDetailScreen extends StatefulWidget {
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
   final record = Get.put(PORecordCtrl());
   Map<int, String> selectedOptions = {};
+  final searchCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +219,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     itemName: item.itemName,
                     categoryName: item.categoryName,
                     quantity: item.qty,
-                    stage: stage!.label,
+                    stage: stage?.label ?? '',
+                    popUpEnable: stage?.label == null ? false : true,
                     stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
                     boxIndex: index,
                     options: const ['Complete stage'],
@@ -258,7 +260,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 }
 
 class ItemCard extends StatefulWidget {
-  const ItemCard({Key? key, this.itemName, this.categoryName, this.quantity, this.stage, this.boxIndex, this.options, this.onSelected, this.stagesAvailable,}) : super(key: key);
+  const ItemCard({Key? key, this.itemName, this.categoryName, this.quantity, this.stage, this.boxIndex, this.options, this.onSelected, this.stagesAvailable, this.popUpEnable,}) : super(key: key);
   final itemName;
   final categoryName;
   final quantity;
@@ -267,6 +269,7 @@ class ItemCard extends StatefulWidget {
   final options;
   final onSelected;
   final stagesAvailable;
+  final popUpEnable;
 
   @override
   _ItemCardState createState() => _ItemCardState();
@@ -294,6 +297,7 @@ class _ItemCardState extends State<ItemCard> {
                   "Item : ${widget.itemName ?? ""}",
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
+                if (widget.popUpEnable == true)
                 buildPopupMenuButton(
                   boxIndex: widget.boxIndex,
                   options: widget.options,

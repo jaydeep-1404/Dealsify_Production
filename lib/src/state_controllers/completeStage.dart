@@ -71,34 +71,20 @@ class PageControllerGetX extends GetxController {
 
   Map<String, dynamic> payload(index,context) {
     final item = items![index];
-    final startDate = startDates[index];
-    final endDate = endDates[index];
-    final startTime = startTimes[index];
-    final endTime = endTimes[index];
+    DateTime? startDate = startDates[index];
+    DateTime? endDate = endDates[index];
+    TimeOfDay? startTime = startTimes[index];
+    TimeOfDay? endTime = endTimes[index];
     return {
-      // "productionStagesId": "67092b4f774fefc0bdf7970a",
-      // "inspector": "Satish patar",
-      // "isScrapMaterialEnable": false,
-      // "isAddOnMaterialEnable": false,
-      // "isStageCompleted": false,
-      // "startingTime": "07:00:00",
-      // "startingDate": "2024-10-12T18:30:00.000Z",
-      // "endingTime": "07:00:00",
-      // "endingDate": "2024-10-12T18:30:00.000Z"
-
       "productionStagesId": item.id.toString(),
       "inspector": item.inspector.toString(),
       "isScrapMaterialEnable": false,
       "isAddOnMaterialEnable": false,
       "isStageCompleted": true,
-      // "startingTime": "",
-      // "startingDate": "",
-      // "endingTime": "",
-      // "endingDate": ""
-      // "startingTime": "${startTime.hour}:${startTime.minute}:00",
-      // "startingDate": startDate.toString(),
-      // "endingTime": "${endTime.hour}:${endTime.minute}:00",
-      // "endingDate": endDate.toString()
+      "startingTime": startTime?.hour == null || startTime?.minute == null ? "" : "${startTime?.hour ?? ''}:${startTime?.minute ?? ''}:00",
+      "startingDate": startDate?.toString() ?? "",
+      "endingTime": endTime?.hour == null || endTime?.minute == null ? "" : "${endTime?.hour}:${endTime?.minute}:00",
+      "endingDate": endDate?.toString() ?? "",
     };
   }
 }

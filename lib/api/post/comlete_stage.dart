@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
+import 'package:dealsify_production/src/state_controllers/completeStage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/services/api_handler.dart';
 import '../../core/services/server_urls.dart';
+import '../../src/common_functions/snackbars.dart';
 
 class CompleteStageController extends GetxController {
   var loading = false.obs;
@@ -11,14 +14,17 @@ class CompleteStageController extends GetxController {
     try {
       loading(true);
       var response = await ApiRequest.patch(Uri.parse((ConstUrl.updateStages + id)), payload);
-      print("URL : ${ConstUrl.updateStages + id}");
+      if (kDebugMode) {
+        print("URL : ${ConstUrl.updateStages + id}");
+      }
       Map<String, dynamic> responseData = jsonDecode(response.body);
       responseData.printFormattedJson();
-      // if (responseData[BKD.status].toString().isSuccess) {
-      //   loading(false);
-      // } else {
-      //   loading(false);
-      // }
+      if (responseData["status"] == "success"){
+        final ctrl = Get.put(PageControllerGetX());
+        ctrl.completeStages!.add(ctrl.currentPage.value);
+        Open.stageUpdated();
+        ctrl.nextPage();
+      }
     } on Exception catch (e, s) {
       e.show();
       s.show();

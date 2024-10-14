@@ -84,6 +84,27 @@ class Open {
   //   }
   // }
 
+  static stageUpdated() {
+      return Get.snackbar(
+        '',
+        "Stage Updated successfully.",
+        icon: const Icon(Icons.check, color: Colors.white,size: 18),
+        backgroundColor: Colors.green,
+        snackPosition: SnackPosition.TOP,
+        colorText: Colors.white,
+        padding: symmetric(h: 5, v: 0),
+        margin: all(10),
+        maxWidth: double.infinity,
+        borderRadius: 5,
+        isDismissible: true,
+        titleText: const Stack(),
+        messageText: Padding(
+          padding: only(b: 5),
+          child: const Text("Stage Updated successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
+        ),
+        duration: const Duration(seconds: 3),
+      );
+  }
 
   static credential_true_snackBar(context) {
     final snackBar = SnackBar(

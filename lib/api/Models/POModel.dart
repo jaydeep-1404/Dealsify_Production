@@ -375,34 +375,51 @@ class Item {
   }
 
   List<ProductionStages> getAllProductionStages() {
-    List<ProductionStages> allStages = [];
-    for (var meta in metaList!) {
-      allStages.addAll(meta.productionStages as Iterable<ProductionStages>);
+    try {
+      List<ProductionStages> allStages = [];
+      for (var meta in metaList!) {
+        allStages.addAll(meta.productionStages as Iterable<ProductionStages>);
+      }
+      allStages.sort((a, b) => a.priority!.compareTo(b.priority!));
+      return allStages;
+    } catch (e, s) {
+      print(s);
+      return [];
     }
-    allStages.sort((a, b) => a.priority!.compareTo(b.priority!));
-    return allStages;
+
   }
 
   ProductionStages? findFirstIncompleteStage() {
-    List<ProductionStages> allStages = getAllProductionStages();
-    for (var stage in allStages) {
-      if (stage.isStageCompleted == false) {
-        return stage;
+    try {
+      List<ProductionStages> allStages = getAllProductionStages();
+      for (var stage in allStages) {
+        if (stage.isStageCompleted == false) {
+          return stage;
+        }
       }
+      return null;
+    } catch (e, s) {
+      print(s);
+      return null;
     }
-    return null;
+
   }
 
   List<ProductionStages> incompleteStages() {
-    List<ProductionStages> allStages = getAllProductionStages();
-    List<ProductionStages> inCompleteList = [];
-    for (var stage in allStages) {
-      print("STATUS : ${stage.isStageCompleted}");
-      if (stage.isStageCompleted == false) {
-        inCompleteList.add(stage);
+    try {
+      List<ProductionStages> allStages = getAllProductionStages();
+      List<ProductionStages> inCompleteList = [];
+      for (var stage in allStages) {
+        if (stage.isStageCompleted == false) {
+          inCompleteList.add(stage);
+        }
       }
+      return inCompleteList;
+    } catch (e, s) {
+      print(s);
+      return [];
     }
-    return inCompleteList;
+
   }
 }
 
