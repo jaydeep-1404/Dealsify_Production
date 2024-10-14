@@ -333,6 +333,7 @@ class _ItemCardState extends State<ItemCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Stage: ${widget.stage ?? ""}',

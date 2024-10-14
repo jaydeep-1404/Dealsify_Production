@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
+import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/state_controllers/completeStage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -24,6 +25,10 @@ class CompleteStageController extends GetxController {
         ctrl.completeStages!.add(ctrl.currentPage.value);
         Open.stageUpdated();
         ctrl.nextPage();
+        print("${ctrl.items!.length}");
+        if ((ctrl.currentPage.value + 1) == ctrl.items!.length){
+          Get.back(canPop: true,closeOverlays: true);
+        }
       }
     } on Exception catch (e, s) {
       e.show();
