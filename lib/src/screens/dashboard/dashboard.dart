@@ -178,3 +178,198 @@ class DashboardItemBox extends StatelessWidget {
     );
   }
 }
+
+/*
+class DashboardScreen extends StatefulWidget {
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  String searchQuery = '';
+  final List<Map<String, String>> purchaseOrders = [
+    {
+      'orderNumber': 'PO-001',
+      'supplier': 'Supplier A',
+      'date': '2024-10-01',
+      'status': 'Pending',
+      'amount': '\$1000',
+    },
+    {
+      'orderNumber': 'PO-002',
+      'supplier': 'Supplier B with a long name',
+      'date': '2024-10-05',
+      'status': 'Completed',
+      'amount': '\$2000',
+    },
+    {
+      'orderNumber': 'PO-003',
+      'supplier': 'Supplier C',
+      'date': '2024-10-10',
+      'status': 'In Progress',
+      'amount': '\$1500',
+    },
+    {
+      'orderNumber': 'PO-004',
+      'supplier': 'Supplier D',
+      'date': '2024-10-12',
+      'status': 'Pending',
+      'amount': '\$3000',
+    },
+    // More orders...
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ERP Dashboard'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 20,
+              right: 20,
+              bottom: 10,
+              top: 5,
+            ),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search Purchase Orders...',
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                  borderSide: const BorderSide(color: Colors.teal),
+                ),
+                prefixIcon: const Icon(Icons.search, color: Colors.teal),
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: purchaseOrders.where((order) {
+                  return order['supplier']!.toLowerCase().contains(searchQuery.toLowerCase()) ||
+                      order['orderNumber']!.toLowerCase().contains(searchQuery.toLowerCase());
+                }).toList().length,
+                itemBuilder: (context, index) {
+                  final order = purchaseOrders.where((order) {
+                    return order['supplier']!.toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        order['orderNumber']!.toLowerCase().contains(searchQuery.toLowerCase());
+                  }).toList()[index];
+                  return PurchaseOrderCard(order: order);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Orders'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.teal,
+        backgroundColor: Colors.white,
+      ),
+    );
+  }
+}
+
+class PurchaseOrderCard extends StatelessWidget {
+  final Map<String, String> order;
+
+  const PurchaseOrderCard({Key? key, required this.order}) : super(key: key);
+
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'Completed':
+        return Colors.green;
+      case 'Pending':
+        return Colors.red;
+      case 'In Progress':
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Order Number: ${order['orderNumber']}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: _getStatusColor(order['status']!),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    order['status']!,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Supplier: ${order['supplier']}',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                Text('Date: ${order['date']}'),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Amount: ${order['amount']}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}*/

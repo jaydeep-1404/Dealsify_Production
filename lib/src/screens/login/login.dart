@@ -2,121 +2,7 @@ import 'package:dealsify_production/api/auth/login.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../common_functions/animations.dart';
 import '../../state_controllers/login.dart';
-
-/*
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final controller = Get.put(LoginHandler());
-  late FocusNode focusNodeEmail = FocusNode(), focusNodePass = FocusNode();
-  final loginKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    Get.closeAllSnackbars();
-    super.initState();
-  }
-
-  @override
-  void dispose(){
-    focusNodeEmail.dispose();
-    focusNodePass.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: loginKey,
-          child: Column(
-            children: [
-              const SizedBox(height: 400),
-              _buildEmail(),
-              const SizedBox(height: 30),
-              _buildPassword(),
-              const SizedBox(height: 24),
-              _buildLoginButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEmail(){
-    return Obx(() {
-      return TextFormField(
-        initialValue: controller.email.value,
-        focusNode: focusNodeEmail,
-        onChanged: controller.updateEmail,
-        validator: controller.validatorEmail,
-        onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
-        autofillHints: const [AutofillHints.email],
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          labelText: 'Email',
-          hintText: 'Email',
-          labelStyle: const TextStyle(fontSize: 15),
-          hintStyle: const TextStyle(fontSize: 15),
-          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),  // Smaller padding
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30),),
-        ),
-      );
-    },);
-  }
-
-  Widget _buildPassword(){
-    return Obx(() {
-      return TextFormField(
-        initialValue: controller.password.value,
-        onChanged: controller.updatePassword,
-        focusNode: focusNodePass,
-        obscureText: controller.passwordVisible.isFalse ? true : false ,
-        validator: controller.validatorPassword,
-        autofillHints: const [AutofillHints.password],
-        decoration: InputDecoration(
-          labelText: 'Password',
-          hintText: 'Password',
-          labelStyle: const TextStyle(fontSize: 15),
-          hintStyle: const TextStyle(fontSize: 15),
-          suffixIcon: IconButton(
-            onPressed: controller.updateShowPassword,
-            icon: controller.passwordVisible.isTrue ?
-            const Icon(Icons.visibility,) :
-            const Icon(Icons.visibility_off,),
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),  // Smaller padding
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30),),
-        ),
-      );
-    },);
-  }
-
-  Widget _buildLoginButton(){
-    return Align(
-      alignment: Alignment.centerRight,
-      child: ElevatedButton(
-        onPressed: () => controller.check_validation_and_login(context,loginKey),
-        child: Get.put(AuthController()).isLoading.isTrue ?
-        const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 2,),) :
-        const Text('Login'),
-      ),
-    );
-  }
-}
-*/
-
-
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -137,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     focusNodeEmail.dispose();
     focusNodePass.dispose();
     super.dispose();
@@ -148,9 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          CustomPaint(
-            size: MediaQuery.of(context).size,
-            painter: BackgroundPainter(),
+          Container(
+            color: Colors.lightBlue[50],
           ),
           Center(
             child: SingleChildScrollView(
@@ -163,17 +48,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text(
                       'Login',
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 40),
                     _buildEmail(),
                     const SizedBox(height: 15),
                     _buildPassword(),
                     const SizedBox(height: 30),
                     _buildLoginButton(),
+                    const SizedBox(height: 20),
+                    _buildForgotPassword(),
+                    const SizedBox(height: 20),
+                    _buildSignUpPrompt(),
                   ],
                 ),
               ),
@@ -185,101 +74,152 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildEmail() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.blueAccent, width: 2),
-          ),
-          child: Obx(() {
-            return TextFormField(
-              initialValue: controller.email.value,
-              focusNode: focusNodeEmail,
-              onChanged: controller.updateEmail,
-              validator: controller.validatorEmail,
-              onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
-              autofillHints: const [AutofillHints.email],
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                hintText: 'Email',
-                labelStyle: TextStyle(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.bold,
-                ),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              ),
-            );
-          },),
-        ),
-      ],
+    return Container(
+      decoration: _inputContainerDecoration(),
+      child: Obx(() {
+        return TextFormField(
+          initialValue: controller.email.value,
+          focusNode: focusNodeEmail,
+          onChanged: controller.updateEmail,
+          validator: controller.validatorEmail,
+          onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
+          autofillHints: const [AutofillHints.email],
+          keyboardType: TextInputType.emailAddress,
+          decoration: _inputDecoration(label: 'Email', hint: 'Enter your email'),
+        );
+      }),
     );
   }
 
   Widget _buildPassword() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.blueAccent, width: 2),
+    return Container(
+      decoration: _inputContainerDecoration(),
+      child: Obx(() {
+        return TextFormField(
+          initialValue: controller.password.value,
+          onChanged: controller.updatePassword,
+          focusNode: focusNodePass,
+          obscureText: !controller.passwordVisible.value,
+          validator: controller.validatorPassword,
+          autofillHints: const [AutofillHints.password],
+          decoration: _inputDecoration(
+            label: 'Password',
+            hint: 'Enter your password',
+            suffixIcon: IconButton(
+              onPressed: controller.updateShowPassword,
+              icon: controller.passwordVisible.value
+                  ? const Icon(Icons.visibility)
+                  : const Icon(Icons.visibility_off),
+            ),
           ),
-          child: Obx(() {
-            return TextFormField(
-              initialValue: controller.password.value,
-              onChanged: controller.updatePassword,
-              focusNode: focusNodePass,
-              obscureText: controller.passwordVisible.isFalse ? true : false ,
-              validator: controller.validatorPassword,
-              autofillHints: const [AutofillHints.password],
-              decoration: InputDecoration(
-                labelText: 'Password',
-                hintText: 'Password',
-                hintStyle: const TextStyle(fontSize: 15),
-                suffixIcon: IconButton(
-                  onPressed: controller.updateShowPassword,
-                  icon: controller.passwordVisible.isTrue ?
-                  const Icon(Icons.visibility,) :
-                  const Icon(Icons.visibility_off,),
-                ),
-                labelStyle: const TextStyle(
-                  color: Colors.blueAccent,
-                  fontWeight: FontWeight.bold,
-                ),
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              ),
-            );
-          },),
+        );
+      }),
+    );
+  }
+
+  Widget _buildLoginButton() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Colors.blueAccent, Colors.lightBlueAccent],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            spreadRadius: 1,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: () => controller.check_validation_and_login(context, loginKey),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        child: Get.put(AuthController()).isLoading.isTrue
+            ? const CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+        )
+            : const Text(
+          'Login',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildForgotPassword() {
+    return TextButton(
+      onPressed: () {
+      },
+      child: const Text(
+        'Forgot Password?',
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      ),
+    );
+  }
+
+  Widget _buildSignUpPrompt() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'Don\'t have an account? ',
+          style: TextStyle(color: Colors.black),
+        ),
+        TextButton(
+          onPressed: () {
+          },
+          child: const Text(
+            'Sign Up',
+            style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildLoginButton(){
-    return Align(
-      alignment: Alignment.centerRight,
-      child: ElevatedButton(
-        onPressed: () => controller.check_validation_and_login(context,loginKey),
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          backgroundColor: Colors.white,
-          elevation: 5,
-        ),
-        child: Get.put(AuthController()).isLoading.isTrue ?
-        const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 2,),) :
-        const Text('Login'),
+  InputDecoration _inputDecoration({required String label, required String hint, Widget? suffixIcon}) {
+    return InputDecoration(
+      labelText: label,
+      hintText: hint,
+      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+      suffixIcon: suffixIcon,
+      labelStyle: const TextStyle(
+        color: Colors.blueAccent,
+        fontWeight: FontWeight.bold,
       ),
+      border: InputBorder.none,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    );
+  }
+
+  BoxDecoration _inputContainerDecoration() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          blurRadius: 8,
+          spreadRadius: 1,
+          offset: const Offset(0, 3),
+        ),
+      ],
     );
   }
 }
-
