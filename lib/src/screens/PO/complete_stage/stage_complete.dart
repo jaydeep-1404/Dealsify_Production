@@ -34,8 +34,8 @@ class OpenBillingAddress extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   color: Colors.black26,
                   blurRadius: 10,
                   offset: Offset(0, 2),
@@ -127,38 +127,26 @@ class OpenBillingAddress extends StatelessWidget {
                                       Obx(() {
                                         return buildDateTimePicker(
                                           context,
-                                          controller.startDates[index],
-                                              (pickedDate) {
-                                            if (pickedDate != null) {
-                                              controller.updateStartDate(index, pickedDate);
-                                            }
-                                          },
+                                          controller.startDates[index], (pickedDate) {
+                                            controller.updateStartDate(index, pickedDate);
+                                            },
                                           "Start Date",
-                                          controller.startTimes[index],
-                                              (pickedTime) {
-                                            if (pickedTime != null) {
-                                              controller.updateStartTime(index, pickedTime);
-                                            }
-                                          },
+                                          controller.startTimes[index], (pickedTime) {
+                                            controller.updateStartTime(index, pickedTime);
+                                            },
                                           "Start Time",
                                         );
                                       }),
                                       Obx(() {
                                         return buildDateTimePicker(
                                           context,
-                                          controller.endDates[index],
-                                              (pickedDate) {
-                                            if (pickedDate != null) {
-                                              controller.updateEndDate(index, pickedDate);
-                                            }
-                                          },
+                                          controller.endDates[index], (pickedDate) {
+                                            controller.updateEndDate(index, pickedDate);
+                                            },
                                           "End Date",
-                                          controller.endTimes[index],
-                                              (pickedTime) {
-                                            if (pickedTime != null) {
-                                              controller.updateEndTime(index, pickedTime);
-                                            }
-                                          },
+                                          controller.endTimes[index], (pickedTime) {
+                                            controller.updateEndTime(index, pickedTime);
+                                            },
                                           "End Time",
                                         );
                                       }),
