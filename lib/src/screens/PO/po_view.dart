@@ -222,7 +222,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     quantity: item.qty,
                     stage: stage!.label,
                     boxIndex: index,
-                    options: const ['Complete stage', 'Scrap'],
+                    options: const ['Complete stage'],
                     onSelected: (value) {
                       setState(() {
                         selectedOptions[index] = value;
