@@ -47,25 +47,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("GetX Page Example")),
+      appBar: AppBar(title: const Text("GetX Page Example")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SwitchListTile(
-              title: Text("Enable Feature"),
+              title: const Text("Enable Feature"),
               value: controller.isSwitched.value,
               onChanged: controller.toggleSwitch,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(() {
               return TextFormField(
                 decoration: InputDecoration(
                   labelText: "Text Field 1",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(),
+                    borderSide: const BorderSide(),
                   ),
                 ),
                 initialValue: controller.textField1.value,
@@ -78,14 +78,14 @@ class MyApp extends StatelessWidget {
                   labelText: "Text Field 2",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(),
+                    borderSide: const BorderSide(),
                   ),
                 ),
                 initialValue: controller.textField2.value,
                 onChanged: (value) => controller.textField2.value = value,
               );
             }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(() {
               return InkWell(
                 onTap: () async {
@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Select Date 1: ${controller.selectedDate1.value.toLocal()}".split(' ')[0]),
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                     ],
                   ),
                 ),
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Select Date 2: ${controller.selectedDate2.value.toLocal()}".split(' ')[0]),
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                     ],
                   ),
                 ),
@@ -160,7 +160,7 @@ class MyApp extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30),
@@ -170,7 +170,7 @@ class MyApp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Select Date 3: ${controller.selectedDate3.value.toLocal()}".split(' ')[0]),
-                      Icon(Icons.calendar_today),
+                      const Icon(Icons.calendar_today),
                     ],
                   ),
                 ),
@@ -181,10 +181,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(GetMaterialApp(
-    home: MyApp(),
-  ));
 }

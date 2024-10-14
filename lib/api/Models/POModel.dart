@@ -397,6 +397,7 @@ class Item {
     List<ProductionStages> allStages = getAllProductionStages();
     List<ProductionStages> inCompleteList = [];
     for (var stage in allStages) {
+      print("STATUS : ${stage.isStageCompleted}");
       if (stage.isStageCompleted == false) {
         inCompleteList.add(stage);
       }

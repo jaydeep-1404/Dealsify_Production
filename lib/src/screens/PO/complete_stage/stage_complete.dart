@@ -1,4 +1,5 @@
 
+import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../api/post/comlete_stage.dart';
@@ -270,8 +271,8 @@ class OpenBillingAddress extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            // controller.payload(controller.currentPage.value, context).printFormattedJson();
-            // saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+            controller.payload(controller.currentPage.value, context).printFormattedJson();
+            saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
             controller.nextPage();
             // controller.addToCompletedItems(controller.currentPage.value);
 

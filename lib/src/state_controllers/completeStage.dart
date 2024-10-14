@@ -86,15 +86,15 @@ class PageControllerGetX extends GetxController {
       // "endingTime": "07:00:00",
       // "endingDate": "2024-10-12T18:30:00.000Z"
 
-      "productionStagesId": item.stageId.toString(),
+      "productionStagesId": item.id.toString(),
       "inspector": item.inspector.toString(),
       "isScrapMaterialEnable": false,
       "isAddOnMaterialEnable": false,
-      "isStageCompleted": false,
-      "startingTime": "07:00:00",
-      "startingDate": "2024-10-12T18:30:00.000Z",
-      "endingTime": "07:00:00",
-      "endingDate": "2024-10-12T18:30:00.000Z"
+      "isStageCompleted": true,
+      // "startingTime": "",
+      // "startingDate": "",
+      // "endingTime": "",
+      // "endingDate": ""
       // "startingTime": "${startTime.hour}:${startTime.minute}:00",
       // "startingDate": startDate.toString(),
       // "endingTime": "${endTime.hour}:${endTime.minute}:00",

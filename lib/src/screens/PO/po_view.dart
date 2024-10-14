@@ -219,6 +219,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     categoryName: item.categoryName,
                     quantity: item.qty,
                     stage: stage!.label,
+                    stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
                     boxIndex: index,
                     options: const ['Complete stage'],
                     onSelected: (value) {
@@ -257,7 +258,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 }
 
 class ItemCard extends StatefulWidget {
-  const ItemCard({Key? key, this.itemName, this.categoryName, this.quantity, this.stage, this.boxIndex, this.options, this.onSelected,}) : super(key: key);
+  const ItemCard({Key? key, this.itemName, this.categoryName, this.quantity, this.stage, this.boxIndex, this.options, this.onSelected, this.stagesAvailable,}) : super(key: key);
   final itemName;
   final categoryName;
   final quantity;
@@ -265,6 +266,7 @@ class ItemCard extends StatefulWidget {
   final boxIndex;
   final options;
   final onSelected;
+  final stagesAvailable;
 
   @override
   _ItemCardState createState() => _ItemCardState();
@@ -313,6 +315,7 @@ class _ItemCardState extends State<ItemCard> {
               ],
             ),
             const SizedBox(height: 5),
+            if (widget.stagesAvailable == true)
             Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Container(
