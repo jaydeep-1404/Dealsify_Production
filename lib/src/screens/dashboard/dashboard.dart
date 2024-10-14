@@ -259,12 +259,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     return PurchaseOrderCard(
                       onTap: (){
                         record.saveRecord(item);
-                        navigateToPage(context, OrderDetailScreen());
+                        navigateToPage(context, const OrderDetailScreen());
                         },
                       orderNo: item.productionOrderNo,
                       customer: item.customerId!.customerName,
-                      // orderDate: item.orderDate,
-                      // dispatchDate: item.dispatchDate,
                     );
                   },
                 ),
