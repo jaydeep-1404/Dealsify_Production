@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:dealsify_production/core/services/extensions.dart';
+import 'package:dealsify_production/src/common_functions/animations.dart';
+import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +21,7 @@ class AuthController extends GetxController {
 
   bool get isLoading => loading.value;
 
-  Future<void> login({required String email, required String password}) async {
+  Future<void> login(context,{required String email, required String password}) async {
     LocalDataModel? userInfo = await pref.get();
 
     try {
@@ -46,7 +48,8 @@ class AuthController extends GetxController {
         pref.set(userInfo);
 
         Open.credential_true_snackBar();
-        Get.offNamedUntil(ConstRoute.dashboard, (_) => false);
+        navigateToPage(context, const DashboardScreen());
+        // Get.offNamedUntil(ConstRoute.dashboard, (_) => false);
 
       } else {
         Open.credential_fail_snackBar();

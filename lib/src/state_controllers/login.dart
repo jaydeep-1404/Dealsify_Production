@@ -31,11 +31,12 @@ class LoginHandler extends GetxController {
     return null;
   }
 
-  Future<void> check_validation_and_login(GlobalKey<FormState> loginKey) async {
+  Future<void> check_validation_and_login(context,GlobalKey<FormState> loginKey) async {
     FocusManager.instance.primaryFocus?.unfocus();
     if (loginKey.currentState!.validate()) {
       var encryptedPass = await encryptPassword(password.value);
       Get.put(AuthController()).login(
+        context,
         email: email.value.trim(),
         password: encryptedPass,
       );

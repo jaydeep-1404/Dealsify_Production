@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Align(
       alignment: Alignment.centerRight,
       child: ElevatedButton(
-        onPressed: () => controller.check_validation_and_login(loginKey),
+        onPressed: () => controller.check_validation_and_login(context,loginKey),
         child:  Get.put(AuthController()).isLoading.isTrue ?
         const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 2,),) :
         const Text('Login'),
