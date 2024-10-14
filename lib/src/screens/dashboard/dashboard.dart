@@ -1,9 +1,12 @@
 import 'package:dealsify_production/api/get/get_po_list.dart';
 import 'package:dealsify_production/core/routs/routs.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
+import 'package:dealsify_production/src/screens/PO/add_po.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
+import '../PO/po_view.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -34,7 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            Get.toNamed(ConstRoute.poCreate);
+            navigateToPage(context, const CreatePurchaseOrder());
           },
           elevation: 0,
           disabledElevation: 0,
@@ -43,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            leading: Stack(),
+            leading: const Stack(),
             expandedHeight: 200.0,
             floating: false,
             pinned: true,
@@ -76,7 +79,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 return DashboardItemBox(
                   onTap: () {
                     record.saveRecord(item);
-                    Get.toNamed(ConstRoute.poItems);
+                    navigateToPage(context, const POItemsPage());
                   },
                   customerName: item.customerId!.shortName,
                   no: item.productionOrderNo,

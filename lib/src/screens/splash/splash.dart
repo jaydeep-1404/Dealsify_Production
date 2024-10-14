@@ -2,7 +2,6 @@
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/services/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
