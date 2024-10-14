@@ -8,149 +8,149 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../state_controllers/production_order_states.dart';
 
-class POItemsPage extends StatefulWidget {
-  const POItemsPage({super.key});
-
-  @override
-  State<POItemsPage> createState() => _POItemsPageState();
-}
-
-class _POItemsPageState extends State<POItemsPage> {
-  final record = Get.put(PORecordCtrl());
-
-  @override
-  Widget build(BuildContext context) {
-    Map<int, String> selectedOptions = {};
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        leadingWidth: 40,
-        leading: IconButton(
-          onPressed: () {
-            navigateToPage(context, const DashboardScreen());
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text("Items"),
-            Text("Customer :-  ${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
-            Text("PO No. :-  ${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
-            ],
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.blueGrey[300],
-      ),
-      body: ListView(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: record.poRecord.items!.length,
-              itemBuilder: (context, index) {
-                final item = record.poRecord.items![index];
-                final stage = item.findFirstIncompleteStage();
-                return Padding(
-                  padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
-                  child: Material(
-                    elevation: 1,
-                    borderRadius: BorderRadius.circular(8),
-                    child: CustomExpansionTile(
-                      title: item.itemName.toString(),
-                      children: [
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(stage!.label.toString()),
-                              buildPopupMenuButton(
-                                boxIndex: index,
-                                options: ['Complete stage', 'Scrap', 'Adon'],
-                                onSelected: (value) {
-                                  setState(() {
-                                    selectedOptions[index] = value;
-                                    switch (value) {
-                                      case "Complete stage":
-                                        FocusManager.instance.primaryFocus?.unfocus();
-                                        Get.bottomSheet(
-                                          OpenBillingAddress(index: index),
-                                          isScrollControlled: true,
-                                          isDismissible: false,
-                                          backgroundColor: Colors.transparent,
-                                        );
-                                        break;
-                                      case "Scrap":
-                                        record.savePOItemIndex(index);
-                                        Get.to(const ScraptScreen());
-                                        break;
-                                      case "Adon":
-                                        record.savePOItemIndex(index);
-                                        Get.to(const AdonScreen());
-                                        break;
-                                    }
-                                  });
-                                },
-                              ),
-                            ],),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-      ),
-    );
-  }
-
-  PopupMenuButton<String> buildPopupMenuButton({
-    required int boxIndex,
-    required List<String> options,
-    required Function(String) onSelected,
-  }) {
-    return PopupMenuButton<String>(
-      onSelected: onSelected,
-      icon: const Icon(Icons.more_vert),
-      itemBuilder: (BuildContext context) {
-        return options.map((String option) {
-          return PopupMenuItem<String>(
-            value: option,
-            child: Text(option),
-          );
-        }).toList();
-      },
-    );
-  }
-}
-
-class CustomExpansionTile extends StatelessWidget {
-  final String title;
-  final List<Widget> children;
-
-  const CustomExpansionTile({
-    Key? key,
-    required this.title,
-    required this.children,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        // border: Border.all(color: Colors.blue, width: 2),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: ExpansionTile(
-        title: Text(title),
-        tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-        expandedAlignment: Alignment.centerLeft,
-        childrenPadding: const EdgeInsets.all(16.0),
-        children: children,
-      ),
-    );
-  }
-}
+// class POItemsPage extends StatefulWidget {
+//   const POItemsPage({super.key});
+//
+//   @override
+//   State<POItemsPage> createState() => _POItemsPageState();
+// }
+//
+// class _POItemsPageState extends State<POItemsPage> {
+//   final record = Get.put(PORecordCtrl());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     Map<int, String> selectedOptions = {};
+//     return Scaffold(
+//       appBar: AppBar(
+//         toolbarHeight: 80,
+//         leadingWidth: 40,
+//         leading: IconButton(
+//           onPressed: () {
+//             navigateToPage(context, const DashboardScreen());
+//           },
+//           icon: const Icon(Icons.arrow_back_ios),
+//         ),
+//         title: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             const Text("Items"),
+//             Text("Customer :-  ${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
+//             Text("PO No. :-  ${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
+//             ],
+//         ),
+//         centerTitle: false,
+//         backgroundColor: Colors.blueGrey[300],
+//       ),
+//       body: ListView(
+//           children: [
+//             ListView.builder(
+//               shrinkWrap: true,
+//               itemCount: record.poRecord.items!.length,
+//               itemBuilder: (context, index) {
+//                 final item = record.poRecord.items![index];
+//                 final stage = item.findFirstIncompleteStage();
+//                 return Padding(
+//                   padding: const EdgeInsets.only(left: 8,right: 8,top: 8),
+//                   child: Material(
+//                     elevation: 1,
+//                     borderRadius: BorderRadius.circular(8),
+//                     child: CustomExpansionTile(
+//                       title: item.itemName.toString(),
+//                       children: [
+//                         Container(
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Text(stage!.label.toString()),
+//                               buildPopupMenuButton(
+//                                 boxIndex: index,
+//                                 options: ['Complete stage', 'Scrap', 'Adon'],
+//                                 onSelected: (value) {
+//                                   setState(() {
+//                                     selectedOptions[index] = value;
+//                                     switch (value) {
+//                                       case "Complete stage":
+//                                         FocusManager.instance.primaryFocus?.unfocus();
+//                                         Get.bottomSheet(
+//                                           OpenBillingAddress(index: index),
+//                                           isScrollControlled: true,
+//                                           isDismissible: false,
+//                                           backgroundColor: Colors.transparent,
+//                                         );
+//                                         break;
+//                                       case "Scrap":
+//                                         record.savePOItemIndex(index);
+//                                         Get.to(const ScraptScreen());
+//                                         break;
+//                                       case "Adon":
+//                                         record.savePOItemIndex(index);
+//                                         Get.to(const AdonScreen());
+//                                         break;
+//                                     }
+//                                   });
+//                                 },
+//                               ),
+//                             ],),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               },
+//             ),
+//           ],
+//       ),
+//     );
+//   }
+//
+//   PopupMenuButton<String> buildPopupMenuButton({
+//     required int boxIndex,
+//     required List<String> options,
+//     required Function(String) onSelected,
+//   }) {
+//     return PopupMenuButton<String>(
+//       onSelected: onSelected,
+//       icon: const Icon(Icons.more_vert),
+//       itemBuilder: (BuildContext context) {
+//         return options.map((String option) {
+//           return PopupMenuItem<String>(
+//             value: option,
+//             child: Text(option),
+//           );
+//         }).toList();
+//       },
+//     );
+//   }
+// }
+//
+// class CustomExpansionTile extends StatelessWidget {
+//   final String title;
+//   final List<Widget> children;
+//
+//   const CustomExpansionTile({
+//     Key? key,
+//     required this.title,
+//     required this.children,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         // border: Border.all(color: Colors.blue, width: 2),
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       child: ExpansionTile(
+//         title: Text(title),
+//         tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+//         expandedAlignment: Alignment.centerLeft,
+//         childrenPadding: const EdgeInsets.all(16.0),
+//         children: children,
+//       ),
+//     );
+//   }
+// }
 
 
 
@@ -238,7 +238,6 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             break;
                           case "Scrap":
                             record.savePOItemIndex(index);
-                            Get.to(const ScraptScreen());
                             break;
                         }
                       });
@@ -305,62 +304,42 @@ class _ItemCardState extends State<ItemCard> {
             ),
 
             const SizedBox(height: 5),
-            Text('Category: ${widget.categoryName ?? ''}'),
-            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text('Category : ${widget.categoryName ?? ''}',style: const TextStyle(fontWeight: FontWeight.w500),),
                 Text(
-                  'Quantity: ${widget.quantity ?? ''}',
-                  style: const TextStyle(fontSize: 14),
-                ),
-                Row(
-                  children: [
-                    const Text(
-                      'Show Stage ',
-                      style: TextStyle(fontSize: 14,color: Colors.grey),
-                    ),
-                    Switch(
-                      value: _isStageVisible,
-                      onChanged: (value) {
-                        setState(() {
-                          _isStageVisible = value;
-                        });
-                      },
-                      activeColor: Colors.teal,
-                    ),
-                  ],
+                  'Qty : ${widget.quantity ?? ''}',
+                  style: const TextStyle(fontSize: 14,fontWeight: FontWeight.w500),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            if (_isStageVisible)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.teal.shade50,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.teal.shade200),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Stage: ${widget.stage ?? ""}',
-                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-
-                        ],
-                      ),
-                    ],
-                  ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.teal.shade50,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.teal.shade200),
+                ),
+                padding: const EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Stage: ${widget.stage ?? ""}',
+                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ]
+                    ),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),

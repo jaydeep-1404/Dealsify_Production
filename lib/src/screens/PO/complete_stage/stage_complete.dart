@@ -29,7 +29,7 @@ class OpenBillingAddress extends StatelessWidget {
             return true;
           },
           child: Container(
-            height: Get.height * 0.65, // Increased height for better layout
+            height: Get.height * 0.5,
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -62,7 +62,7 @@ class OpenBillingAddress extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
-                        height: 400,
+                        height: 300,
                         width: double.infinity,
                         child: PageView.builder(
                           controller: controller.pageController,
@@ -90,7 +90,7 @@ class OpenBillingAddress extends StatelessWidget {
                                     alignment: Alignment.center,
                                     child: Text(
                                       "${item.itemName}",
-                                      style: const TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   const SizedBox(height: 10),
@@ -116,11 +116,10 @@ class OpenBillingAddress extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-
                                   const SizedBox(height: 10),
-
                                   const Divider(),
                                   const SizedBox(height: 10),
+                                  // Start and End Date/Time Pickers
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -128,47 +127,33 @@ class OpenBillingAddress extends StatelessWidget {
                                         return buildDateTimePicker(
                                           context,
                                           controller.startDates[index], (pickedDate) {
-                                            controller.updateStartDate(index, pickedDate);
-                                            },
+                                          controller.updateStartDate(index, pickedDate);
+                                        },
                                           "Start Date",
                                           controller.startTimes[index], (pickedTime) {
-                                            controller.updateStartTime(index, pickedTime);
-                                            },
+                                          controller.updateStartTime(index, pickedTime);
+                                        },
                                           "Start Time",
+                                          label: "Start",
                                         );
                                       }),
                                       Obx(() {
                                         return buildDateTimePicker(
                                           context,
                                           controller.endDates[index], (pickedDate) {
-                                            controller.updateEndDate(index, pickedDate);
-                                            },
+                                          controller.updateEndDate(index, pickedDate);
+                                        },
                                           "End Date",
                                           controller.endTimes[index], (pickedTime) {
-                                            controller.updateEndTime(index, pickedTime);
-                                            },
+                                          controller.updateEndTime(index, pickedTime);
+                                        },
                                           "End Time",
+                                          label: "End",
                                         );
                                       }),
                                     ],
                                   ),
                                   const SizedBox(height: 20),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        controller.payload(index, context).printFormattedJson();
-                                        saveStage.post(record.poRecord.id, controller.payload(index, context));
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.green[900],
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                      child: const Text("Save", style: TextStyle(color: Colors.white)),
-                                    ),
-                                  ),
                                 ],
                               ),
                             );
@@ -188,10 +173,12 @@ class OpenBillingAddress extends StatelessWidget {
     );
   }
 
-  Widget buildDateTimePicker(BuildContext context, DateTime? date, Function(DateTime) onDatePicked, String dateLabel, TimeOfDay? time, Function(TimeOfDay) onTimePicked, String timeLabel) {
+  Widget buildDateTimePicker(BuildContext context, DateTime? date, Function(DateTime) onDatePicked, String dateLabel, TimeOfDay? time, Function(TimeOfDay) onTimePicked, String timeLabel, {required String label}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), // Label for Start/End
+        const SizedBox(height: 5),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -259,15 +246,22 @@ class OpenBillingAddress extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            if (controller.currentPage.value < controller.items!.length - 1) {
-              controller.nextPage();
-            }
+            controller.payload(controller.currentPage.value, context).printFormattedJson();
+            saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+
+            // if (controller.currentPage.value < controller.items!.length - 1) {
+            //   controller.nextPage();
+            // } else {
+            //   // Add save functionality for the last page if needed
+            //   controller.payload(controller.currentPage.value, context).printFormattedJson();
+            //   saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+            // }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueAccent,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
-          child: const Text("Next", style: TextStyle(color: Colors.white)),
+          child: const Text("Save & Next", style: TextStyle(color: Colors.white)),
         ),
       ],
     );

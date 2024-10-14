@@ -1,4 +1,5 @@
 
+import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,6 @@ import 'package:get/get.dart';
 import '../../../state_controllers/production_order_states.dart';
 
 class ScraptScreen extends StatefulWidget {
-
   const ScraptScreen({super.key});
 
   @override
@@ -19,25 +19,10 @@ class _ScraptScreenState extends State<ScraptScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     scrap.clearAllData();
     super.dispose();
   }
-
-  // void _saveForm() {
-  //   if (_formKey.currentState!.validate() && scrap.validateFields()) {
-  //     Get.snackbar('Success', 'All fields are valid!',
-  //         snackPosition: SnackPosition.BOTTOM);
-  //   } else {
-  //     Get.snackbar('Error', 'Please fill all fields correctly.',
-  //         snackPosition: SnackPosition.BOTTOM);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +32,16 @@ class _ScraptScreenState extends State<ScraptScreen> {
         leadingWidth: 40,
         leading: IconButton(
           onPressed: () {
-            Get.to(const POItemsPage());
+            navigateToPage(context, const OrderDetailScreen());
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Items"),
-            Text("PO No. :-  ${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
-            Text("Item :-  ${record.poRecord.items![record.poItemIndex.value].itemName}",style: const TextStyle(fontSize: 15),),
+            const Text("Items", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text("PO No. :-  ${record.poRecord.productionOrderNo}", style: const TextStyle(fontSize: 15)),
+            Text("Item :-  ${record.poRecord.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 15)),
           ],
         ),
         centerTitle: false,
@@ -69,84 +54,59 @@ class _ScraptScreenState extends State<ScraptScreen> {
           itemBuilder: (context, index) {
             if (index == scrap.qtyCtrl.length) {
               return saveButton(onTap: () {
-
-                });
+                if (_formKey.currentState!.validate() && scrap.validateFields()) {
+                  Get.snackbar('Success', 'All fields are valid!',
+                      snackPosition: SnackPosition.BOTTOM);
+                } else {
+                  Get.snackbar('Error', 'Please fill all fields correctly.',
+                      snackPosition: SnackPosition.BOTTOM);
+                }
+              });
             }
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
-                  child: Material(
-                    elevation: 1,
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      // margin: const EdgeInsets.only(left: 10,right: 10,top: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black26,width: 1),
-                          borderRadius: BorderRadius.circular(5)
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Material(
+                elevation: 1,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black26, width: 1),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Item ${index + 1}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        ),
                       ),
-                      child: Column(
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                        child: Align(
+                          child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 14)),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15,top: 5),
-                              child: Text("Item ${index + 1}"),
-                            ),
-                          ),
-                          // Obx(() {
-                          //   return Container(
-                          //     margin: const EdgeInsets.symmetric(horizontal: 8),
-                          //     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          //     decoration: BoxDecoration(
-                          //       border: Border.all(color: Colors.grey),
-                          //       borderRadius: BorderRadius.circular(4.0),
-                          //     ),
-                          //     child: DropdownButton<DemoList>(
-                          //       hint: const Text('Select an item'),
-                          //       value: scrap.selectedItems[index],
-                          //       isExpanded: true,
-                          //       underline: const SizedBox(),
-                          //       onChanged: (DemoList? newValue) {
-                          //         scrap.updateSelectedItem(index, newValue);
-                          //       },
-                          //       items: scrap.items.map<DropdownMenuItem<DemoList>>((DemoList item) {
-                          //         return DropdownMenuItem<DemoList>(
-                          //           value: item,
-                          //           child: Text(item.name),
-                          //         );
-                          //       }).toList(),
-                          //     ),
-                          //   );
-                          // }),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 15),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Align(
-                              child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}"),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              qtyField(controller: scrap.qtyCtrl[index]),
-                              currentQtyField(controller: scrap.currentQtyCtrl[index]),
-                            ],
-                          ),
-                          description(controller: scrap.currentQtyCtrl[index]),
+                          qtyField(controller: scrap.qtyCtrl[index]),
+                          currentQtyField(controller: scrap.currentQtyCtrl[index]),
                         ],
                       ),
-                    ),
+                      description(controller: scrap.descriptionCtrl[index]),
+                    ],
                   ),
                 ),
-                
-                // const SizedBox(height: 3,),
-                // const Divider(indent: 10,endIndent: 10,height: 1,)
-              ],);
+              ),
+            );
           },
         )),
       ),
@@ -158,26 +118,22 @@ class _ScraptScreenState extends State<ScraptScreen> {
     );
   }
 
-  Widget saveButton({void Function()? onTap}){
+  Widget saveButton({void Function()? onTap}) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: onTap ?? () {
-
-              },
-              child: Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10,),
-                decoration: const BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.all(Radius.circular(3)),
-                ),
-                child: const Center(
-                  child: Text("Save",style: TextStyle(color: Colors.white),),
-                ),
+          GestureDetector(
+            onTap: onTap ?? () {},
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: const BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: const Center(
+                child: Text("Save", style: TextStyle(color: Colors.white, fontSize: 16)),
               ),
             ),
           ),
@@ -186,7 +142,7 @@ class _ScraptScreenState extends State<ScraptScreen> {
     );
   }
 
-  Widget qtyField({controller}){
+  Widget qtyField({required TextEditingController controller}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -196,43 +152,42 @@ class _ScraptScreenState extends State<ScraptScreen> {
             FilteringTextInputFormatter.digitsOnly,
           ],
           decoration: const InputDecoration(
-            labelText: 'Qty',
+            labelText: 'Qty *',
             border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Please enter qty';
+            }
+            return null;
+          },
         ),
       ),
     );
   }
 
-  Widget currentQtyField({controller}){
+  Widget currentQtyField({required TextEditingController controller}) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
           controller: controller,
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
+          readOnly: true,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly,
           ],
           decoration: const InputDecoration(
-            labelText: 'Current qty ',
+            labelText: 'Current qty',
             border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 12,
-            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           ),
         ),
       ),
     );
   }
 
-  Widget description({controller}){
+  Widget description({required TextEditingController controller}) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
@@ -241,17 +196,12 @@ class _ScraptScreenState extends State<ScraptScreen> {
         maxLines: null,
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          contentPadding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 12,
-          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           labelText: 'Description',
         ),
       ),
     );
   }
-
-
 }
 
 class DemoList {
@@ -260,8 +210,6 @@ class DemoList {
 
   DemoList({required this.id, required this.name});
 }
-
-
 
 class ScrapController extends GetxController {
   var qtyCtrl = <TextEditingController>[].obs;
@@ -274,35 +222,16 @@ class ScrapController extends GetxController {
     DemoList(id: 3, name: 'Item 3'),
   ];
 
-  clearAllData(){
-    qtyCtrl = <TextEditingController>[].obs;
-    currentQtyCtrl = <TextEditingController>[].obs;
-    descriptionCtrl = <TextEditingController>[].obs;
-  }
-
-  var selectedItems = <int, DemoList?>{}.obs;
-
-  void updateSelectedItem(int recordId, DemoList? item) {
-    selectedItems[recordId] = item;
-    if (item != null) {
-      print('Selected ID for Record $recordId: ${item.id}');
-    }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    _addNewField();
-  }
-
-  void _addNewField() {
-    qtyCtrl.add(TextEditingController());
-    currentQtyCtrl.add(TextEditingController());
-    descriptionCtrl.add(TextEditingController());
+  clearAllData() {
+    qtyCtrl.clear();
+    currentQtyCtrl.clear();
+    descriptionCtrl.clear();
   }
 
   void addNewField() {
-    _addNewField();
+    qtyCtrl.add(TextEditingController());
+    currentQtyCtrl.add(TextEditingController());
+    descriptionCtrl.add(TextEditingController());
   }
 
   bool validateFields() {
@@ -322,19 +251,5 @@ class ScrapController extends GetxController {
       }
     }
     return true;
-  }
-
-  @override
-  void onClose() {
-    // for (var controller in qtyCtrl) {
-    //   controller.dispose();
-    // }
-    // for (var controller in currentQtyCtrl) {
-    //   controller.dispose();
-    // }
-    // for (var controller in currentQtyCtrl) {
-    //   controller.dispose();
-    // }
-    super.onClose();
   }
 }
