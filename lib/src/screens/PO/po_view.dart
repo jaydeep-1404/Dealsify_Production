@@ -4,6 +4,7 @@ import 'package:dealsify_production/src/screens/PO/complete_stage/stage_complete
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../api/get/get_po_list.dart';
 import '../../state_controllers/production_order_states.dart';
 
 // class POItemsPage extends StatefulWidget {
@@ -160,9 +161,8 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends State<OrderDetailScreen> {
-  final record = Get.put(PORecordCtrl());
+  final PORecordCtrl record = Get.put(PORecordCtrl());
   Map<int, String> selectedOptions = {};
-  final searchCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +171,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Order: ${record.poRecord.customerId!.customerName}', style: const TextStyle(fontSize: 16)),
+            Text('Order: ${record.poRecord.customerId?.customerName}', style: const TextStyle(fontSize: 16)),
             Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
           ],
         ),
@@ -210,47 +210,61 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: ListView.builder(
-                itemCount: record.poRecord.items!.length,
-                itemBuilder: (context, index) {
-                  final item = record.poRecord.items![index];
-                  final stage = item.findFirstIncompleteStage();
-                  return ItemCard(
-                    itemName: item.itemName,
-                    categoryName: item.categoryName,
-                    quantity: item.qty,
-                    stage: stage?.label ?? '',
-                    popUpEnable: stage?.label == null ? false : true,
-                    stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
-                    boxIndex: index,
-                    options: const ['Complete stage'],
-                    onSelected: (value) {
-                      setState(() {
-                        selectedOptions[index] = value;
-                        switch (value) {
-                          case "Complete stage":
-                            FocusManager.instance.primaryFocus?.unfocus();
-                            Get.bottomSheet(
-                              OpenBillingAddress(index: index),
-                              isScrollControlled: true,
-                              isDismissible: false,
-                              backgroundColor: Colors.transparent,
-                            );
-                            break;
-                          case "Scrap":
-                            record.savePOItemIndex(index);
-                            break;
-                        }
-                      });
-                    },
-                  );
-                },
+              child: RefreshIndicator(
+                onRefresh: _refreshItems,
+                child: ListView.builder(
+                  itemCount: record.poRecord.items!.length,
+                  itemBuilder: (context, index) {
+                    final item = record.poRecord.items![index];
+                    final stage = item.findFirstIncompleteStage();
+                    return ItemCard(
+                      itemName: item.itemName,
+                      categoryName: item.categoryName,
+                      quantity: item.qty,
+                      stage: stage?.label ?? '',
+                      popUpEnable: stage?.label == null ? false : true,
+                      stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
+                      boxIndex: index,
+                      options: const ['Complete stage'],
+                      onSelected: (value) {
+                        setState(() {
+                          selectedOptions[index] = value;
+                          switch (value) {
+                            case "Complete stage":
+                              FocusManager.instance.primaryFocus?.unfocus();
+                              Get.bottomSheet(
+                                OpenBillingAddress(index: index),
+                                isScrollControlled: true,
+                                isDismissible: false,
+                                backgroundColor: Colors.transparent,
+                              );
+                              break;
+                            case "Scrap":
+                              record.savePOItemIndex(index);
+                              break;
+                          }
+                        });
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _refreshItems() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    final po = Get.put(PurchaseOrderController());
+    po.get();
+    print("API HITTED : ${po.items.length}");
+    setState(() {
+      record.poRecord = record.checkPOAndRefresh();
+    });
   }
 
   String convertDateFormat(String inputDate) {

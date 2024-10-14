@@ -345,12 +345,26 @@ class PurchaseOrderCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Customer: ${customer ?? ""}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
+              RichText(
+                text: TextSpan(
+                  children: [
+                    const TextSpan(
+                      text: 'Customer: ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    TextSpan(
+                      text: customer ?? "",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
+                  ],
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -362,7 +376,7 @@ class PurchaseOrderCard extends StatelessWidget {
                     child: Text(
                       'Order Number: ${orderNo ?? ''}',
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.ellipsis,
