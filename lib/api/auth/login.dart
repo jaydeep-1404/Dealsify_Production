@@ -6,7 +6,6 @@ import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../core/routs/routs.dart';
 import '../../core/services/local_storage.dart';
 import '../../core/services/server_urls.dart';
 import '../../core/services/strings.dart';

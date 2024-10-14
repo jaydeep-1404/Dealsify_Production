@@ -1,5 +1,4 @@
 
-import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../api/post/comlete_stage.dart';
@@ -29,7 +28,7 @@ class OpenBillingAddress extends StatelessWidget {
             return true;
           },
           child: Container(
-            height: Get.height * 0.5,
+            height: Get.height * 0.48,
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -55,12 +54,14 @@ class OpenBillingAddress extends StatelessWidget {
                         child: IconButton(
                           onPressed: () {
                             Get.back();
-                            controller.dispose();
+                            controller.completeStages!.clear();
+                            controller.currentPage.value = 0;
+                            // controller.dispose();
                           },
                           icon: const Icon(Icons.close, color: Colors.red),
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      // const SizedBox(height: 10),
                       SizedBox(
                         height: 300,
                         width: double.infinity,
@@ -119,7 +120,30 @@ class OpenBillingAddress extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   const Divider(),
                                   const SizedBox(height: 10),
-                                  // Start and End Date/Time Pickers
+                                  // if (controller.completeStages!.contains(controller.currentPage.value) )...[
+                                  //   Align(
+                                  //     alignment: Alignment.topRight,
+                                  //     child: Container(
+                                  //       height: 30,
+                                  //       width: 100,
+                                  //       decoration: BoxDecoration(
+                                  //           color: Colors.green[100],
+                                  //           borderRadius: BorderRadius.circular(20),
+                                  //           border: Border.all(color: Colors.green,width: 2)
+                                  //       ),
+                                  //       child: const Center(
+                                  //         child: Text(
+                                  //           "Completed",
+                                  //           style: TextStyle(
+                                  //             fontSize: 13,
+                                  //             color: Colors.black,
+                                  //             fontWeight: FontWeight.w400,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ],
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -128,11 +152,11 @@ class OpenBillingAddress extends StatelessWidget {
                                           context,
                                           controller.startDates[index], (pickedDate) {
                                           controller.updateStartDate(index, pickedDate);
-                                        },
+                                          },
                                           "Start Date",
                                           controller.startTimes[index], (pickedTime) {
                                           controller.updateStartTime(index, pickedTime);
-                                        },
+                                          },
                                           "Start Time",
                                           label: "Start",
                                         );
@@ -142,11 +166,11 @@ class OpenBillingAddress extends StatelessWidget {
                                           context,
                                           controller.endDates[index], (pickedDate) {
                                           controller.updateEndDate(index, pickedDate);
-                                        },
+                                          },
                                           "End Date",
                                           controller.endTimes[index], (pickedTime) {
                                           controller.updateEndTime(index, pickedTime);
-                                        },
+                                          },
                                           "End Time",
                                           label: "End",
                                         );
@@ -246,8 +270,10 @@ class OpenBillingAddress extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () {
-            controller.payload(controller.currentPage.value, context).printFormattedJson();
-            saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+            // controller.payload(controller.currentPage.value, context).printFormattedJson();
+            // saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+            controller.nextPage();
+            // controller.addToCompletedItems(controller.currentPage.value);
 
             // if (controller.currentPage.value < controller.items!.length - 1) {
             //   controller.nextPage();

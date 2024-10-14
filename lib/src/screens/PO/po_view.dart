@@ -1,8 +1,6 @@
 
 import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/PO/adon/AdonScreen.dart';
 import 'package:dealsify_production/src/screens/PO/complete_stage/stage_complete.dart';
-import 'package:dealsify_production/src/screens/PO/scrap/scrap.dart';
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -273,7 +271,6 @@ class ItemCard extends StatefulWidget {
 }
 
 class _ItemCardState extends State<ItemCard> {
-  bool _isStageVisible = false;
 
   @override
   Widget build(BuildContext context) {

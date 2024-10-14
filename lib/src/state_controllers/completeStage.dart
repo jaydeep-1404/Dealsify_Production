@@ -5,6 +5,7 @@ import '../../api/Models/POModel.dart';
 class PageControllerGetX extends GetxController {
   final PageController pageController = PageController();
   List<ProductionStages>? items = [];
+  List<int>? completeStages = [];
   var currentPage = 0.obs;
   var startDates = <dynamic>[].obs;
   var endDates = <dynamic>[].obs;
@@ -23,6 +24,12 @@ class PageControllerGetX extends GetxController {
     endDates.value = List.generate(index, (index) => null);
     startTimes.value = List.generate(index, (index) => null);
     endTimes.value = List.generate(index, (index) => null);
+  }
+
+  void addToCompletedItems(index){
+    print("CURRENT PAGE : $index");
+    completeStages!.add(index);
+    print("COMPLETED : ${completeStages!.length}");
   }
 
   void updateStartDate(int index, DateTime date) {
@@ -47,6 +54,7 @@ class PageControllerGetX extends GetxController {
 
   void nextPage() {
     if (currentPage.value < items!.length - 1) {
+
       pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
     }
   }
