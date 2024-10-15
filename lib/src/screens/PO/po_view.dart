@@ -180,6 +180,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
             ],
           ),
+          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               navigateToPage(context, const DashboardScreen());
@@ -269,7 +270,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     po.get();
     print("API HITTED : ${po.items.length}");
     setState(() {
-      record.poRecord = record.checkPOAndRefresh();
+      // record.poRecord = record.checkPOAndRefresh();
     });
   }
 
