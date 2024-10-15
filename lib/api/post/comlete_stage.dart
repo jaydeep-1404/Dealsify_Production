@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/state_controllers/completeStage.dart';
+import 'package:dealsify_production/src/state_controllers/production_order_states.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/services/api_handler.dart';
@@ -27,6 +28,7 @@ class CompleteStageController extends GetxController {
         print("${ctrl.items!.length}");
         if ((ctrl.currentPage.value + 1) == ctrl.items!.length){
           Get.back(canPop: true,closeOverlays: true);
+          Get.put(PORecordCtrl()).checkPOAndRefresh();
         }
       }
     } on Exception catch (e, s) {

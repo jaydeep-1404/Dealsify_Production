@@ -24,10 +24,11 @@ class PORecordCtrl extends GetxController {
 
   checkPOAndRefresh(){
     try {
-      return Get.put(PurchaseOrderController()).items.firstWhere((record) => record.id == poRecord.id);
+      poRecord = Get.put(PurchaseOrderController()).items.firstWhere((record) => record.id == poRecord.id);
+      update();
     } catch (e, s) {
       print(s);
-      return ProductionOrderModel();
+      // return ProductionOrderModel();
     }
   }
 }

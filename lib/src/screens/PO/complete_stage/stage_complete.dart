@@ -2,22 +2,28 @@
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../api/get/get_po_list.dart';
 import '../../../../api/post/comlete_stage.dart';
 import '../../../state_controllers/completeStage.dart';
 import '../../../state_controllers/production_order_states.dart';
 
-class OpenBillingAddress extends StatelessWidget {
+class OpenBillingAddress extends StatefulWidget {
   final int index;
 
   OpenBillingAddress({super.key, required this.index});
 
+  @override
+  State<OpenBillingAddress> createState() => _OpenBillingAddressState();
+}
+
+class _OpenBillingAddressState extends State<OpenBillingAddress> {
   final record = Get.put(PORecordCtrl());
   final controller = Get.put(PageControllerGetX());
   final saveStage = Get.put(CompleteStageController());
 
   @override
   Widget build(BuildContext context) {
-    final item = record.poRecord.items![index];
+    final item = record.poRecord.items![widget.index];
     final inCompleteStages = item.incompleteStages();
     controller.items = inCompleteStages;
     controller.setDateLength(controller.items!.length);
@@ -53,11 +59,19 @@ class OpenBillingAddress extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             Get.back();
                             controller.completeStages!.clear();
                             controller.currentPage.value = 0;
-                            // controller.dispose();
+                            Get.put(PurchaseOrderController()).get();
+                            setState(() {
+                              record.checkPOAndRefresh();
+                              final item = record.poRecord.items![widget.index];
+                              final inCompleteStages = item.incompleteStages();
+                              controller.items = inCompleteStages;
+                              controller.setDateLength(controller.items!.length);
+                              setState(() {});
+                            });
                           },
                           icon: const Icon(Icons.close, color: Colors.red),
                         ),
@@ -271,7 +285,10 @@ class OpenBillingAddress extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             controller.payload(controller.currentPage.value, context).printFormattedJson();
-            saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
+            saveStage.post(
+                record.poRecord.id,
+                controller.payload(controller.currentPage.value, context),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueAccent,
