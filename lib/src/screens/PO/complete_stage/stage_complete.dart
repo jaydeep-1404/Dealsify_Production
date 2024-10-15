@@ -91,7 +91,7 @@ class OpenBillingAddress extends StatelessWidget {
                                   Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "${item.itemName}",
+                                      "${i.label}",
                                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -102,7 +102,7 @@ class OpenBillingAddress extends StatelessWidget {
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          "Stage: ${i.label}",
+                                          "Item: ${item.itemName}",
                                           style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 3,
@@ -273,16 +273,6 @@ class OpenBillingAddress extends StatelessWidget {
           onPressed: () {
             controller.payload(controller.currentPage.value, context).printFormattedJson();
             saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
-            // controller.nextPage();
-            // controller.addToCompletedItems(controller.currentPage.value);
-
-            // if (controller.currentPage.value < controller.items!.length - 1) {
-            //   controller.nextPage();
-            // } else {
-            //   // Add save functionality for the last page if needed
-            //   controller.payload(controller.currentPage.value, context).printFormattedJson();
-            //   saveStage.post(record.poRecord.id, controller.payload(controller.currentPage.value, context));
-            // }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueAccent,
