@@ -272,6 +272,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             },
                           orderNo: item.productionOrderNo,
                           customer: item.customerId!.shortName,
+                          // status: item.productionOrderStatus!.priority,
                         );
                       },
                     ),
@@ -325,11 +326,11 @@ class PurchaseOrderCard extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'Completed':
+      case '1':
         return Colors.green;
-      case 'Pending':
+      case '2':
         return Colors.red;
-      case 'In Progress':
+      case '3':
         return Colors.orange;
       default:
         return Colors.grey;
@@ -408,28 +409,6 @@ class PurchaseOrderCard extends StatelessWidget {
                   ]
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     // const SizedBox(height: 2),
-              //     Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text(
-              //           'Order Date: ${convertDateFormat(orderDate) ?? ""}',
-              //           overflow: TextOverflow.ellipsis,
-              //           maxLines: 1,
-              //         ),
-              //         Text(
-              //           'Dispatch Date: ${convertDateFormat(dispatchDate) ?? ""}',
-              //           overflow: TextOverflow.ellipsis,
-              //           maxLines: 1,
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
-
             ],
           ),
         ),
