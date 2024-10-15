@@ -225,7 +225,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Dashboard'),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Dashboard',style: TextStyle(fontWeight: FontWeight.bold),),
+            CircleAvatar(
+              backgroundColor: Colors.grey[100],
+              radius: 15,
+              child: const Center(
+                child: Icon(Icons.person_outline_rounded,),
+              ),
+            ),
+          ],),
           centerTitle: true,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50.0),
