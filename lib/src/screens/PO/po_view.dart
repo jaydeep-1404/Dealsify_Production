@@ -30,8 +30,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Order: ${record.poRecord.customerId?.shortName}', style: const TextStyle(fontSize: 16)),
-              Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
+              Text('${record.poRecord.customerId?.shortName}', style: const TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold)),
+              Text('Order:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),
             ],
           ),
           centerTitle: true,
@@ -50,13 +50,53 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
-                   Text(
-                     'Order Date: ${convertDateFormat(record.poRecord.orderDate.toString())}',
-                     style: const TextStyle(fontSize: 13),
+                   RichText(
+                     text: TextSpan(
+                       children: [
+                         const TextSpan(
+                           text: 'Order Date: ',
+                           style: TextStyle(
+                             fontSize: 13,
+                             fontWeight: FontWeight.bold,
+                             color: Colors.black87,
+                           ),
+                         ),
+                         TextSpan(
+                           text: convertDateFormat(record.poRecord.orderDate.toString()),
+                           style: const TextStyle(
+                             fontSize: 13,
+                             fontWeight: FontWeight.bold,
+                             color: Colors.teal,
+                           ),
+                         ),
+                       ],
+                     ),
+                     overflow: TextOverflow.ellipsis,
+                     maxLines: 1,
                    ),
-                   Text(
-                     'Dispatch Date: ${convertDateFormat(record.poRecord.dispatchDate.toString())}',
-                     style: const TextStyle(fontSize: 13),
+                   RichText(
+                     text: TextSpan(
+                       children: [
+                         const TextSpan(
+                           text: 'Dispatch Date: ',
+                           style: TextStyle(
+                             fontSize: 13,
+                             fontWeight: FontWeight.bold,
+                             color: Colors.black87,
+                           ),
+                         ),
+                         TextSpan(
+                           text: convertDateFormat(record.poRecord.dispatchDate.toString()),
+                           style: const TextStyle(
+                             fontSize: 13,
+                             fontWeight: FontWeight.bold,
+                             color: Colors.teal,
+                           ),
+                         ),
+                       ],
+                     ),
+                     overflow: TextOverflow.ellipsis,
+                     maxLines: 1,
                    ),
                  ],
               ),

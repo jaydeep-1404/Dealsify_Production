@@ -1,4 +1,3 @@
-import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:dealsify_production/src/screens/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

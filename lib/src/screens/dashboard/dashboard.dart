@@ -209,7 +209,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void dispose() {
     super.dispose();
-    po.clear();
+    // po.clear();
   }
 
   @override
@@ -243,7 +243,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 10,right: 10),
           child: Column(
             children: [
               const SizedBox(height: 10),
