@@ -162,9 +162,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
     final po = Get.put(PurchaseOrderController());
     po.get();
-    print("API HITTED : ${po.items.length}");
+    print("DATA : ${po.items.length}");
     setState(() {
-      // record.poRecord = record.checkPOAndRefresh();
+      record.poRecord = record.checkPOAndRefresh();
+      setState(() {});
     });
   }
 

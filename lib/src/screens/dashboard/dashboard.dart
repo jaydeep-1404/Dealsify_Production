@@ -181,6 +181,8 @@ class DashboardItemBox extends StatelessWidget {
 }
 */
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/get/get_po_list.dart';
@@ -198,7 +200,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final po = Get.put(PurchaseOrderController());
   final record = Get.put(PORecordCtrl());
+  final searchCtrl = TextEditingController();
   int _selectedIndex = 0;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -209,6 +213,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void dispose() {
     super.dispose();
+    _timer?.cancel();
     // po.clear();
   }
 
@@ -227,8 +232,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5,),
               child: TextField(
+                onChanged: (value){
+                  if (_timer?.isActive ?? false) _timer?.cancel();
+                  _timer = Timer(const Duration(milliseconds: 1000), () {
+                    if(value.toString().trim().isNotEmpty){
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      po.get(searchValue: value.toString());
+                    } else {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      po.get();
+                    }
+                  });
+                },
                 decoration: InputDecoration(
-                  hintText: 'Search Purchase Orders...',
+                  hintText: 'Search...',
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -237,7 +254,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                   prefixIcon: const Icon(Icons.search, color: Colors.teal),
                 ),
-                onChanged: (value) {},
               ),
             ),
           ),

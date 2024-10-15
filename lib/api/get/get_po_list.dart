@@ -33,7 +33,9 @@ class PurchaseOrderController extends GetxController {
     Map<String, String> parameters = {
       BKD.companyId  : prefData!.company_id?.toString() ?? '',
       BKD.pageSize   : BKD.size,
+      if (searchValue.toString().isNotEmpty && searchValue != null)BKD.filters    : filterJson(value: searchValue,log: true),
     };
+
 
     try {
       if (startIndex != null) loading(true);
@@ -73,4 +75,15 @@ class PurchaseOrderController extends GetxController {
     loading = true.obs;
     items.clear();
   }
+}
+
+filterJson({value,log}){
+  String filterJson = '[{'
+      '"${BKD.fieldName}":"CustomerName",'
+      '"${BKD.connector}":"is",'
+      '"${BKD.value}":"${value?.toString().trim() ?? ''}"'
+      '}]';
+  if(log == true){filterJson.show();}
+  String finalValue = value.toString().trim().isNotEmpty ? Uri.encodeComponent(filterJson) : '';
+  return finalValue;
 }
