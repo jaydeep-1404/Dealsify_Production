@@ -166,91 +166,97 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text('Order: ${record.poRecord.customerId?.shortName}', style: const TextStyle(fontSize: 16)),
-            Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
-          ],
+    return WillPopScope(
+      onWillPop: () async {
+        navigateToPage(context, const DashboardScreen());
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Order: ${record.poRecord.customerId?.shortName}', style: const TextStyle(fontSize: 16)),
+              Text('Customer:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 12)),
+            ],
+          ),
+          leading: IconButton(
+            onPressed: () {
+              navigateToPage(context, const DashboardScreen());
+            },
+            icon: const Icon(Icons.arrow_back_ios,color: Colors.black87,),
+          ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            navigateToPage(context, const DashboardScreen());
-          },
-          icon: const Icon(Icons.arrow_back_ios,color: Colors.black87,),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-               children: [
-                 Text(
-                   'Order Date: ${convertDateFormat(record.poRecord.orderDate.toString())}',
-                   style: const TextStyle(fontSize: 13),
-                 ),
-                 Text(
-                   'Dispatch Date: ${convertDateFormat(record.poRecord.dispatchDate.toString())}',
-                   style: const TextStyle(fontSize: 13),
-                 ),
-               ],
-            ),
-            const Divider(height: 30),
-            const Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Order Items',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Text(
+                     'Order Date: ${convertDateFormat(record.poRecord.orderDate.toString())}',
+                     style: const TextStyle(fontSize: 13),
+                   ),
+                   Text(
+                     'Dispatch Date: ${convertDateFormat(record.poRecord.dispatchDate.toString())}',
+                     style: const TextStyle(fontSize: 13),
+                   ),
+                 ],
               ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: RefreshIndicator(
-                onRefresh: _refreshItems,
-                child: ListView.builder(
-                  itemCount: record.poRecord.items!.length,
-                  itemBuilder: (context, index) {
-                    final item = record.poRecord.items![index];
-                    final stage = item.findFirstIncompleteStage();
-                    return ItemCard(
-                      itemName: item.itemName,
-                      categoryName: item.categoryName,
-                      quantity: item.qty,
-                      stage: stage?.label ?? '',
-                      popUpEnable: stage?.label == null ? false : true,
-                      stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
-                      boxIndex: index,
-                      options: const ['Complete stage'],
-                      onSelected: (value) {
-                        setState(() {
-                          selectedOptions[index] = value;
-                          switch (value) {
-                            case "Complete stage":
-                              FocusManager.instance.primaryFocus?.unfocus();
-                              Get.bottomSheet(
-                                OpenBillingAddress(index: index),
-                                isScrollControlled: true,
-                                isDismissible: false,
-                                backgroundColor: Colors.transparent,
-                              );
-                              break;
-                            case "Scrap":
-                              record.savePOItemIndex(index);
-                              break;
-                          }
-                        });
-                      },
-                    );
-                  },
+              const Divider(height: 30),
+              const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Order Items',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: _refreshItems,
+                  child: ListView.builder(
+                    itemCount: record.poRecord.items!.length,
+                    itemBuilder: (context, index) {
+                      final item = record.poRecord.items![index];
+                      final stage = item.findFirstIncompleteStage();
+                      return ItemCard(
+                        itemName: item.itemName,
+                        categoryName: item.categoryName,
+                        quantity: item.qty,
+                        stage: stage?.label ?? '',
+                        popUpEnable: stage?.label == null ? false : true,
+                        stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
+                        boxIndex: index,
+                        options: const ['Complete stage'],
+                        onSelected: (value) {
+                          setState(() {
+                            selectedOptions[index] = value;
+                            switch (value) {
+                              case "Complete stage":
+                                FocusManager.instance.primaryFocus?.unfocus();
+                                Get.bottomSheet(
+                                  OpenBillingAddress(index: index),
+                                  isScrollControlled: true,
+                                  isDismissible: false,
+                                  backgroundColor: Colors.transparent,
+                                );
+                                break;
+                              case "Scrap":
+                                record.savePOItemIndex(index);
+                                break;
+                            }
+                          });
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

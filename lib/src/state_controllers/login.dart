@@ -10,8 +10,8 @@ class LoginHandler extends GetxController {
     ..loadRequest(Uri.parse(
         'data:text/html,<html><head><script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script></head><body><script type="text/javascript">function encryptString(input, key) {return CryptoJS.AES.encrypt(input, key).toString();}</script></body></html>'));
 
-  var email = 'jaydeep@analogcloudtech.com'.obs;
-  var password = 'Analog@2024'.obs;
+  var email = ''.obs;
+  var password = ''.obs;
   var passwordVisible = true.obs;
 
   void updateEmail(value) => email.value = value;

@@ -64,7 +64,7 @@ class OpenBillingAddress extends StatelessWidget {
                       ),
                       // const SizedBox(height: 10),
                       SizedBox(
-                        height: 300,
+                        height: Get.height/3,
                         width: double.infinity,
                         child: PageView.builder(
                           controller: controller.pageController,
@@ -216,7 +216,7 @@ class OpenBillingAddress extends StatelessWidget {
           },
           child: Container(
             height: 40,
-            width: 160,
+            width: Get.width/2.8,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -238,7 +238,7 @@ class OpenBillingAddress extends StatelessWidget {
           },
           child: Container(
             height: 40,
-            width: 160,
+            width: Get.width/2.8,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),

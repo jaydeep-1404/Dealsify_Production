@@ -210,8 +210,4 @@ class AdonController extends GetxController {
     return true;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

@@ -214,90 +214,96 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50.0),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5,),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search Purchase Orders...',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: const BorderSide(color: Colors.teal),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Dashboard'),
+          centerTitle: true,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(50.0),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10, top: 5,),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search Purchase Orders...',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: const BorderSide(color: Colors.teal),
+                  ),
+                  prefixIcon: const Icon(Icons.search, color: Colors.teal),
                 ),
-                prefixIcon: const Icon(Icons.search, color: Colors.teal),
+                onChanged: (value) {},
               ),
-              onChanged: (value) {},
             ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 10),
-            Obx(() {
-              if (po.loading.value) {
-                return const Expanded(child: Center(child: CircularProgressIndicator()));
-              }
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Obx(() {
+                if (po.loading.value) {
+                  return const Expanded(child: Center(child: CircularProgressIndicator()));
+                }
 
-              if (po.items.isEmpty) {
-                return const Expanded(child: Center(child: Text("No purchase orders available.")));
-              }
+                if (po.items.isEmpty) {
+                  return const Expanded(child: Center(child: Text("No purchase orders available.")));
+                }
 
-              return Expanded(
-                child: ListView.builder(
-                  itemCount: po.items.length,
-                  itemBuilder: (context, index) {
-                    final item = po.items[index];
-                    return PurchaseOrderCard(
-                      onTap: (){
-                        record.saveRecord(item);
-                        navigateToPage(context, const OrderDetailScreen());
-                        },
-                      orderNo: item.productionOrderNo,
-                      customer: item.customerId!.shortName,
-                    );
-                  },
-                ),
-              );
-            },),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-            switch (index) {
-              case 0:
-                break;
-              case 1:
-                break;
-              case 2:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: po.items.length,
+                    itemBuilder: (context, index) {
+                      final item = po.items[index];
+                      return PurchaseOrderCard(
+                        onTap: (){
+                          record.saveRecord(item);
+                          navigateToPage(context, const OrderDetailScreen());
+                          },
+                        orderNo: item.productionOrderNo,
+                        customer: item.customerId!.shortName,
+                      );
+                    },
+                  ),
                 );
-                break;
-            }
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'), // Added Profile item
-        ],
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.teal,
-        backgroundColor: Colors.white,
+              },),
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+              switch (index) {
+                case 0:
+                  break;
+                case 1:
+                  break;
+                case 2:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  );
+                  break;
+              }
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Orders'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'), // Added Profile item
+          ],
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.teal,
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }
