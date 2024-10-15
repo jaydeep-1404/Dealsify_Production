@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, file_names, prefer_typing_uninitialized_variables, must_be_immutable
 import 'dart:convert';
-import 'dart:ui';
 import 'package:dealsify_production/core/services/strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
