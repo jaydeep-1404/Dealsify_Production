@@ -1,5 +1,4 @@
-
-import 'package:dealsify_production/src/common_functions/animations.dart';
+import 'package:dealsify_production/core/services/local_storage.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,19 +36,16 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
           ),
-          // Drawer Items
           ListTile(
-            leading: const Icon(Icons.settings, color: Colors.deepPurple),
+            leading: Icon(Icons.settings, color: Colors.blue.shade100),
             title: const Text('Settings'),
-            onTap: () {
-            },
+            onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.info, color: Colors.deepPurple),
+            leading: Icon(Icons.info, color: Colors.blue.shade100),
             title: const Text('About'),
-            onTap: () {
-            },
+            onTap: () {},
           ),
           const Spacer(),
           Padding(
@@ -62,8 +58,13 @@ class MyDrawer extends StatelessWidget {
                   textCancel: 'Cancel',
                   textConfirm: 'Logout',
                   confirmTextColor: Colors.white,
-                  onConfirm: () {
-                    navigateToPage(context, const LoginScreen());
+                  onConfirm: () async {
+                    final LocalDataModel? userInfo = await pref.get();
+                    userInfo!.access_token = "";
+                    userInfo.user_id = "";
+                    userInfo.company_id = "";
+                    pref.set(userInfo);
+                    Get.off(const LoginScreen());
                   },
                 );
               },
