@@ -257,19 +257,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 }
 
                 return Expanded(
-                  child: ListView.builder(
-                    itemCount: po.items.length,
-                    itemBuilder: (context, index) {
-                      final item = po.items[index];
-                      return PurchaseOrderCard(
-                        onTap: (){
-                          record.saveRecord(item);
-                          navigateToPage(context, const OrderDetailScreen());
-                          },
-                        orderNo: item.productionOrderNo,
-                        customer: item.customerId!.shortName,
-                      );
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await Future.delayed(const Duration(seconds: 2));
                     },
+                    child: ListView.builder(
+                      itemCount: po.items.length,
+                      itemBuilder: (context, index) {
+                        final item = po.items[index];
+                        return PurchaseOrderCard(
+                          onTap: (){
+                            record.saveRecord(item);
+                            navigateToPage(context, const OrderDetailScreen());
+                            },
+                          orderNo: item.productionOrderNo,
+                          customer: item.customerId!.shortName,
+                        );
+                      },
+                    ),
                   ),
                 );
               },),
@@ -297,8 +302,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           },
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Orders'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'), // Added Profile item
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Settings'),
           ],
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.teal,

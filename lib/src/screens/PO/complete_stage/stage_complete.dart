@@ -62,7 +62,6 @@ class OpenBillingAddress extends StatelessWidget {
                           icon: const Icon(Icons.close, color: Colors.red),
                         ),
                       ),
-                      // const SizedBox(height: 10),
                       SizedBox(
                         height: Get.height/3,
                         width: double.infinity,
