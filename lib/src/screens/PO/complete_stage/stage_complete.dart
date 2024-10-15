@@ -105,7 +105,11 @@ class _OpenBillingAddressState extends State<OpenBillingAddress> {
                                     alignment: Alignment.center,
                                     child: Text(
                                       "${i.label}",
-                                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(height: 10),

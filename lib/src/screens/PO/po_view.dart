@@ -256,6 +256,19 @@ class _ItemCardState extends State<ItemCard> {
                         ),
                       ]
                     ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     const Text(
+                    //       'Status: Not-Completed',
+                    //       style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+                    //     ),
+                    //     const Text(
+                    //       '5 More..',
+                    //       style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
@@ -273,6 +286,7 @@ class _ItemCardState extends State<ItemCard> {
     return PopupMenuButton<String>(
       onSelected: onSelected,
       icon: const Icon(Icons.more_vert),
+      color: Colors.white,
       itemBuilder: (BuildContext context) {
         return options.map((String option) {
           return PopupMenuItem<String>(
