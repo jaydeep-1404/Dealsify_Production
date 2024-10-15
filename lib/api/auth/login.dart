@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
