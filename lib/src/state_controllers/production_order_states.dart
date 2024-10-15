@@ -5,30 +5,40 @@ import 'package:get/get.dart';
 import '../../api/get/get_po_list.dart';
 
 class PORecordCtrl extends GetxController {
-  var poRecord = ProductionOrderModel();
+  // Make poRecord observable by using Rx<ProductionOrderModel>
+  var poRecord = ProductionOrderModel().obs;
   var poItemIndex = 0.obs;
   var productionMetaDataIndex = 0.obs;
 
-  void saveRecord(data){
-    poRecord = data ?? ProductionOrderModel();
+  // Function to save a record
+  void saveRecord(data) {
+    poRecord.value = data ?? ProductionOrderModel();
   }
 
+  // Save index for PO items
   void savePOItemIndex(index) => poItemIndex.value = index;
+
+  // Save index for production metadata
   void saveProductionMetaDataIndex(index) => productionMetaDataIndex.value = index;
 
-  void clearRecord(){
-    poRecord = ProductionOrderModel();
-    poItemIndex = 0.obs;
-    productionMetaDataIndex = 0.obs;
+  // Clear the record by resetting the observable values
+  void clearRecord() {
+    poRecord.value = ProductionOrderModel();
+    poItemIndex.value = 0;
+    productionMetaDataIndex.value = 0;
   }
 
-  checkPOAndRefresh(){
+  // Check PO and refresh the data
+  void checkPOAndRefresh() {
     try {
-      poRecord = Get.put(PurchaseOrderController()).items.firstWhere((record) => record.id == poRecord.id);
+      // Access the first matching record and update poRecord observable
+      poRecord.value = Get.put(PurchaseOrderController()).items.firstWhere(
+            (record) => record.id == poRecord.value.id,
+      );
       update();
     } catch (e, s) {
       print(s);
-      // return ProductionOrderModel();
+      // Handle error or set a default value if needed
     }
   }
 }

@@ -225,7 +225,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return false;
       },
       child: Scaffold(
-        drawer: MyDrawer(),
+        drawer: const MyDrawer(),
         appBar: AppBar(
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -282,6 +282,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: RefreshIndicator(
                     onRefresh: () async {
                       await Future.delayed(const Duration(seconds: 2));
+                      po.get();
                     },
                     child: ListView.builder(
                       itemCount: po.items.length,

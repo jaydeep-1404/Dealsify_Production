@@ -23,7 +23,7 @@ class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final item = record.poRecord.items![widget.index];
+    final item = record.poRecord.value.items![widget.index];
     final inCompleteStages = item.incompleteStages();
     controller.items = inCompleteStages;
     controller.setDateLength(controller.items!.length);
@@ -35,7 +35,7 @@ class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
             return true;
           },
           child: Container(
-            height: Get.height * 0.48,
+            height: Get.height * 0.6,
             margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -66,7 +66,7 @@ class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
                             Get.put(PurchaseOrderController()).get();
                             setState(() {
                               record.checkPOAndRefresh();
-                              final item = record.poRecord.items![widget.index];
+                              final item = record.poRecord.value.items![widget.index];
                               final inCompleteStages = item.incompleteStages();
                               controller.items = inCompleteStages;
                               controller.setDateLength(controller.items!.length);
@@ -77,7 +77,7 @@ class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
                         ),
                       ),
                       SizedBox(
-                        height: Get.height/3,
+                        height: Get.height/2.5,
                         width: double.infinity,
                         child: PageView.builder(
                           controller: controller.pageController,
@@ -290,7 +290,7 @@ class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
           onPressed: () {
             controller.payload(controller.currentPage.value, context).printFormattedJson();
             saveStage.post(
-                record.poRecord.id,
+                record.poRecord.value.id,
                 controller.payload(controller.currentPage.value, context),
             );
           },

@@ -40,8 +40,8 @@ class _ScraptScreenState extends State<ScraptScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("Items", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Text("PO No. :-  ${record.poRecord.productionOrderNo}", style: const TextStyle(fontSize: 15)),
-            Text("Item :-  ${record.poRecord.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 15)),
+            Text("PO No. :-  ${record.poRecord.value.productionOrderNo}", style: const TextStyle(fontSize: 15)),
+            Text("Item :-  ${record.poRecord.value.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 15)),
           ],
         ),
         centerTitle: false,
@@ -91,7 +91,7 @@ class _ScraptScreenState extends State<ScraptScreen> {
                           borderRadius: BorderRadius.circular(4.0),
                         ),
                         child: Align(
-                          child: Text("${record.poRecord.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 14)),
+                          child: Text("${record.poRecord.value.items![record.poItemIndex.value].itemName}", style: const TextStyle(fontSize: 14)),
                         ),
                       ),
                       Row(

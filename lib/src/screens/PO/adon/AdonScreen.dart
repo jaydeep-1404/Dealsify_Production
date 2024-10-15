@@ -53,8 +53,8 @@ class _AdonScreenState extends State<AdonScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("Items"),
-            Text("${record.poRecord.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
-            Text("${record.poRecord.productionOrderNo}",style: const TextStyle(fontSize: 15),),
+            Text("${record.poRecord.value.customerId!.shortName}",style: const TextStyle(fontSize: 15),),
+            Text("${record.poRecord.value.productionOrderNo}",style: const TextStyle(fontSize: 15),),
           ],
         ),
         centerTitle: false,

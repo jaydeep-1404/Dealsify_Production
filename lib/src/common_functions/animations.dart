@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 
-void navigateToPage(BuildContext context, Widget page, {Duration duration = const Duration(milliseconds: 200)}) {
+void navigateToPage(BuildContext context, Widget page, {Duration duration = const Duration(milliseconds: 150)}) {
   Navigator.pushReplacement(
     context,
     PageRouteBuilder(

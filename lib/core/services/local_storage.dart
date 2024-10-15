@@ -1,11 +1,11 @@
 // ignore_for_file: file_names, non_constant_identifier_names, camel_case_types, constant_identifier_names
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class pref {
-  static final String _localDataKey = dotenv.env['STORAGE_KEY'] ?? '';
+  static const String _localDataKey = "jd_storage";
 
   static Future<void> set(LocalDataModel data) async {
     try {

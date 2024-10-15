@@ -2,7 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ConstUrl {
   /// Base
-  static String base_url  = dotenv.env['BASE_URL'] ?? '',
+  static String base_url  = "https://dealsify-backend-mongodb.vercel.app/v1/",
       auth_login_url          = '${base_url}auth/login';
 
   static String po  = "${base_url}production-order?&";

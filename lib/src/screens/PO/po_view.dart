@@ -27,12 +27,15 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('${record.poRecord.customerId?.shortName}', style: const TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold)),
-              Text('Order:  ${record.poRecord.productionOrderNo}', style: const TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),
-            ],
+          title: Obx(() {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('${record.poRecord.value.customerId?.shortName}', style: const TextStyle(color: Colors.green,fontSize: 16,fontWeight: FontWeight.bold)),
+                  Text('Order:  ${record.poRecord.value.productionOrderNo}', style: const TextStyle(fontSize: 11,fontWeight: FontWeight.bold)),
+                ],
+              );
+            }
           ),
           centerTitle: true,
           leading: IconButton(
@@ -44,114 +47,116 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   RichText(
-                     text: TextSpan(
-                       children: [
-                         const TextSpan(
-                           text: 'Order Date: ',
-                           style: TextStyle(
-                             fontSize: 13,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.black87,
-                           ),
-                         ),
-                         TextSpan(
-                           text: convertDateFormat(record.poRecord.orderDate.toString()),
-                           style: const TextStyle(
-                             fontSize: 13,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.teal,
-                           ),
-                         ),
-                       ],
-                     ),
-                     overflow: TextOverflow.ellipsis,
-                     maxLines: 1,
-                   ),
-                   RichText(
-                     text: TextSpan(
-                       children: [
-                         const TextSpan(
-                           text: 'Dispatch Date: ',
-                           style: TextStyle(
-                             fontSize: 13,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.black87,
-                           ),
-                         ),
-                         TextSpan(
-                           text: convertDateFormat(record.poRecord.dispatchDate.toString()),
-                           style: const TextStyle(
-                             fontSize: 13,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.teal,
-                           ),
-                         ),
-                       ],
-                     ),
-                     overflow: TextOverflow.ellipsis,
-                     maxLines: 1,
-                   ),
-                 ],
-              ),
-              const Divider(height: 30),
-              const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  'Order Items',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          child: Obx(() {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Order Date: ',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          TextSpan(
+                            text: convertDateFormat(record.poRecord.value.orderDate.toString()),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: 'Dispatch Date: ',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          TextSpan(
+                            text: convertDateFormat(record.poRecord.value.dispatchDate.toString()),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                        ],
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _refreshItems,
-                  child: ListView.builder(
-                    itemCount: record.poRecord.items!.length,
-                    itemBuilder: (context, index) {
-                      final item = record.poRecord.items![index];
-                      final stage = item.findFirstIncompleteStage();
-                      return ItemCard(
-                        itemName: item.itemName,
-                        categoryName: item.categoryName,
-                        quantity: item.qty,
-                        stage: stage?.label ?? '',
-                        popUpEnable: stage?.label == null ? false : true,
-                        stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
-                        boxIndex: index,
-                        options: const ['Complete stage'],
-                        onSelected: (value) {
-                          setState(() {
-                            selectedOptions[index] = value;
-                            switch (value) {
-                              case "Complete stage":
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                Get.bottomSheet(
-                                  StageCompleteBottomSheet(index: index),
-                                  isScrollControlled: true,
-                                  isDismissible: false,
-                                  backgroundColor: Colors.transparent,
-                                );
-                                break;
-                              case "Scrap":
-                                record.savePOItemIndex(index);
-                                break;
-                            }
-                          });
-                        },
-                      );
-                    },
+                const Divider(height: 30),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Order Items',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
-              ),
-            ],
-          ),
+                const SizedBox(height: 10),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _refreshItems,
+                    child: ListView.builder(
+                      itemCount: record.poRecord.value.items!.length,
+                      itemBuilder: (context, index) {
+                        final item = record.poRecord.value.items![index];
+                        final stage = item.findFirstIncompleteStage();
+                        return ItemCard(
+                          itemName: item.itemName,
+                          categoryName: item.categoryName,
+                          quantity: item.qty,
+                          stage: stage?.label ?? '',
+                          popUpEnable: stage?.label == null ? false : true,
+                          stagesAvailable: item.incompleteStages().isNotEmpty ? true : false,
+                          boxIndex: index,
+                          options: const ['Complete stage'],
+                          onSelected: (value) {
+                            setState(() {
+                              selectedOptions[index] = value;
+                              switch (value) {
+                                case "Complete stage":
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  Get.bottomSheet(
+                                    StageCompleteBottomSheet(index: index),
+                                    isScrollControlled: true,
+                                    isDismissible: false,
+                                    backgroundColor: Colors.transparent,
+                                  );
+                                  break;
+                                case "Scrap":
+                                  record.savePOItemIndex(index);
+                                  break;
+                              }
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },),
         ),
       ),
     );
