@@ -25,8 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     userInfo = (await pref.get())!;
 
-    print("TOKEN : ${userInfo.access_token}");
-    if (userInfo.access_token != null && userInfo.access_token.isNotEmpty) {
+    if (userInfo.access_token != null && userInfo.access_token.toString().isNotEmpty) {
       navigateToPage(context, const DashboardScreen());
     } else {
       navigateToPage(context, const LoginScreen());

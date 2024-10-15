@@ -7,16 +7,16 @@ import '../../../../api/post/comlete_stage.dart';
 import '../../../state_controllers/completeStage.dart';
 import '../../../state_controllers/production_order_states.dart';
 
-class OpenBillingAddress extends StatefulWidget {
+class StageCompleteBottomSheet extends StatefulWidget {
   final int index;
 
-  OpenBillingAddress({super.key, required this.index});
+  const StageCompleteBottomSheet({super.key, required this.index});
 
   @override
-  State<OpenBillingAddress> createState() => _OpenBillingAddressState();
+  State<StageCompleteBottomSheet> createState() => _StageCompleteBottomSheetState();
 }
 
-class _OpenBillingAddressState extends State<OpenBillingAddress> {
+class _StageCompleteBottomSheetState extends State<StageCompleteBottomSheet> {
   final record = Get.put(PORecordCtrl());
   final controller = Get.put(PageControllerGetX());
   final saveStage = Get.put(CompleteStageController());

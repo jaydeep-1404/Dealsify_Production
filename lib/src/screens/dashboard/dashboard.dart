@@ -186,6 +186,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/get/get_po_list.dart';
+import '../../Drawer/drawer.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
 import '../PO/po_view.dart';
@@ -224,18 +225,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return false;
       },
       child: Scaffold(
+        drawer: MyDrawer(),
         appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Text('Dashboard',style: TextStyle(fontWeight: FontWeight.bold),),
-            CircleAvatar(
-              backgroundColor: Colors.grey[100],
-              radius: 15,
-              child: const Center(
-                child: Icon(Icons.person_outline_rounded,),
-              ),
-            ),
+              Text('Dashboard',style: TextStyle(fontWeight: FontWeight.bold),),
           ],),
           centerTitle: true,
           bottom: PreferredSize(

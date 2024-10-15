@@ -133,7 +133,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               case "Complete stage":
                                 FocusManager.instance.primaryFocus?.unfocus();
                                 Get.bottomSheet(
-                                  OpenBillingAddress(index: index),
+                                  StageCompleteBottomSheet(index: index),
                                   isScrollControlled: true,
                                   isDismissible: false,
                                   backgroundColor: Colors.transparent,
