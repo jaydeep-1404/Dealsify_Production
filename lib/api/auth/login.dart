@@ -52,9 +52,9 @@ class AuthController extends GetxController {
       } else {
         Open.credential_fail_snackBar(context);
       }
-    } catch (e,StackTrace) {
+    } catch (e,s) {
       'LOGIN : $e'.show();
-      'LOGIN : $StackTrace'.show();
+      'LOGIN : $s'.show();
       Open.credential_fail_snackBar(context);
     } finally {
       loading.value = false;
