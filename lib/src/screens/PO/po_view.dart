@@ -115,23 +115,18 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
             const SizedBox(height: 10),
             Align(
               alignment: Alignment.centerRight,
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
                 onPressed: () {
                   navigateToPage(context, const ScrapScreen());
                 },
+                icon: const Icon(Icons.delete, color: Colors.black87),
+                label: const Text("Scrap", style: TextStyle(color: Colors.black87)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                  fixedSize: const Size.fromWidth(120),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Scrap", style: TextStyle(color: Colors.black87)),
-                    Icon(Icons.arrow_forward, color: Colors.black87)
-                  ],
                 ),
               ),
             ),
