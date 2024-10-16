@@ -1,11 +1,141 @@
 
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/stage_complete.dart';
-import 'package:dealsify_production/src/screens/PO/dashboard.dart';
+import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/get/get_po_list.dart';
 import '../../state_controllers/production_order_states.dart';
+
+import 'package:flutter/material.dart';
+
+class ProductionOrderView extends StatefulWidget {
+  const ProductionOrderView({super.key});
+
+  @override
+  State<ProductionOrderView> createState() => _ProductionOrderViewState();
+}
+
+class _ProductionOrderViewState extends State<ProductionOrderView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Item Name',
+              style: TextStyle(
+                color: Colors.black87, // Dark grey for item name
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              'Qty',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey, // Muted blue-grey for quantity
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            navigateToPage(context, const DashboardScreen());
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            Text(
+              'Current Stage',
+              style: TextStyle(
+                color: Colors.blueGrey[800], // Dark blue-grey for header
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'Worker Name',
+              style: TextStyle(
+                color: Colors.black87, // Dark grey for worker name
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            buildStageCard("Start Stage", Icons.play_arrow),
+            const SizedBox(height: 10),
+            buildStageCard("End Stage", Icons.stop),
+            const SizedBox(height: 10),
+            buildStageCard("Complete Stage", Icons.check_circle),
+            const SizedBox(height: 10),
+            buildStageCard("Scrap Add", Icons.delete),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildStageCard(String title, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        // Define your action on tap here
+      },
+      child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        color: Colors.white, // Light background color
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(icon, color: Colors.blueGrey[600]), // Muted blue-grey icon color
+                  const SizedBox(width: 10),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87, // Dark grey text color
+                    ),
+                  ),
+                ],
+              ),
+              const Icon(Icons.arrow_forward_ios, color: Colors.grey),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void navigateToPage(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+}
+
+
+
 
 class OrderDetailScreen extends StatefulWidget {
   const OrderDetailScreen({Key? key}) : super(key: key);

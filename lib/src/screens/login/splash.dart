@@ -1,6 +1,6 @@
 
 import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/PO/dashboard.dart';
+import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import '../../../core/services/local_storage.dart';
