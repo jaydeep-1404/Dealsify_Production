@@ -5,7 +5,7 @@ import '../../../api/get/get_po_list.dart';
 import '../../Drawer/drawer.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
-import '../PO/po_view.dart';
+import 'po_view.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

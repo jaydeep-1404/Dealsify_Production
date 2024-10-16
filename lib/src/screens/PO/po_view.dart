@@ -1,7 +1,7 @@
 
 import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/PO/complete_stage/stage_complete.dart';
-import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
+import 'package:dealsify_production/src/screens/PO/stage_complete.dart';
+import 'package:dealsify_production/src/screens/PO/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/get/get_po_list.dart';
@@ -135,13 +135,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               selectedOptions[index] = value;
                               switch (value) {
                                 case "Complete stage":
-                                  FocusManager.instance.primaryFocus?.unfocus();
-                                  Get.bottomSheet(
-                                    StageCompleteBottomSheet(index: index),
-                                    isScrollControlled: true,
-                                    isDismissible: false,
-                                    backgroundColor: Colors.transparent,
-                                  );
+                                  navigateToPage(context, const StageCompleteScreen());
+                                  // FocusManager.instance.primaryFocus?.unfocus();
+                                  // Get.bottomSheet(
+                                  //   StageCompleteBottomSheet(index: index),
+                                  //   isScrollControlled: true,
+                                  //   isDismissible: false,
+                                  //   backgroundColor: Colors.transparent,
+                                  // );
                                   break;
                                 case "Scrap":
                                   record.savePOItemIndex(index);

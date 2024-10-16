@@ -4,7 +4,7 @@ import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../state_controllers/production_order_states.dart';
+import '../../state_controllers/production_order_states.dart';
 
 class ScraptScreen extends StatefulWidget {
   const ScraptScreen({super.key});

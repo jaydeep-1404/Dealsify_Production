@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/dashboard/dashboard.dart';
+import 'package:dealsify_production/src/screens/PO/dashboard.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
