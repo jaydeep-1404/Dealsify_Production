@@ -21,12 +21,11 @@ class _ScrapScreenState extends State<ScrapScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Colors.blueAccent,
         title: Obx(() {
           return Text(
             '${record.poRecord.value.items!.first.itemName}',
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -39,7 +38,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       ),
@@ -50,12 +49,11 @@ class _ScrapScreenState extends State<ScrapScreen> {
             Obx(() => Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.grey.shade100,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey.withOpacity(0.1),
                     spreadRadius: 1,
-                    blurRadius: 3,
+                    blurRadius: 4,
                   ),
                 ],
               ),
@@ -65,6 +63,8 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   labelText: 'Select Option',
                   border: OutlineInputBorder(),
                   labelStyle: TextStyle(color: Colors.black54),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
                 value: scrapController.dropdownValue.value.isEmpty
                     ? null
@@ -80,7 +80,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ),
             )),
             const SizedBox(height: 10),
-            // Row for Quantity and Current Qty
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -88,15 +87,17 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   child: TextFormField(
                     controller: scrapController.quantityController,
                     keyboardType: TextInputType.number,
-                    style: const TextStyle(fontSize: 14), // Smaller font size
+                    style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                       labelText: 'Quantity',
-                      contentPadding: const EdgeInsets.symmetric(vertical: 8), // Reduced input height
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
                       labelStyle: const TextStyle(color: Colors.black54),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                   ),
                 ),
@@ -105,15 +106,17 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   child: TextFormField(
                     controller: scrapController.currentQtyController,
                     readOnly: true,
-                    style: const TextStyle(fontSize: 14), // Smaller font size
+                    style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                       labelText: 'Current Qty',
-                      contentPadding: const EdgeInsets.symmetric(vertical: 8), // Reduced input height
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
                       labelStyle: const TextStyle(color: Colors.black54),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                   ),
                 ),
@@ -127,20 +130,21 @@ class _ScrapScreenState extends State<ScrapScreen> {
               style: const TextStyle(fontSize: 14), // Smaller font size
               decoration: InputDecoration(
                 labelText: 'Description',
-                contentPadding: const EdgeInsets.symmetric(vertical: 8), // Reduced input height
+                contentPadding: const EdgeInsets.symmetric(vertical: 10), // Adjusted input height
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(color: Colors.grey.shade400),
                 ),
                 labelStyle: const TextStyle(color: Colors.black54),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: () {
-                  // Validate Quantity and Dropdown Value
                   if (scrapController.quantityController.text.isEmpty ||
                       scrapController.dropdownValue.value.isEmpty) {
                     Get.snackbar(
@@ -154,7 +158,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   scrapController.addRecord();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent.shade700,
+                  backgroundColor: const Color(0xFF78909C),
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -171,20 +175,20 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   itemBuilder: (context, index) {
                     var record = scrapController.records[index];
                     return Card(
-                      elevation: 3,
+                      elevation: 2,
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
-                        title: Text('Option: ${record.dropdownValue}'),
+                        title: Text('Option: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Quantity: ${record.quantity}'),
-                            Text('Current Qty: ${record.currentQty}'),
-                            Text('Description: ${record.description}'),
+                            Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
+                            Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
+                            Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
                           ],
                         ),
                         trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
+                          icon: const Icon(Icons.delete, color: Colors.redAccent),
                           onPressed: () {
                             scrapController.deleteRecord(index);
                           },
