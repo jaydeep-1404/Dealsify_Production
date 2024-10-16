@@ -273,7 +273,7 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
       GestureDetector(
         onTap: onSave ?? () {},
         child: Container(
-          height: 40,
+          height: 35,
           width: Get.width * 0.3,
           decoration: BoxDecoration(
             color: Colors.grey.shade300,
@@ -298,14 +298,11 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
       GestureDetector(
         onTap: onComplete ?? () {},
         child: Container(
-          height: 40,
+          height: 35,
           width: Get.width * 0.3,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF81C784), Color(0xFF388E3C)], // Muted Green
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+            color: Colors.green.shade100,
+            border: Border.all(color: Colors.green.shade700),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
@@ -315,13 +312,14 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
               ),
             ],
           ),
-          child: const Center(
+          child: Center(
             child: Text(
               'Complete',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+                color: Colors.green.shade700,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                // fontWeight: FontWeight.bold,
               ),
             ),
           ),
