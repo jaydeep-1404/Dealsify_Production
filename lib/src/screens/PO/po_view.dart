@@ -1,10 +1,9 @@
 
 import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/PO/stage_complete.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
+import 'package:dealsify_production/src/state_controllers/completeStage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../api/get/get_po_list.dart';
 import '../../state_controllers/production_order_states.dart';
 
 class ProductionOrderView extends StatefulWidget {
@@ -15,31 +14,36 @@ class ProductionOrderView extends StatefulWidget {
 }
 
 class _ProductionOrderViewState extends State<ProductionOrderView> {
+  final record = Get.put(PORecordCtrl());
+  final dateTimeController = Get.put(DateTimeController()); // Initialize the controller
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Item Name',
-              style: TextStyle(
-                color: Colors.black87, // Dark grey for item name
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+        title: Obx(() {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '${record.poRecord.value.items!.first.itemName}',
+                style: const TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text(
-              'Qty',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueGrey, // Muted blue-grey for quantity
+              Text(
+                'Qty : ${record.poRecord.value.items!.first.qty}',
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueGrey,
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -51,91 +55,204 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
+      body: Obx(() {
+        final stage = record.activeStage.value;
+        return ListView(
           children: [
-            Text(
-              'Current Stage',
-              style: TextStyle(
-                color: Colors.blueGrey[800], // Dark blue-grey for header
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Material(
+                borderRadius: BorderRadius.circular(10),
+                elevation: 2,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Stage : ${stage.label ?? ''}',
+                        style: TextStyle(
+                          color: Colors.blueGrey[800],
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Worker Name : ${stage.inspector ?? ''}',
+                        style: const TextStyle(
+                          color: Colors.black87,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildDateTimePicker(
+                            context,
+                            'Start',
+                            dateTimeController.startDate, () => dateTimeController.pickStartDate(context),
+                            dateTimeController.startTime, () => dateTimeController.pickStartTime(context),
+                          ),
+                          const SizedBox(width: 16),
+                          buildDateTimePicker(
+                            context,
+                            'End',
+                            dateTimeController.endDate, () => dateTimeController.pickEndDate(context),
+                            dateTimeController.endTime, () => dateTimeController.pickEndTime(context),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      buildSaveCompleteButton(
+                        onSave: () {
+
+                        },
+                        onComplete: () {
+
+                        },
+                      ) ,
+                  ],),
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            const Text(
-              'Worker Name',
-              style: TextStyle(
-                color: Colors.black87, // Dark grey for worker name
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            buildStageCard("Start Stage", Icons.play_arrow),
-            const SizedBox(height: 10),
-            buildStageCard("End Stage", Icons.stop),
-            const SizedBox(height: 10),
-            buildStageCard("Complete Stage", Icons.check_circle),
-            const SizedBox(height: 10),
-            buildStageCard("Scrap Add", Icons.delete),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 
-  Widget buildStageCard(String title, IconData icon) {
-    return GestureDetector(
-      onTap: () {
-        // Define your action on tap here
-      },
-      child: Card(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        color: Colors.white, // Light background color
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(icon, color: Colors.blueGrey[600]), // Muted blue-grey icon color
-                  const SizedBox(width: 10),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87, // Dark grey text color
-                    ),
-                  ),
-                ],
-              ),
-              const Icon(Icons.arrow_forward_ios, color: Colors.grey),
-            ],
+  Widget buildDateTimePicker(
+      BuildContext context,
+      String label,
+      Rx<DateTime> date,
+      VoidCallback onDateTapped,
+      Rx<TimeOfDay> time,
+      VoidCallback onTimeTapped,
+      ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        const SizedBox(height: 5),
+        GestureDetector(
+          onTap: onDateTapped,
+          child: Container(
+            height: 40,
+            width: Get.width / 2.8,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.teal),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.centerLeft,
+            child: Obx(() => Text(
+              "${date.value.day}-${date.value.month}-${date.value.year}",
+              style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
+            )),
           ),
         ),
-      ),
+        const SizedBox(height: 5),
+        GestureDetector(
+          onTap: onTimeTapped,
+          child: Container(
+            height: 40,
+            width: Get.width / 2.8,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.teal),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            alignment: Alignment.centerLeft,
+            child: Obx(() => Text(
+              time.value.format(context),
+              style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
+            )),
+          ),
+        ),
+      ],
     );
   }
 
-  void navigateToPage(BuildContext context, Widget page) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => page),
+  Widget buildSaveCompleteButton({void Function()? onSave,void Function()? onComplete}){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: onSave ?? () {},
+          child: Container(
+            height: 40,
+            width: Get.width * 0.3,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: Colors.grey.shade400,
+                width: 1,
+              ),
+            ),
+            child: const Center(
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: onComplete ?? () {},
+          child: Container(
+            height: 40,
+            width: Get.width * 0.3,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: const Center(
+              child: Text(
+                'Complete',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
+
 }
 
 
 
 
-class OrderDetailScreen extends StatefulWidget {
+/*class OrderDetailScreen extends StatefulWidget {
   const OrderDetailScreen({Key? key}) : super(key: key);
 
   @override
@@ -431,10 +548,7 @@ class _ItemCardState extends State<ItemCard> {
       },
     );
   }
-}
-
-
-
+}*/
 
 
 // void data (){

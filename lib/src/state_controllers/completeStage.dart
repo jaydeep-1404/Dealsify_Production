@@ -2,6 +2,59 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../api/Models/POModel.dart';
 
+
+
+class DateTimeController extends GetxController {
+  var startDate = DateTime.now().obs;
+  var startTime = TimeOfDay.now().obs;
+  var endDate = DateTime.now().obs;
+  var endTime = TimeOfDay.now().obs;
+
+  void pickStartDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: startDate.value,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      startDate.value = pickedDate;
+    }
+  }
+
+  void pickStartTime(BuildContext context) async {
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: startTime.value,
+    );
+    if (pickedTime != null) {
+      startTime.value = pickedTime;
+    }
+  }
+
+  void pickEndDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: endDate.value,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      endDate.value = pickedDate;
+    }
+  }
+
+  void pickEndTime(BuildContext context) async {
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: endTime.value,
+    );
+    if (pickedTime != null) {
+      endTime.value = pickedTime;
+    }
+  }
+}
+
 class PageControllerGetX extends GetxController {
   final PageController pageController = PageController();
   List<ProductionStages>? items = [];

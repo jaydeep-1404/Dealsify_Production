@@ -105,12 +105,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       itemBuilder: (context, index) {
                         final item = po.items[index];
                         final stage = item.items!.first.findFirstIncompleteStage();
-                        // print("FIRST INCOMPLETE STAGE : ${stage!.label ?? ''}");
                         return ProductionOrderBox(
                           onTap: () {
-                            // print("FIRST INCOMPLETE STAGE : ${stage!.label ?? ''}");
-
-                            // navigateToPage(context, const ProductionOrderView());
+                            record.saveRecord(item);
+                            record.saveStage(stage);
+                            navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),
                           itemName: item.items!.first.itemName.toString(),

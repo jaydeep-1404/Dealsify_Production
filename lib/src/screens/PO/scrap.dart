@@ -1,6 +1,4 @@
 
-import 'package:dealsify_production/src/common_functions/animations.dart';
-import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -32,7 +30,7 @@ class _ScraptScreenState extends State<ScraptScreen> {
         leadingWidth: 40,
         leading: IconButton(
           onPressed: () {
-            navigateToPage(context, const OrderDetailScreen());
+            // navigateToPage(context, const OrderDetailScreen());
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

@@ -6,27 +6,23 @@ import '../../api/get/get_po_list.dart';
 
 class PORecordCtrl extends GetxController {
   var poRecord = ProductionOrderModel().obs;
-  var poItem = Item().obs;
+  var activeStage = ProductionStages().obs;
   var poItemIndex = 0.obs;
-  var productionMetaDataIndex = 0.obs;
 
   void saveRecord(data) {
     poRecord.value = data ?? ProductionOrderModel();
   }
 
-  void saveItem(data) {
-    poRecord.value = data ?? ProductionOrderModel();
+  void saveStage(data) {
+    activeStage.value = data ?? ProductionStages();
   }
-
 
   void savePOItemIndex(index) => poItemIndex.value = index;
 
-  void saveProductionMetaDataIndex(index) => productionMetaDataIndex.value = index;
 
   void clearRecord() {
     poRecord.value = ProductionOrderModel();
     poItemIndex.value = 0;
-    productionMetaDataIndex.value = 0;
   }
 
   void checkPOAndRefresh() {
