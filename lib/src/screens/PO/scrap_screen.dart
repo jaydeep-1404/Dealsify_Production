@@ -123,11 +123,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ],
             ),
             const SizedBox(height: 10),
-            // Description Input
             TextFormField(
               controller: scrapController.descriptionController,
               maxLines: null,
-              style: const TextStyle(fontSize: 14), // Smaller font size
+              style: const TextStyle(fontSize: 14),
               decoration: InputDecoration(
                 labelText: 'Description',
                 contentPadding: const EdgeInsets.symmetric(vertical: 10), // Adjusted input height

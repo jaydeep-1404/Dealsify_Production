@@ -339,35 +339,6 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
           ),
         ),
       ),
-      // GestureDetector(
-      //   onTap: onComplete ?? () {},
-      //   child: Container(
-      //     height: 35,
-      //     width: Get.width * 0.3,
-      //     decoration: BoxDecoration(
-      //       color: Colors.green.shade100,
-      //       border: Border.all(color: Colors.green.shade700),
-      //       borderRadius: BorderRadius.circular(8),
-      //       boxShadow: [
-      //         BoxShadow(
-      //           color: Colors.black.withOpacity(0.1),
-      //           blurRadius: 4,
-      //           offset: const Offset(0, 2),
-      //         ),
-      //       ],
-      //     ),
-      //     child: Center(
-      //       child: Text(
-      //         'Complete',
-      //         style: TextStyle(
-      //           color: Colors.green.shade700,
-      //           fontSize: 15,
-      //           fontWeight: FontWeight.w500,
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ),
     ],
   );
 }

@@ -332,6 +332,7 @@ class ProductionOrderStatus {
 class Item {
   String? categoryId;
   List<ProductionMetadata>? productionMeta;
+  List<BomItems>? bomItems;
   String? categoryName;
   String? itemId;
   String? itemName;
@@ -344,6 +345,7 @@ class Item {
   Item({
     this.categoryId,
     this.productionMeta,
+    this.bomItems,
     this.categoryName,
     this.itemId,
     this.itemName,
@@ -358,8 +360,14 @@ class Item {
     var metaList = (json['productionMeta'] as List)
         .map((meta) => ProductionMetadata.fromJson(meta))
         .toList();
+
+    var bomItems = (json['productionMeta'] as List)
+        .map((meta) => BomItems.fromJson(meta))
+        .toList();
+
     return Item(
       metaList: metaList,
+      bomItems: bomItems,
       categoryId: json['categoryId']?.toString() ?? '',
       productionMeta: json['productionMeta'] != null
           ? List<ProductionMetadata>.from(json['productionMeta'].map((x) => ProductionMetadata.fromJson(x)))
