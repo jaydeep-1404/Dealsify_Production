@@ -361,13 +361,8 @@ class Item {
         .map((meta) => ProductionMetadata.fromJson(meta))
         .toList();
 
-    var bomItems = (json['productionMeta'] as List)
-        .map((meta) => BomItems.fromJson(meta))
-        .toList();
-
     return Item(
       metaList: metaList,
-      bomItems: bomItems,
       categoryId: json['categoryId']?.toString() ?? '',
       productionMeta: json['productionMeta'] != null
           ? List<ProductionMetadata>.from(json['productionMeta'].map((x) => ProductionMetadata.fromJson(x)))
@@ -396,6 +391,22 @@ class Item {
     }
 
   }
+
+  List<BomItems> getAllBomItems() {
+    try {
+      List<BomItems> allStages = [];
+      for (var meta in metaList!) {
+        allStages.addAll(meta.groupBomItem as Iterable<BomItems>);
+      }
+      print("BOM ITEMS : ${allStages.length}");
+      return allStages;
+    } catch (e, s) {
+      print(s);
+      return [];
+    }
+
+  }
+
 
   ProductionStages? findFirstIncompleteStage() {
     try {

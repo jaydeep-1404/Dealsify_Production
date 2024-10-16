@@ -7,6 +7,7 @@ import '../../api/get/get_po_list.dart';
 class PORecordCtrl extends GetxController {
   var poRecord = ProductionOrderModel().obs;
   var activeStage = ProductionStages().obs;
+  var bomItems = ProductionStages().obs;
   var poItemIndex = 0.obs;
 
   void saveRecord(data) {
