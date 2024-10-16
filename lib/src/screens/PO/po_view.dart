@@ -62,7 +62,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           children: [
             Text(
-              'Worker: ${stage.inspector ?? ''}',
+              'Inspector: ${stage.inspector ?? ''}',
               style: const TextStyle(
                 color: Colors.black87,
                 fontSize: 16,
@@ -161,7 +161,7 @@ Widget buildDateTimePicker(
     borderRadius: BorderRadius.circular(10),
     child: Container(
       padding: const EdgeInsets.only(
-        top: 10, bottom: 5, left: 5, right: 5,
+        top: 10, bottom: 5, left: 10, right: 10,
       ),
       decoration: BoxDecoration(
         color: Colors.transparent,
@@ -276,10 +276,10 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
           height: 35,
           width: Get.width * 0.3,
           decoration: BoxDecoration(
-            color: Colors.grey.shade300,
+            color: Colors.blue.shade100,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Colors.grey.shade400,
+              color: Colors.blue.shade700,
               width: 1,
             ),
           ),
@@ -287,9 +287,9 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
             child: Text(
               'Save',
               style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                color: Colors.blue,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -319,7 +319,6 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
                 color: Colors.green.shade700,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                // fontWeight: FontWeight.bold,
               ),
             ),
           ),
