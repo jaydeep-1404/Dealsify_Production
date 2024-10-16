@@ -34,16 +34,17 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 ),
               ),
               Text(
-                'Qty : ${record.poRecord.value.items!.first.qty}',
+                '${record.activeStage.value.label}',
                 style: const TextStyle(
-                  fontSize: 11,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blueGrey,
+                  color: Colors.black,
                 ),
               ),
             ],
           );
         }),
+        toolbarHeight: 80,
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -63,7 +64,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Material(
                 borderRadius: BorderRadius.circular(10),
-                elevation: 2,
+                elevation: 0,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                   decoration: BoxDecoration(
@@ -73,17 +74,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Stage : ${stage.label ?? ''}',
-                        style: TextStyle(
-                          color: Colors.blueGrey[800],
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       const SizedBox(height: 10),
                       Text(
-                        'Worker Name : ${stage.inspector ?? ''}',
+                        'Worker : ${stage.inspector ?? ''}',
                         style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 16,
@@ -91,19 +84,19 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           buildDateTimePicker(
                             context,
-                            'Start',
+                            'Start date', 'Start time',
                             dateTimeController.startDate, () => dateTimeController.pickStartDate(context),
                             dateTimeController.startTime, () => dateTimeController.pickStartTime(context),
                           ),
                           const SizedBox(width: 16),
                           buildDateTimePicker(
                             context,
-                            'End',
+                            'End date', 'End time',
                             dateTimeController.endDate, () => dateTimeController.pickEndDate(context),
                             dateTimeController.endTime, () => dateTimeController.pickEndTime(context),
                           ),
@@ -131,6 +124,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   Widget buildDateTimePicker(
       BuildContext context,
       String label,
+      String label2,
       Rx<DateTime> date,
       VoidCallback onDateTapped,
       Rx<TimeOfDay> time,
@@ -139,44 +133,56 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        const SizedBox(height: 5),
-        GestureDetector(
-          onTap: onDateTapped,
-          child: Container(
-            height: 40,
-            width: Get.width / 2.8,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.teal),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.centerLeft,
-            child: Obx(() => Text(
-              "${date.value.day}-${date.value.month}-${date.value.year}",
-              style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
-            )),
-          ),
-        ),
-        const SizedBox(height: 5),
-        GestureDetector(
-          onTap: onTimeTapped,
-          child: Container(
-            height: 40,
-            width: Get.width / 2.8,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.teal),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.centerLeft,
-            child: Obx(() => Text(
-              time.value.format(context),
-              style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
-            )),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              GestureDetector(
+                onTap: onDateTapped,
+                child: Container(
+                  height: 40,
+                  width: Get.width / 2.8,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.teal),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Obx(() => Text(
+                    "${date.value.day}-${date.value.month}-${date.value.year}",
+                    style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
+                  )),
+                ),
+              ),
+            ],),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                GestureDetector(
+                  onTap: onTimeTapped,
+                  child: Container(
+                    height: 40,
+                    width: Get.width / 2.8,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.teal),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Obx(() => Text(
+                      time.value.format(context),
+                      style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
+                    )),
+                  ),
+                ),
+              ],),
+          ],
         ),
       ],
     );

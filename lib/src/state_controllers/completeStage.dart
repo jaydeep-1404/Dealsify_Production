@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../api/Models/POModel.dart';
 
-
-
 class DateTimeController extends GetxController {
   var startDate = DateTime.now().obs;
   var startTime = TimeOfDay.now().obs;
@@ -53,6 +51,7 @@ class DateTimeController extends GetxController {
       endTime.value = pickedTime;
     }
   }
+
 }
 
 class PageControllerGetX extends GetxController {
