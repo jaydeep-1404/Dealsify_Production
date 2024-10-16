@@ -58,78 +58,82 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
       ),
       body: Obx(() {
         final stage = record.activeStage.value;
-        return ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+        return Stack(
           children: [
-            Text(
-              'Inspector: ${stage.inspector ?? ''}',
-              style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            buildDateTimePicker(
-              onSave: () {
-                if (stageController.startDate.value == null) {
-                  openDateErrorSnackbar();
-                } else {
-                }
-              },
-              onComplete: () {
-                if (stageController.startDate.value == null) {
-                  openDateErrorSnackbar();
-                } else {
-                }
-              },
-              context,
-              'Start date', 'Start time',
-              stageController.startDate.value,
-                  () => stageController.pickStartDate(context),
-              stageController.startTime.value,
-                  () => stageController.pickStartTime(context),
-            ),
-            const SizedBox(height: 10),
-            buildDateTimePicker(
-              onSave: () {
-                if (stageController.endDate.value == null) {
-                  openDateErrorSnackbar();
-                } else {
-                }
-              },
-              onComplete: () {
-                if (stageController.endDate.value == null) {
-                  openDateErrorSnackbar();
-                } else {
-                  // Complete logic here
-                }
-              },
-              context,
-              'End date', 'End time',
-              stageController.endDate.value,
-                  () => stageController.pickEndDate(context),
-              stageController.endTime.value,
-                  () => stageController.pickEndTime(context),
-            ),
-            const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  navigateToPage(context, const ScrapScreen());
-                },
-                icon: const Icon(Icons.delete, color: Colors.black87),
-                label: const Text("Scrap", style: TextStyle(color: Colors.black87)),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                Text(
+                  'Inspector: ${stage.inspector ?? ''}',
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
+                const SizedBox(height: 10),
+                buildDateTimePicker(
+                  onSave: () {
+                    if (stageController.startDate.value == null) {
+                      openDateErrorSnackbar();
+                    } else {
+                    }
+                  },
+                  onComplete: () {
+                    if (stageController.startDate.value == null) {
+                      openDateErrorSnackbar();
+                    } else {
+                    }
+                  },
+                  context,
+                  'Start date', 'Start time',
+                  stageController.startDate.value,
+                      () => stageController.pickStartDate(context),
+                  stageController.startTime.value,
+                      () => stageController.pickStartTime(context),
+                ),
+                const SizedBox(height: 10),
+                buildDateTimePicker(
+                  onSave: () {
+                    if (stageController.endDate.value == null) {
+                      openDateErrorSnackbar();
+                    } else {
+                    }
+                  },
+                  onComplete: () {
+                    if (stageController.endDate.value == null) {
+                      openDateErrorSnackbar();
+                    } else {
+                    }
+                  },
+                  context,
+                  'End date', 'End time',
+                  stageController.endDate.value,
+                      () => stageController.pickEndDate(context),
+                  stageController.endTime.value,
+                      () => stageController.pickEndTime(context),
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      navigateToPage(context, const ScrapScreen());
+                    },
+                    icon: const Icon(Icons.add, color: Colors.black87),
+                    label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+            completeButton(),
           ],
         );
       }),
@@ -144,6 +148,44 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
     snackPosition: SnackPosition.BOTTOM,
     backgroundColor: Colors.redAccent,
     colorText: Colors.white,
+  );
+}
+
+Widget completeButton({onTap}){
+  return Positioned(
+    bottom: 40,
+    left: 0,
+    right: 0,
+    child: GestureDetector(
+      onTap: onTap ?? () {},
+      child: Container(
+        height: 35,
+        width: Get.width / 1.2,
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          color: Colors.green.shade100,
+          border: Border.all(color: Colors.green.shade700),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            'Complete',
+            style: TextStyle(
+              color: Colors.green.shade700,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    ),
   );
 }
 
@@ -268,7 +310,7 @@ Widget buildDateTimeField(String label, dynamic value, VoidCallback onTapped) {
 
 Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComplete}) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    mainAxisAlignment: MainAxisAlignment.end,
     children: [
       GestureDetector(
         onTap: onSave ?? () {},
@@ -295,35 +337,35 @@ Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComp
           ),
         ),
       ),
-      GestureDetector(
-        onTap: onComplete ?? () {},
-        child: Container(
-          height: 35,
-          width: Get.width * 0.3,
-          decoration: BoxDecoration(
-            color: Colors.green.shade100,
-            border: Border.all(color: Colors.green.shade700),
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Text(
-              'Complete',
-              style: TextStyle(
-                color: Colors.green.shade700,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-      ),
+      // GestureDetector(
+      //   onTap: onComplete ?? () {},
+      //   child: Container(
+      //     height: 35,
+      //     width: Get.width * 0.3,
+      //     decoration: BoxDecoration(
+      //       color: Colors.green.shade100,
+      //       border: Border.all(color: Colors.green.shade700),
+      //       borderRadius: BorderRadius.circular(8),
+      //       boxShadow: [
+      //         BoxShadow(
+      //           color: Colors.black.withOpacity(0.1),
+      //           blurRadius: 4,
+      //           offset: const Offset(0, 2),
+      //         ),
+      //       ],
+      //     ),
+      //     child: Center(
+      //       child: Text(
+      //         'Complete',
+      //         style: TextStyle(
+      //           color: Colors.green.shade700,
+      //           fontSize: 15,
+      //           fontWeight: FontWeight.w500,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     ],
   );
 }
