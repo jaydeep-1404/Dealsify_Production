@@ -397,10 +397,10 @@ class Item {
           return stage;
         }
       }
-      return null;
+      return ProductionStages();
     } catch (e, s) {
       print(s);
-      return null;
+      return ProductionStages();
     }
 
   }

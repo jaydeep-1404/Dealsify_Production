@@ -104,14 +104,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       itemCount: po.items.length,
                       itemBuilder: (context, index) {
                         final item = po.items[index];
+                        final stage = item.items!.first.findFirstIncompleteStage();
+                        // print("FIRST INCOMPLETE STAGE : ${stage!.label ?? ''}");
                         return ProductionOrderBox(
                           onTap: () {
-                            navigateToPage(context, const ProductionOrderView());
+                            // print("FIRST INCOMPLETE STAGE : ${stage!.label ?? ''}");
+
+                            // navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),
                           itemName: item.items!.first.itemName.toString(),
                           priority: item.productionPriorityLevel.toString(),
-                          currentStage: 'New Stage',
+                          currentStage: stage!.label?.toString() ?? "",
                         );
                       },
                     ),
@@ -204,7 +208,9 @@ class ProductionOrderBox extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                if(currentStage.isNotEmpty)
                 _buildCompactInfoRow(
                   icon: Icons.assignment,
                   label: currentStage,
@@ -236,7 +242,7 @@ class ProductionOrderBox extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.bold,
             color: Colors.black54,
             overflow: TextOverflow.ellipsis,
