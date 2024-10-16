@@ -21,15 +21,15 @@ class CompleteStageController extends GetxController {
       Map<String, dynamic> responseData = jsonDecode(response.body);
       responseData.printFormattedJson();
       if (responseData["status"] == "success"){
-        final ctrl = Get.put(PageControllerGetX());
-        ctrl.completeStages!.add(ctrl.currentPage.value);
-        Open.stageUpdated();
-        ctrl.nextPage();
-        print("${ctrl.items!.length}");
-        if ((ctrl.currentPage.value + 1) == ctrl.items!.length){
-          Get.back(canPop: true,closeOverlays: true);
-          Get.put(PORecordCtrl()).checkPOAndRefresh();
-        }
+        // final ctrl = Get.put(PageControllerGetX());
+        // ctrl.completeStages!.add(ctrl.currentPage.value);
+        // Open.stageUpdated();
+        // ctrl.nextPage();
+        // print("${ctrl.items!.length}");
+        // if ((ctrl.currentPage.value + 1) == ctrl.items!.length){
+        //   Get.back(canPop: true,closeOverlays: true);
+        //   Get.put(PORecordCtrl()).checkPOAndRefresh();
+        // }
       }
     } on Exception catch (e, s) {
       e.show();

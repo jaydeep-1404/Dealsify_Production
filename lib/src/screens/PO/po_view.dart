@@ -15,7 +15,8 @@ class ProductionOrderView extends StatefulWidget {
 
 class _ProductionOrderViewState extends State<ProductionOrderView> {
   final record = Get.put(PORecordCtrl());
-  final dateTimeController = Get.put(DateTimeController()); // Initialize the controller
+  final dateTimeController = Get.put(StageController());
+  final ScrapController formController = Get.put(ScrapController());
 
   @override
   Widget build(BuildContext context) {
@@ -59,50 +60,163 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
       body: Obx(() {
         final stage = record.activeStage.value;
         return ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Material(
-                borderRadius: BorderRadius.circular(10),
-                elevation: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    borderRadius: BorderRadius.circular(10),
+            Text(
+              'Worker : ${stage.inspector ?? ''}',
+              style: const TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            buildDateTimePicker(
+              onSave: () {
+
+                },
+              onComplete: () {
+
+                },
+              context,
+              'Start date', 'Start time',
+              dateTimeController.startDate, () => dateTimeController.pickStartDate(context),
+              dateTimeController.startTime, () => dateTimeController.pickStartTime(context),
+            ),
+            const SizedBox(height: 10),
+            buildDateTimePicker(
+              onSave: () {
+
+                },
+              onComplete: () {
+
+                },
+              context,
+              'End date', 'End time',
+              dateTimeController.endDate, () => dateTimeController.pickEndDate(context),
+              dateTimeController.endTime, () => dateTimeController.pickEndTime(context),
+            ),
+            const SizedBox(height: 10),
+            Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Dropdown
+                  Obx(() => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.grey.shade100,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          spreadRadius: 1,
+                          blurRadius: 3,
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: 'Select Option',
+                        border: InputBorder.none,
+                        labelStyle: TextStyle(color: Colors.black54),
+                      ),
+                      value: formController.dropdownValue.value == ''
+                          ? null
+                          : formController.dropdownValue.value,
+                      items: const [
+                        DropdownMenuItem(
+                            value: 'Option 1', child: Text('Option 1')),
+                        DropdownMenuItem(
+                            value: 'Option 2', child: Text('Option 2')),
+                        DropdownMenuItem(
+                            value: 'Option 3', child: Text('Option 3')),
+                      ],
+                      onChanged: (value) {
+                        formController.dropdownValue.value = value ?? '';
+                      },
+                    ),
+                  )),
+                  const SizedBox(height: 20),
+
+                  // Quantity (Numeric input)
+                  buildCustomTextField(
+                    controller: formController.quantityController,
+                    labelText: 'Quantity',
+                    keyboardType: TextInputType.number,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Worker : ${stage.inspector ?? ''}',
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(height: 20),
+
+                  // Read-only Current Qty field
+                  buildCustomTextField(
+                    controller: formController.currentQtyController,
+                    labelText: 'Current Qty',
+                    readOnly: true,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Description (Expandable)
+                  buildCustomTextField(
+                    controller: formController.descriptionController,
+                    labelText: 'Description',
+                    maxLines: null, // Makes it expandable
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Add Button
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        formController.addRecord();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey,
+                        padding:
+                        const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      buildDateTimePicker(
-                        context,
-                        'Start date', 'Start time',
-                        dateTimeController.startDate, () => dateTimeController.pickStartDate(context),
-                        dateTimeController.startTime, () => dateTimeController.pickStartTime(context),
-                      ),
-                      buildDateTimePicker(
-                        context,
-                        'End date', 'End time',
-                        dateTimeController.endDate, () => dateTimeController.pickEndDate(context),
-                        dateTimeController.endTime, () => dateTimeController.pickEndTime(context),
-                      ),
-                      const SizedBox(height: 10),
-                      buildSaveCompleteButton(
-                        onSave: () {},
-                        onComplete: () {},
-                      ) ,
-                  ],),
-                ),
+                      child: const Text('Add', style: TextStyle(fontSize: 16)),
+                    ),
+                  ),
+                ],
               ),
+            ),
+            const SizedBox(height: 20),
+
+            // ListView to show records
+            Expanded(
+              child: Obx(() {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: formController.records.length,
+                  itemBuilder: (context, index) {
+                    var record = formController.records[index];
+                    return Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: ListTile(
+                        title: Text('Option: ${record.dropdownValue}'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Quantity: ${record.quantity}'),
+                            Text('Current Qty: ${record.currentQty}'),
+                            Text('Description: ${record.description}'),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            formController.deleteRecord(index);
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
           ],
         );
@@ -117,58 +231,81 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
       Rx<DateTime> date,
       VoidCallback onDateTapped,
       Rx<TimeOfDay> time,
-      VoidCallback onTimeTapped,
+      VoidCallback onTimeTapped,{void Function()? onSave,void Function()? onComplete}
       ) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      elevation: 2,
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        padding: const EdgeInsets.only(
+          top: 10, bottom: 5, left: 5, right: 5,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
           children: [
-          Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          GestureDetector(
-            onTap: onDateTapped,
-            child: Container(
-              height: 40,
-              width: Get.width / 2.8,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.teal),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.centerLeft,
-              child: Obx(() => Text(
-                "${date.value.day}-${date.value.month}-${date.value.year}",
-                style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
-              )),
-            ),
-          ),
-        ],),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            GestureDetector(
-              onTap: onTimeTapped,
-              child: Container(
-                height: 40,
-                width: Get.width / 2.8,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.teal),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  GestureDetector(
+                    onTap: onDateTapped,
+                    child: Container(
+                      height: 35,
+                      width: Get.width / 2.8,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.teal),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      alignment: Alignment.centerLeft,
+                      child: Obx(() => Text(
+                        "${date.value.day}-${date.value.month}-${date.value.year}",
+                        style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
+                      )),
+                    ),
+                  ),
+                ],),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(label2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    GestureDetector(
+                      onTap: onTimeTapped,
+                      child: Container(
+                        height: 35,
+                        width: Get.width / 2.8,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.teal),
+                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.centerLeft,
+                        child: Obx(() => Text(
+                          time.value.format(context),
+                          style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
+                        )),
+                      ),
+                    ),
+                  ],
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                alignment: Alignment.centerLeft,
-                child: Obx(() => Text(
-                  time.value.format(context),
-                  style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
-                )),
-              ),
+              ],
             ),
-          ],),
-      ],
+            const SizedBox(height: 10,),
+            buildSaveCompleteButton(
+              onSave: onSave ?? () {},
+              onComplete: onComplete ??() {},
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -234,6 +371,40 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildCustomTextField({
+    required TextEditingController controller,
+    required String labelText,
+    bool readOnly = false,
+    TextInputType keyboardType = TextInputType.text,
+    int? maxLines = 1, // Default maxLines to 1 for normal text input
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.grey.shade100,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: TextFormField(
+        controller: controller,
+        readOnly: readOnly,
+        keyboardType: keyboardType,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          labelText: labelText,
+          border: InputBorder.none,
+          labelStyle: const TextStyle(color: Colors.black54),
+        ),
+      ),
     );
   }
 
