@@ -3,15 +3,15 @@ import 'package:get/get.dart';
 import '../../api/Models/POModel.dart';
 
 class StageController extends GetxController {
-  var startDate = DateTime.now().obs;
-  var startTime = TimeOfDay.now().obs;
-  var endDate = DateTime.now().obs;
-  var endTime = TimeOfDay.now().obs;
+  var startDate = Rxn<DateTime>();
+  var startTime = Rxn<TimeOfDay>();
+  var endDate = Rxn<DateTime>();
+  var endTime = Rxn<TimeOfDay>();
 
   void pickStartDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: startDate.value,
+      initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
@@ -20,20 +20,22 @@ class StageController extends GetxController {
     }
   }
 
+  // Method to pick the start time
   void pickStartTime(BuildContext context) async {
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialTime: startTime.value,
+      initialTime: TimeOfDay.now(),
     );
     if (pickedTime != null) {
       startTime.value = pickedTime;
     }
   }
 
+  // Method to pick the end date
   void pickEndDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: endDate.value,
+      initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
@@ -42,16 +44,45 @@ class StageController extends GetxController {
     }
   }
 
+  // Method to pick the end time
   void pickEndTime(BuildContext context) async {
     TimeOfDay? pickedTime = await showTimePicker(
       context: context,
-      initialTime: endTime.value,
+      initialTime: TimeOfDay.now(),
     );
     if (pickedTime != null) {
       endTime.value = pickedTime;
     }
   }
 
+  void saveData() {
+    if (startDate.value == null) {
+      Get.snackbar(
+        'Error',
+        'Please select a start date',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } else if (endDate.value == null) {
+      Get.snackbar(
+        'Error',
+        'Please select an end date',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    } else {
+      // Data is valid, perform saving action
+      Get.snackbar(
+        'Success',
+        'Data saved successfully!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+    }
+  }
 }
 
 class ScrapController extends GetxController {

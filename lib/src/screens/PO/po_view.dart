@@ -80,8 +80,10 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 },
               context,
               'Start date', 'Start time',
-              dateTimeController.startDate, () => dateTimeController.pickStartDate(context),
-              dateTimeController.startTime, () => dateTimeController.pickStartTime(context),
+              dateTimeController.startDate.value,
+                  () => dateTimeController.pickStartDate(context),
+              dateTimeController.startTime.value,
+                  () => dateTimeController.pickStartTime(context),
             ),
             const SizedBox(height: 10),
             buildDateTimePicker(
@@ -93,131 +95,122 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 },
               context,
               'End date', 'End time',
-              dateTimeController.endDate, () => dateTimeController.pickEndDate(context),
-              dateTimeController.endTime, () => dateTimeController.pickEndTime(context),
+              dateTimeController.endDate.value,
+                  () => dateTimeController.pickEndDate(context),
+              dateTimeController.endTime.value,
+                  () => dateTimeController.pickEndTime(context),
             ),
             const SizedBox(height: 10),
-            Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Dropdown
-                  Obx(() => Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.grey.shade100,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 3,
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
-                        labelText: 'Select Option',
-                        border: InputBorder.none,
-                        labelStyle: TextStyle(color: Colors.black54),
-                      ),
-                      value: formController.dropdownValue.value == ''
-                          ? null
-                          : formController.dropdownValue.value,
-                      items: const [
-                        DropdownMenuItem(
-                            value: 'Option 1', child: Text('Option 1')),
-                        DropdownMenuItem(
-                            value: 'Option 2', child: Text('Option 2')),
-                        DropdownMenuItem(
-                            value: 'Option 3', child: Text('Option 3')),
-                      ],
-                      onChanged: (value) {
-                        formController.dropdownValue.value = value ?? '';
-                      },
-                    ),
-                  )),
-                  const SizedBox(height: 20),
-
-                  // Quantity (Numeric input)
-                  buildCustomTextField(
-                    controller: formController.quantityController,
-                    labelText: 'Quantity',
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Read-only Current Qty field
-                  buildCustomTextField(
-                    controller: formController.currentQtyController,
-                    labelText: 'Current Qty',
-                    readOnly: true,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Description (Expandable)
-                  buildCustomTextField(
-                    controller: formController.descriptionController,
-                    labelText: 'Description',
-                    maxLines: null, // Makes it expandable
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Add Button
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        formController.addRecord();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueGrey,
-                        padding:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text('Add', style: TextStyle(fontSize: 16)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // ListView to show records
-            Expanded(
-              child: Obx(() {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: formController.records.length,
-                  itemBuilder: (context, index) {
-                    var record = formController.records[index];
-                    return Card(
-                      elevation: 3,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        title: Text('Option: ${record.dropdownValue}'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Quantity: ${record.quantity}'),
-                            Text('Current Qty: ${record.currentQty}'),
-                            Text('Description: ${record.description}'),
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            formController.deleteRecord(index);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+            // Form(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Obx(() => Container(
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(12),
+            //           color: Colors.grey.shade100,
+            //           boxShadow: [
+            //             BoxShadow(
+            //               color: Colors.grey.withOpacity(0.2),
+            //               spreadRadius: 1,
+            //               blurRadius: 3,
+            //             ),
+            //           ],
+            //         ),
+            //         padding: const EdgeInsets.symmetric(horizontal: 12),
+            //         child: DropdownButtonFormField<String>(
+            //           decoration: const InputDecoration(
+            //             labelText: 'Select Option',
+            //             border: InputBorder.none,
+            //             labelStyle: TextStyle(color: Colors.black54),
+            //           ),
+            //           value: formController.dropdownValue.value == ''
+            //               ? null
+            //               : formController.dropdownValue.value,
+            //           items: const [
+            //             DropdownMenuItem(
+            //                 value: 'Option 1', child: Text('Option 1')),
+            //             DropdownMenuItem(
+            //                 value: 'Option 2', child: Text('Option 2')),
+            //             DropdownMenuItem(
+            //                 value: 'Option 3', child: Text('Option 3')),
+            //           ],
+            //           onChanged: (value) {
+            //             formController.dropdownValue.value = value ?? '';
+            //           },
+            //         ),
+            //       )),
+            //       const SizedBox(height: 20),
+            //       buildCustomTextField(
+            //         controller: formController.quantityController,
+            //         labelText: 'Quantity',
+            //         keyboardType: TextInputType.number,
+            //       ),
+            //       const SizedBox(height: 20),
+            //       buildCustomTextField(
+            //         controller: formController.currentQtyController,
+            //         labelText: 'Current Qty',
+            //         readOnly: true,
+            //       ),
+            //       const SizedBox(height: 20),
+            //       buildCustomTextField(
+            //         controller: formController.descriptionController,
+            //         labelText: 'Description',
+            //         maxLines: null,
+            //       ),
+            //       const SizedBox(height: 20),
+            //       Center(
+            //         child: ElevatedButton(
+            //           onPressed: () {
+            //             formController.addRecord();
+            //           },
+            //           style: ElevatedButton.styleFrom(
+            //             backgroundColor: Colors.blueGrey,
+            //             padding:
+            //             const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+            //             shape: RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(8),
+            //             ),
+            //           ),
+            //           child: const Text('Add', style: TextStyle(fontSize: 16)),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(height: 20),
+            // Expanded(
+            //   child: Obx(() {
+            //     return ListView.builder(
+            //       shrinkWrap: true,
+            //       itemCount: formController.records.length,
+            //       itemBuilder: (context, index) {
+            //         var record = formController.records[index];
+            //         return Card(
+            //           elevation: 3,
+            //           margin: const EdgeInsets.symmetric(vertical: 8),
+            //           child: ListTile(
+            //             title: Text('Option: ${record.dropdownValue}'),
+            //             subtitle: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               children: [
+            //                 Text('Quantity: ${record.quantity}'),
+            //                 Text('Current Qty: ${record.currentQty}'),
+            //                 Text('Description: ${record.description}'),
+            //               ],
+            //             ),
+            //             trailing: IconButton(
+            //               icon: const Icon(Icons.delete, color: Colors.red),
+            //               onPressed: () {
+            //                 formController.deleteRecord(index);
+            //               },
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     );
+            //   }),
+            // ),
           ],
         );
       }),
@@ -228,9 +221,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
       BuildContext context,
       String label,
       String label2,
-      Rx<DateTime> date,
+      DateTime? date,
       VoidCallback onDateTapped,
-      Rx<TimeOfDay> time,
+      TimeOfDay? time,
       VoidCallback onTimeTapped,{void Function()? onSave,void Function()? onComplete}
       ) {
     return Material(
@@ -265,10 +258,10 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       alignment: Alignment.centerLeft,
-                      child: Obx(() => Text(
-                        "${date.value.day}-${date.value.month}-${date.value.year}",
-                        style: TextStyle(color: date.value == null ? Colors.grey : Colors.black),
-                      )),
+                      child: Text(
+                        (date == null) ? "Select date..." : "${date.day}-${date.month}-${date.year}",
+                        style: TextStyle(color: date == null ? Colors.grey : Colors.black),
+                      ),
                     ),
                   ),
                 ],),
@@ -288,10 +281,10 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         alignment: Alignment.centerLeft,
-                        child: Obx(() => Text(
-                          time.value.format(context),
-                          style: TextStyle(color: time.value == null ? Colors.grey : Colors.black),
-                        )),
+                        child: Text(
+                          (time == null) ? "Select time..." : "${time.hour ?? ""}:${time.minute ?? ""}",
+                          style: TextStyle(color: time == null ? Colors.grey : Colors.black),
+                        ),
                       ),
                     ),
                   ],
