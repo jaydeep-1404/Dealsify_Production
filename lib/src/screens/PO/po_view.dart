@@ -75,14 +75,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 buildDateTimePicker(
                   onSave: () {
                     if (stageController.startDate.value == null) {
-                      openDateErrorSnackbar();
+                      openDateErrorSnackbar("Select Start Date");
                     } else {
-                    }
-                  },
-                  onComplete: () {
-                    if (stageController.startDate.value == null) {
-                      openDateErrorSnackbar();
-                    } else {
+
                     }
                   },
                   context,
@@ -95,15 +90,12 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 const SizedBox(height: 10),
                 buildDateTimePicker(
                   onSave: () {
-                    if (stageController.endDate.value == null) {
-                      openDateErrorSnackbar();
+                    if (stageController.startDate.value == null) {
+                      openDateErrorSnackbar("Select Start Date");
+                    } else if (stageController.endDate.value == null) {
+                      openDateErrorSnackbar("End Start Date");
                     } else {
-                    }
-                  },
-                  onComplete: () {
-                    if (stageController.endDate.value == null) {
-                      openDateErrorSnackbar();
-                    } else {
+
                     }
                   },
                   context,
@@ -133,7 +125,17 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 ),
               ],
             ),
-            completeButton(),
+            completeButton(
+              onTap: (){
+                if (stageController.startDate.value == null) {
+                  openDateErrorSnackbar("Select Start Date");
+                } else if (stageController.endDate.value == null) {
+                  openDateErrorSnackbar("End Start Date");
+                } else {
+
+                }
+              }
+            ),
           ],
         );
       }),
@@ -141,10 +143,10 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   }
 }
 
- openDateErrorSnackbar() {
+ openDateErrorSnackbar(msg) {
   return Get.snackbar(
     'Error',
-    'Please select a date',
+    msg,
     snackPosition: SnackPosition.BOTTOM,
     backgroundColor: Colors.redAccent,
     colorText: Colors.white,
