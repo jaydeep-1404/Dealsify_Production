@@ -1,5 +1,7 @@
 
 import 'package:dealsify_production/api/Models/POModel.dart';
+import 'package:dealsify_production/api/Models/bomItems.dart';
+import 'package:dealsify_production/api/Models/stages.dart';
 import 'package:get/get.dart';
 
 import '../../api/get/get_po_list.dart';
@@ -7,7 +9,7 @@ import '../../api/get/get_po_list.dart';
 class PORecordCtrl extends GetxController {
   var poRecord = ProductionOrderModel().obs;
   var activeStage = ProductionStages().obs;
-  var bomItems = ProductionStages().obs;
+  var bomItems = <BomItems>[].obs;
   var poItemIndex = 0.obs;
 
   void saveRecord(data) {
@@ -16,6 +18,10 @@ class PORecordCtrl extends GetxController {
 
   void saveStage(data) {
     activeStage.value = data ?? ProductionStages();
+  }
+
+  void saveBomItems(data) {
+    bomItems.value = data ?? BomItems();
   }
 
   void savePOItemIndex(index) => poItemIndex.value = index;

@@ -109,8 +109,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () {
                             record.saveRecord(item);
                             record.saveStage(stage);
-                            item.items!.first.getAllBomItems();
-                            // navigateToPage(context, const ProductionOrderView());
+                            record.saveBomItems(item.items!.first.getAllBomItems());
+                            navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),
                           itemName: item.items!.first.itemName.toString(),

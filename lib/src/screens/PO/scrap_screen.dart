@@ -1,6 +1,7 @@
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../api/Models/bomItems.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/completeStage.dart';
 import '../../state_controllers/production_order_states.dart';
@@ -57,7 +58,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   ),
                 ],
               ),
-              child: DropdownButtonFormField<String>(
+              child: DropdownButtonFormField(
                 isExpanded: true,
                 decoration: const InputDecoration(
                   labelText: 'Select Option',
@@ -204,3 +205,4 @@ class _ScrapScreenState extends State<ScrapScreen> {
     );
   }
 }
+
