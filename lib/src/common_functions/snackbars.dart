@@ -106,6 +106,35 @@ class Open {
       );
   }
 
+  static openDateErrorSnackbar(msg) {
+    return Get.snackbar(
+      '',
+      msg.toString(),
+      icon: const Icon(Icons.warning, color: Colors.yellow,size: 15),
+      backgroundColor: Colors.red,
+      snackPosition: SnackPosition.TOP,
+      colorText: Colors.white,
+      padding: symmetric(h: 5, v: 0),
+      margin: all(10),
+      maxWidth: double.infinity,
+      borderRadius: 8,
+      isDismissible: true,
+      titleText: const Stack(),
+      messageText: Padding(
+        padding: only(b: 5),
+        child: Text(msg ?? "" ,style: const TextStyle(color: Colors.white,fontSize: 13),),
+      ),
+      duration: const Duration(seconds: 3),
+    );
+    return Get.snackbar(
+      'Error',
+      msg,
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.redAccent,
+      colorText: Colors.white,
+    );
+  }
+
   static credential_true_snackBar(context) {
     final snackBar = SnackBar(
       content: const Text(

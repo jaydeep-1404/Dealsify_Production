@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'package:dealsify_production/core/services/extensions.dart';
-import 'package:dealsify_production/src/state_controllers/completeStage.dart';
-import 'package:dealsify_production/src/state_controllers/production_order_states.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/services/api_handler.dart';
 import '../../core/services/server_urls.dart';
-import '../../src/common_functions/snackbars.dart';
 
 class CompleteStageController extends GetxController {
   var loading = false.obs;

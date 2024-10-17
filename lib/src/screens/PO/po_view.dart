@@ -4,6 +4,7 @@ import 'package:dealsify_production/src/screens/PO/scrap_screen.dart';
 import 'package:dealsify_production/src/state_controllers/completeStage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../common_functions/snackbars.dart';
 import '../../state_controllers/production_order_states.dart';
 
 class ProductionOrderView extends StatefulWidget {
@@ -75,7 +76,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 buildDateTimePicker(
                   onSave: () {
                     if (stageController.startDate.value == null) {
-                      openDateErrorSnackbar("Select Start Date");
+                      Open.openDateErrorSnackbar("Select Start Date");
                     } else {
 
                     }
@@ -91,9 +92,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 buildDateTimePicker(
                   onSave: () {
                     if (stageController.startDate.value == null) {
-                      openDateErrorSnackbar("Select Start Date");
+                      Open.openDateErrorSnackbar("Select Start Date");
                     } else if (stageController.endDate.value == null) {
-                      openDateErrorSnackbar("End Start Date");
+                      Open.openDateErrorSnackbar("Select End Date");
                     } else {
 
                     }
@@ -128,9 +129,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
             completeButton(
               onTap: (){
                 if (stageController.startDate.value == null) {
-                  openDateErrorSnackbar("Select Start Date");
+                  Open.openDateErrorSnackbar("Select Start Date");
                 } else if (stageController.endDate.value == null) {
-                  openDateErrorSnackbar("End Start Date");
+                  Open.openDateErrorSnackbar("End Start Date");
                 } else {
 
                 }
@@ -141,16 +142,6 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
       }),
     );
   }
-}
-
- openDateErrorSnackbar(msg) {
-  return Get.snackbar(
-    'Error',
-    msg,
-    snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.redAccent,
-    colorText: Colors.white,
-  );
 }
 
 Widget completeButton({onTap}){

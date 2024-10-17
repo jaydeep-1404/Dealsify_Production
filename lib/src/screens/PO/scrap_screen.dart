@@ -86,8 +86,17 @@ class _ScrapScreenState extends State<ScrapScreen> {
             //   ),
             // )),
             Obx(() {
-              return DropdownButton<BomItems>(
-                hint: Text('Select a BOM Item'),
+              print("ITEMS : ${record.bomItems.length}");
+              return DropdownButtonFormField<BomItems>(
+                hint: const Text('Select Item'),
+                isExpanded: true,
+                decoration: const InputDecoration(
+                  labelText: 'Select Option',
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.black54),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
                 value: scrapController.selectedBomItem.value,
                 onChanged: scrapController.onBomItemSelected,
                 items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
@@ -98,7 +107,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 }).toList(),
               );
             }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Obx(() {
               if (scrapController.selectedBomItem.value != null) {
                 return Card(
@@ -108,9 +117,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Selected BOM Item Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 10),
-                        Text('ID: ${scrapController.selectedBomItem.value!.id}'),
+                        const Text('Selected BOM Item Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 10),
+                        Text('ID: ${scrapController.selectedBomItem.value!.categoryName}'),
                         Text('Material Name: ${scrapController.selectedBomItem.value!.materialName}'),
                         Text('Quantity: ${scrapController.selectedBomItem.value!.quantity}'),
                       ],
@@ -118,7 +127,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   ),
                 );
               } else {
-                return Text('No BOM Item selected.');
+                return const Text('No BOM Item selected.');
               }
             }),
             const SizedBox(height: 10),
