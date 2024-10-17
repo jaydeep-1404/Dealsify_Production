@@ -28,7 +28,7 @@ class ProfileController extends GetxController {
           throw Exception('Failed to load data');
         }
     } catch (e,s) {
-      // Print.get_catch(e, s);
+      print(s);
     }
   }
 

@@ -126,13 +126,6 @@ class Open {
       ),
       duration: const Duration(seconds: 3),
     );
-    return Get.snackbar(
-      'Error',
-      msg,
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.redAccent,
-      colorText: Colors.white,
-    );
   }
 
   static credential_true_snackBar(context) {
