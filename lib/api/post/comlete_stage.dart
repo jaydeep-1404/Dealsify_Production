@@ -12,11 +12,18 @@ import '../../src/state_controllers/production_order_states.dart';
 import '../../src/state_controllers/stage_controller.dart';
 
 class CompleteStageController extends GetxController {
-  var loading = false.obs;
+  var loadingStart = false.obs;
+  var loadingEnd = false.obs;
+  var loadingScrap = false.obs;
+  var loadingComplete = false.obs;
 
-  Future<void> post(id,payload,context) async {
+  Future<void> post(id,payload,context, {isStart, isEnd, isComplete,isScrap}) async {
     try {
-      loading(true);
+      if (isStart == true) loadingStart(true);
+      if (isEnd == true) loadingEnd(true);
+      if (isScrap == true) loadingScrap(true);
+      if (isComplete == true) loadingComplete(true);
+
       var response = await ApiRequest.patch(Uri.parse((ConstUrl.updateStages + id)), payload);
       if (kDebugMode) {
         print("URL : ${ConstUrl.updateStages + id}");
@@ -28,7 +35,11 @@ class CompleteStageController extends GetxController {
         Get.put(StageController()).clearAll();
         Get.put(ScrapController()).clearAll();
         navigateToPage(context, const DashboardScreen());
-        Open.stageUpdated();
+        if (isComplete == true){
+          Open.stageUpdated(msg: "Stage completed successfully");
+        } else {
+          Open.stageUpdated();
+        }
       } else {
         Open.openDateErrorSnackbar(responseData["message"]);
       }
@@ -37,7 +48,10 @@ class CompleteStageController extends GetxController {
       e.show();
       s.show();
     } finally {
-      loading(false);
+      if (isStart == true) loadingStart(false);
+      if (isEnd == true) loadingEnd(false);
+      if (isScrap == true) loadingScrap(false);
+      if (isComplete == true) loadingComplete(false);
     }
   }
 }

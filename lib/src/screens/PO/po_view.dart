@@ -105,16 +105,20 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   ),
                   const SizedBox(height: 10),
                   buildDateTimePicker(
+                    loading: save.loadingStart.value,
                     onSave: () {
-                      if (stageController.startDate.value == null) {
-                        Open.openDateErrorSnackbar("Select Start Date");
-                      } else {
-                        stageController.payloadStartStage().printFormattedJson();
-                        save.post(
-                          record.poRecord.value.id,
-                          stageController.payloadStartStage(),
-                          context,
-                        );
+                      if (save.loadingStart.value != true){
+                        if (stageController.startDate.value == null) {
+                          Open.openDateErrorSnackbar("Select Start Date");
+                        } else {
+                          stageController.payloadStartStage().printFormattedJson();
+                          save.post(
+                            isStart: true,
+                            record.poRecord.value.id,
+                            stageController.payloadStartStage(),
+                            context,
+                          );
+                        }
                       }
                     },
                     context,
@@ -124,18 +128,22 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   ),
                   const SizedBox(height: 10),
                   buildDateTimePicker(
+                    loading: save.loadingEnd.value,
                     onSave: () {
-                      if (stageController.startDate.value == null) {
-                        Open.openDateErrorSnackbar("Select Start Date");
-                      } else if (stageController.endDate.value == null) {
-                        Open.openDateErrorSnackbar("Select End Date");
-                      } else {
-                        stageController.payloadEndStage().printFormattedJson();
-                        save.post(
-                          record.poRecord.value.id,
-                          stageController.payloadEndStage(),
-                          context,
-                        );
+                      if (save.loadingEnd.value != true){
+                        if (stageController.startDate.value == null) {
+                          Open.openDateErrorSnackbar("Select Start Date");
+                        } else if (stageController.endDate.value == null) {
+                          Open.openDateErrorSnackbar("Select End Date");
+                        } else {
+                          stageController.payloadEndStage().printFormattedJson();
+                          save.post(
+                            isEnd: true,
+                            record.poRecord.value.id,
+                            stageController.payloadEndStage(),
+                            context,
+                          );
+                        }
                       }
                     },
                     context,
@@ -180,6 +188,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 ],
               ),
               completeButton(
+                loading: save.loadingComplete.value,
                 onTap: (){
                   if (stageController.startDate.value == null) {
                     Open.openDateErrorSnackbar("Select Start Date");
@@ -188,6 +197,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   } else {
                     stageController.payloadCompleteStage().printFormattedJson();
                     save.post(
+                      isComplete: true,
                       record.poRecord.value.id,
                       stageController.payloadCompleteStage(),
                       context,
@@ -203,7 +213,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   }
 }
 
-Widget completeButton({onTap}){
+Widget completeButton({onTap,loading}){
   return Positioned(
     bottom: Platform.isIOS ? 40 : 30,
     left: 0,
@@ -227,7 +237,7 @@ Widget completeButton({onTap}){
           ],
         ),
         child: Center(
-          child: Text(
+          child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : Text(
             'Complete',
             style: TextStyle(
               color: Colors.green.shade700,
@@ -248,7 +258,10 @@ Widget buildDateTimePicker(
     DateTime? date,
     VoidCallback onDateTapped,
     TimeOfDay? time,
-    VoidCallback onTimeTapped,{void Function()? onSave,void Function()? onComplete}
+    VoidCallback onTimeTapped,{
+      void Function()? onSave,
+      loading,
+    }
     ) {
   return Material(
     elevation: 2,
@@ -323,9 +336,35 @@ Widget buildDateTimePicker(
             ],
           ),
           const SizedBox(height: 10,),
-          buildSaveCompleteButton(
-            onSave: onSave ?? () {},
-            onComplete: onComplete ??() {},
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: onSave ?? () {},
+                child: Container(
+                  height: 35,
+                  width: Get.width * 0.3,
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade100,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Colors.blue.shade700,
+                      width: 1,
+                    ),
+                  ),
+                  child: Center(
+                    child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -353,39 +392,6 @@ Widget buildDateTimeField(String label, dynamic value, VoidCallback onTapped) {
           child: Text(
             (value == null) ? "Select..." : "${value.day}-${value.month}-${value.year}",
             style: TextStyle(color: value == null ? Colors.grey : Colors.black),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget buildSaveCompleteButton({void Function()? onSave, void Function()? onComplete}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      GestureDetector(
-        onTap: onSave ?? () {},
-        child: Container(
-          height: 35,
-          width: Get.width * 0.3,
-          decoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: Colors.blue.shade700,
-              width: 1,
-            ),
-          ),
-          child: const Center(
-            child: Text(
-              'Save',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
           ),
         ),
       ),

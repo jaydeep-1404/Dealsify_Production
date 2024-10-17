@@ -84,7 +84,7 @@ class Open {
   //   }
   // }
 
-  static stageUpdated() {
+  static stageUpdated({msg}) {
       return Get.snackbar(
         '',
         "Stage Updated successfully.",
@@ -100,7 +100,7 @@ class Open {
         titleText: const Stack(),
         messageText: Padding(
           padding: only(b: 5),
-          child: const Text("Stage Updated successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
+          child: Text( msg ?? "Stage Updated successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
         ),
         duration: const Duration(seconds: 3),
       );

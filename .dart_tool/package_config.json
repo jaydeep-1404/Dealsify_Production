@@ -272,6 +272,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "timelines",
+      "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/timelines-0.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "typed_data",
       "rootUri": "file:///Users/jaydeepmakwana/.pub-cache/hosted/pub.dev/typed_data-1.3.2",
       "packageUri": "lib/",
@@ -332,7 +338,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-15T09:51:07.394516Z",
+  "generated": "2024-10-17T11:35:47.780009Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///Users/jaydeepmakwana/development/flutter",

@@ -213,20 +213,25 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   ),
                 ],
               ),
-              _completeButton(
-                onTap: () {
-                  if (scrapController.records.isEmpty){
-                    Open.openDateErrorSnackbar("Add items");
-                  } else {
-                    scrapController.payload().printFormattedJson();
-                    save.post(
-                      record.poRecord.value.id,
-                      scrapController.payload(),
-                      context,
-                    );
-                  }
-                },
-              )
+              Obx(() {
+                return _completeButton(
+                  loading: save.loadingScrap.value,
+                  onTap: () {
+                    if (scrapController.records.isEmpty){
+                      Open.openDateErrorSnackbar("Add items");
+                    } else {
+                      scrapController.payload().printFormattedJson();
+                      save.post(
+                        isScrap: true,
+                        record.poRecord.value.id,
+                        scrapController.payload(),
+                        context,
+                      );
+                    }
+                  },
+                );
+              },),
+
             ],
           ),
         ),
@@ -245,7 +250,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
     }
   }
 
-  Widget _completeButton({onTap}){
+  Widget _completeButton({onTap,loading}){
     return Positioned(
       bottom: Platform.isIOS ? 40 : 30,
       left: 0,
@@ -269,7 +274,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
             ],
           ),
           child: Center(
-            child: Text(
+            child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : Text(
               'Save',
               style: TextStyle(
                 color: Colors.blue.shade700,
