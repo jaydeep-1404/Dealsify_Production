@@ -110,9 +110,10 @@ class StageController extends GetxController {
   }
 
   Map<String,dynamic> payloadCompleteStage() {
+    final i = Get.put(PORecordCtrl());
     return {
-      "productionStagesId": "65b345cd97f3f76bcc37741f",
-      "inspector": "Satish",
+      "productionStagesId": i.activeStage.value.id,
+      "inspector": i.activeStage.value.inspector,
       "isScrapMaterialEnable": false,
       "isAddOnMaterialEnable": false,
       "isStageCompleted": true,

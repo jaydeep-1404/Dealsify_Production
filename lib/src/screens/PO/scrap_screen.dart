@@ -58,152 +58,196 @@ class _ScrapScreenState extends State<ScrapScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
+        child: Stack(
           children: [
-            ElevatedButton(
-              onPressed: () {
-
-              },
-              child: const Text("Save"),
-            ),
-            Obx(() {
-              return DropdownButtonFormField<BomItems>(
-                hint: const Text('Select Item'),
-                isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: 'Select Option',
-                  border: OutlineInputBorder(),
-                  labelStyle: TextStyle(color: Colors.black54),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                value: scrapController.selectedBomItem.value,
-                onChanged: scrapController.onBomItemSelected,
-                items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
-                  return DropdownMenuItem<BomItems>(
-                    value: item,
-                    child: Text('${item.materialName}'),
-                  );
-                }).toList(),
-              );
-            }),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Column(
               children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: scrapController.quantityController,
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      labelText: 'Quantity',
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade400),
-                      ),
-                      labelStyle: const TextStyle(color: Colors.black54),
+                Obx(() {
+                  return DropdownButtonFormField<BomItems>(
+                    hint: const Text('Select Item'),
+                    isExpanded: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Select Option',
+                      border: OutlineInputBorder(),
+                      labelStyle: TextStyle(color: Colors.black54),
                       filled: true,
                       fillColor: Colors.white,
                     ),
+                    value: scrapController.selectedBomItem.value,
+                    onChanged: scrapController.onBomItemSelected,
+                    items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
+                      return DropdownMenuItem<BomItems>(
+                        value: item,
+                        child: Text('${item.materialName}'),
+                      );
+                    }).toList(),
+                  );
+                }),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: scrapController.quantityController,
+                        keyboardType: TextInputType.number,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          labelText: 'Quantity',
+                          contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey.shade400),
+                          ),
+                          labelStyle: const TextStyle(color: Colors.black54),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextFormField(
+                        controller: scrapController.currentQtyController,
+                        readOnly: true,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          labelText: 'Current Qty',
+                          contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey.shade400),
+                          ),
+                          labelStyle: const TextStyle(color: Colors.black54),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: scrapController.descriptionController,
+                  maxLines: null,
+                  style: const TextStyle(fontSize: 14),
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    labelStyle: const TextStyle(color: Colors.black54),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextFormField(
-                    controller: scrapController.currentQtyController,
-                    readOnly: true,
-                    style: const TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                      labelText: 'Current Qty',
-                      contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
-                      border: OutlineInputBorder(
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      scrapController.addRecord();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF78909C),
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
-                      labelStyle: const TextStyle(color: Colors.black54),
-                      filled: true,
-                      fillColor: Colors.white,
                     ),
+                    child: const Text('Add', style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
+                ),
+                const SizedBox(height: 20),
+                const Divider(),
+                Expanded(
+                  child: Obx(() {
+                    return ListView.builder(
+                      itemCount: scrapController.records.length,
+                      itemBuilder: (context, index) {
+                        var record = scrapController.records[index];
+                        return Card(
+                          elevation: 2,
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          child: ListTile(
+                            title: Text('Option: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
+                                Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
+                                Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
+                                // Text('itemId: ${record.itemId}', style: const TextStyle(color: Colors.black87)),
+                                // Text('bomItemId: ${record.bomItemId}', style: const TextStyle(color: Colors.black87)),
+                                // Text('categoryId: ${record.categoryId}', style: const TextStyle(color: Colors.black87)),
+                              ],
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.redAccent),
+                              onPressed: () {
+                                scrapController.deleteRecord(index);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            TextFormField(
-              controller: scrapController.descriptionController,
-              maxLines: null,
-              style: const TextStyle(fontSize: 14),
-              decoration: InputDecoration(
-                labelText: 'Description',
-                contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: Colors.grey.shade400),
-                ),
-                labelStyle: const TextStyle(color: Colors.black54),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  scrapController.addRecord();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF78909C),
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text('Add', style: TextStyle(color: Colors.white, fontSize: 16)),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Divider(),
-            Expanded(
-              child: Obx(() {
-                return ListView.builder(
-                  itemCount: scrapController.records.length,
-                  itemBuilder: (context, index) {
-                    var record = scrapController.records[index];
-                    return Card(
-                      elevation: 2,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        title: Text('Option: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
-                            Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
-                            Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
-                            // Text('itemId: ${record.itemId}', style: const TextStyle(color: Colors.black87)),
-                            // Text('bomItemId: ${record.bomItemId}', style: const TextStyle(color: Colors.black87)),
-                            // Text('categoryId: ${record.categoryId}', style: const TextStyle(color: Colors.black87)),
-                          ],
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.redAccent),
-                          onPressed: () {
-                            scrapController.deleteRecord(index);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }),
-            ),
+            _completeButton(
+              onTap: () {
+
+              },
+            )
           ],
         ),
       ),
     );
   }
+
+  Widget _completeButton({onTap}){
+    return Positioned(
+      bottom: 40,
+      left: 0,
+      right: 0,
+      child: GestureDetector(
+        onTap: onTap ?? () {},
+        child: Container(
+          height: 35,
+          width: Get.width / 1.2,
+          margin: const EdgeInsets.symmetric(horizontal: 15),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade100,
+            border: Border.all(color: Colors.blue.shade700),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Text(
+              'Save',
+              style: TextStyle(
+                color: Colors.blue.shade700,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
 }
+
 

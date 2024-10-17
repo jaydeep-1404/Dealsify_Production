@@ -150,9 +150,9 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   if (stageController.startDate.value == null) {
                     Open.openDateErrorSnackbar("Select Start Date");
                   } else if (stageController.endDate.value == null) {
-                    Open.openDateErrorSnackbar("End Start Date");
+                    Open.openDateErrorSnackbar("Select End Date");
                   } else {
-
+                    stageController.payloadCompleteStage().printFormattedJson();
                   }
                 }
               ),
