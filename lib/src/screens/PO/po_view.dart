@@ -2,9 +2,11 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:dealsify_production/src/screens/PO/scrap_screen.dart';
+import 'package:dealsify_production/src/state_controllers/scrap_controller.dart';
 import 'package:dealsify_production/src/state_controllers/stage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../api/post/comlete_stage.dart';
 import '../../common_functions/snackbars.dart';
 import '../../state_controllers/production_order_states.dart';
 
@@ -18,6 +20,8 @@ class ProductionOrderView extends StatefulWidget {
 class _ProductionOrderViewState extends State<ProductionOrderView> {
   final record = Get.put(PORecordCtrl());
   final stageController = Get.put(StageController());
+  final scrapController = Get.put(ScrapController());
+  final save = Get.put(CompleteStageController());
 
   @override
   void initState() {
@@ -32,6 +36,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   void clearData(){
     record.clearAll();
     stageController.clearAll();
+    scrapController.clearAll();
   }
 
   @override
@@ -102,6 +107,11 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                         Open.openDateErrorSnackbar("Select Start Date");
                       } else {
                         stageController.payloadStartStage().printFormattedJson();
+                        // save.post(
+                        //   record.poRecord.value.,
+                        //   stageController.payloadStartStage(),
+                        //   context,
+                        // );
                       }
                     },
                     context,

@@ -31,7 +31,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void dispose() {
     super.dispose();
     _timer?.cancel();
-    // po.clear();
   }
 
   @override
@@ -41,7 +40,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return false;
       },
       child: Scaffold(
-        // drawer: const MyDrawer(),
         appBar: AppBar(
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.end,
