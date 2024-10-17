@@ -1,7 +1,7 @@
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:dealsify_production/src/screens/PO/scrap_screen.dart';
-import 'package:dealsify_production/src/state_controllers/completeStage.dart';
+import 'package:dealsify_production/src/state_controllers/stage_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common_functions/snackbars.dart';
