@@ -61,7 +61,7 @@ class ScrapController extends GetxController {
     return {
       "productionStagesId": i.activeStage.value.id,
       "inspector": i.activeStage.value.inspector,
-      "isScrapMaterialEnable": false,
+      "isScrapMaterialEnable": true,
       "isAddOnMaterialEnable": false,
       "isStageCompleted": false,
       "scrapMaterial": records.map((i) {

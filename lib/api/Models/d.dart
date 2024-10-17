@@ -1,11 +1,16 @@
  // {
- //   "productionStagesId": "65b345cd97f3f76bcc37741f",
- //   "inspector": "Satish",
- //   "isScrapMaterialEnable": false,
+ //   "productionStagesId": "670cb2ca84218ac874e3b604",
+ //   "inspector": "Satish patar",
+ //   "isScrapMaterialEnable": true,
  //   "isAddOnMaterialEnable": false,
  //   "isStageCompleted": false,
- //   "startingTime": "12:48:00",
- //   "startingDate": "2024-10-12 12:48:39.646260",
- //   "endingTime": "12:48:00",
- //   "endingDate": "2024-10-12 12:48:39.646493"
+ //   "scrapMaterial": [
+ //     {
+ //       "bomItemId": "670cb2ca84218ac874e3b602",
+ //       "itemId": "66e90f39a2a2c0e20ab07c41",
+ //       "currentStock": 2,
+ //       "categoryId": "66e90cc7a2a2c0e20ab07bde",
+ //       "scrapStock": "100"
+ //     }
+ //   ]
  // }

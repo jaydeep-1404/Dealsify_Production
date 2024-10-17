@@ -141,22 +141,38 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                     stageController.endTime.value, () => stageController.pickEndTime(context),
                   ),
                   const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        navigateToPage(context, const ScrapScreen());
-                      },
-                      icon: const Icon(Icons.add, color: Colors.black87),
-                      label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          navigateToPage(context, const ScrapScreen());
+                        },
+                        icon: const Icon(Icons.timelapse, color: Colors.black87),
+                        label: const Text("Timeline", style: TextStyle(color: Colors.black87)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
-                    ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          navigateToPage(context, const ScrapScreen());
+                        },
+                        icon: const Icon(Icons.add, color: Colors.black87),
+                        label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
