@@ -5,6 +5,7 @@ class ConstUrl {
       auth_login_url          = '${base_url}auth/login';
 
   static String po  = "${base_url}production-order/item-wise-orders?";
+  static String my_profile  = "${base_url}users/my-profile";
   // static String po  = "${base_url}production-order?&";
   static String updateStages = "${base_url}production-order/update-po-stages/";
 

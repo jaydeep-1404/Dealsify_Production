@@ -2,6 +2,7 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:dealsify_production/src/screens/PO/scrap_screen.dart';
+import 'package:dealsify_production/src/screens/PO/timeline_screen.dart';
 import 'package:dealsify_production/src/state_controllers/scrap_controller.dart';
 import 'package:dealsify_production/src/state_controllers/stage_controller.dart';
 import 'package:flutter/material.dart';
@@ -146,7 +147,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
-                          navigateToPage(context, const ScrapScreen());
+                          navigateToPage(context, const TimelineScreen());
                         },
                         icon: const Icon(Icons.timelapse, color: Colors.black87),
                         label: const Text("Timeline", style: TextStyle(color: Colors.black87)),
