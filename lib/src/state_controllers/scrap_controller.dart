@@ -45,13 +45,18 @@ class ScrapController extends GetxController {
     records.removeAt(index);
   }
 
-  void clearAll(){
+  void clearAll() {
     records = <Record>[].obs;
     selectedBomItem = Rx<BomItems?>(null);
     quantityController = TextEditingController();
     currentQtyController = TextEditingController();
     descriptionController = TextEditingController();
   }
+
+  void createPayload() {
+
+  }
+
 }
 
 class Record {

@@ -1,3 +1,4 @@
+import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
 import 'package:dealsify_production/src/screens/PO/scrap_screen.dart';
@@ -100,15 +101,13 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                       if (stageController.startDate.value == null) {
                         Open.openDateErrorSnackbar("Select Start Date");
                       } else {
-
+                        stageController.payloadStartStage().printFormattedJson();
                       }
                     },
                     context,
                     'Start date', 'Start time',
-                    stageController.startDate.value,
-                        () => stageController.pickStartDate(context),
-                    stageController.startTime.value,
-                        () => stageController.pickStartTime(context),
+                    stageController.startDate.value, () => stageController.pickStartDate(context),
+                    stageController.startTime.value, () => stageController.pickStartTime(context),
                   ),
                   const SizedBox(height: 10),
                   buildDateTimePicker(
@@ -118,15 +117,13 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                       } else if (stageController.endDate.value == null) {
                         Open.openDateErrorSnackbar("Select End Date");
                       } else {
-
+                        stageController.payloadEndStage().printFormattedJson();
                       }
                     },
                     context,
                     'End date', 'End time',
-                    stageController.endDate.value,
-                        () => stageController.pickEndDate(context),
-                    stageController.endTime.value,
-                        () => stageController.pickEndTime(context),
+                    stageController.endDate.value, () => stageController.pickEndDate(context),
+                    stageController.endTime.value, () => stageController.pickEndTime(context),
                   ),
                   const SizedBox(height: 10),
                   Align(

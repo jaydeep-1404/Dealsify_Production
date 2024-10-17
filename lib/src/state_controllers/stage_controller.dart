@@ -1,3 +1,4 @@
+import 'package:dealsify_production/src/state_controllers/production_order_states.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -78,6 +79,48 @@ class StageController extends GetxController {
         colorText: Colors.white,
       );
     }
+  }
+
+  Map<String,dynamic> payloadStartStage() {
+    final i = Get.put(PORecordCtrl());
+    return {
+      "productionStagesId": i.activeStage.value.id,
+      "inspector": i.activeStage.value.inspector,
+      "isScrapMaterialEnable": false,
+      "isAddOnMaterialEnable": false,
+      "isStageCompleted": false,
+      if (startTime.value != null)"startingTime": "${startTime.value!.hour}:${startTime.value!.minute}:00",
+      "startingDate": startDate.value.toString(),
+    };
+  }
+
+  Map<String,dynamic> payloadEndStage() {
+    final i = Get.put(PORecordCtrl());
+    return {
+      "productionStagesId": i.activeStage.value.id,
+      "inspector": i.activeStage.value.inspector,
+      "isScrapMaterialEnable": false,
+      "isAddOnMaterialEnable": false,
+      "isStageCompleted": false,
+      if (startTime.value != null)"startingTime": "${startTime.value!.hour}:${startTime.value!.minute}:00",
+      "startingDate": startDate.value.toString(),
+      if (endTime.value != null)"endingTime": "${endTime.value!.hour}:${endTime.value!.minute}:00",
+      "endingDate": endDate.value.toString(),
+    };
+  }
+
+  Map<String,dynamic> payloadCompleteStage() {
+    return {
+      "productionStagesId": "65b345cd97f3f76bcc37741f",
+      "inspector": "Satish",
+      "isScrapMaterialEnable": false,
+      "isAddOnMaterialEnable": false,
+      "isStageCompleted": true,
+      if (startTime.value != null)"startingTime": "${startTime.value!.hour}:${startTime.value!.minute}:00",
+      "startingDate": startDate.value.toString(),
+      if (endTime.value != null)"endingTime": "${endTime.value!.hour}:${endTime.value!.minute}:00",
+      "endingDate": endDate.value.toString(),
+    };
   }
 
   void clearAll(){
