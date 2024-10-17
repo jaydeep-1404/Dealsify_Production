@@ -19,6 +19,18 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   final stageController = Get.put(StageController());
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    record.clearAll();
+    stageController.clearAll();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
