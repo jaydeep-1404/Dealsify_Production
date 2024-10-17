@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../api/Models/bomItems.dart';
 import '../../../api/get/get_po_list.dart';
 import '../../Drawer/drawer.dart';
 import '../../common_functions/animations.dart';
@@ -109,7 +110,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           onTap: () {
                             record.saveRecord(item);
                             record.saveStage(stage);
-                            record.saveBomItems(item.items!.first.getAllBomItems());
+                            if (item.items!.first.getAllBomItems().isEmpty){
+                              BomItems i = BomItems(
+                                materialId: item.items!.first.id,
+                                categoryId: item.items!.first.categoryId,
+                                materialName: item.items!.first.itemName,
+                                quantity: item.items!.first.qty,
+                              );
+                              record.saveBomItems([i]);
+                            } else {
+                              record.saveBomItems(item.items!.first.getAllBomItems());
+                            }
                             navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),
