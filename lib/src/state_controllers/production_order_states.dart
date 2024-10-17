@@ -10,6 +10,7 @@ class PORecordCtrl extends GetxController {
   var poRecord = ProductionOrderModel().obs;
   var activeStage = ProductionStages().obs;
   var bomItems = <BomItems>[].obs;
+  var selectedBomItem = Rx<BomItems?>(null);
   var poItemIndex = 0.obs;
 
   void saveRecord(data) {
@@ -21,7 +22,8 @@ class PORecordCtrl extends GetxController {
   }
 
   void saveBomItems(data) {
-    bomItems.value = data ?? BomItems();
+    bomItems.value = [];
+    bomItems.assignAll(data);
   }
 
   void savePOItemIndex(index) => poItemIndex.value = index;

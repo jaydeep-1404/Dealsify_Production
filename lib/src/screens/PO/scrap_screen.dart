@@ -47,39 +47,80 @@ class _ScrapScreenState extends State<ScrapScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Obx(() => Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 4,
+            // Obx(() => Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(12),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.grey.withOpacity(0.1),
+            //         spreadRadius: 1,
+            //         blurRadius: 4,
+            //       ),
+            //     ],
+            //   ),
+            //   child: DropdownButtonFormField(
+            //     isExpanded: true,
+            //     decoration: const InputDecoration(
+            //       labelText: 'Select Option',
+            //       border: OutlineInputBorder(),
+            //       labelStyle: TextStyle(color: Colors.black54),
+            //       filled: true,
+            //       fillColor: Colors.white,
+            //     ),
+            //     value: scrapController.dropdownValue.value.isEmpty ? null : scrapController.dropdownValue.value,
+            //     // items: const [
+            //     //   DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
+            //     //   DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
+            //     //   DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
+            //     // ],
+            //     items: record.bomItems.map<DropdownMenuItem<String>>((BomItems item) {
+            //       return DropdownMenuItem<String>(
+            //         value: item.id,
+            //         child: Text('${item.materialName} - Qty: ${item.quantity}'), // Display material name and quantity
+            //       );
+            //     }).toList(),
+            //     onChanged: (value) {
+            //       scrapController.dropdownValue.value = value ?? '';
+            //
+            //     },
+            //   ),
+            // )),
+            Obx(() {
+              return DropdownButton<BomItems>(
+                hint: Text('Select a BOM Item'),
+                value: scrapController.selectedBomItem.value,
+                onChanged: scrapController.onBomItemSelected,
+                items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
+                  return DropdownMenuItem<BomItems>(
+                    value: item,
+                    child: Text('${item.materialName} - Qty: ${item.quantity}'), // Display material name and quantity
+                  );
+                }).toList(),
+              );
+            }),
+            SizedBox(height: 20),
+            Obx(() {
+              if (scrapController.selectedBomItem.value != null) {
+                return Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Selected BOM Item Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        SizedBox(height: 10),
+                        Text('ID: ${scrapController.selectedBomItem.value!.id}'),
+                        Text('Material Name: ${scrapController.selectedBomItem.value!.materialName}'),
+                        Text('Quantity: ${scrapController.selectedBomItem.value!.quantity}'),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-              child: DropdownButtonFormField(
-                isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: 'Select Option',
-                  border: OutlineInputBorder(),
-                  labelStyle: TextStyle(color: Colors.black54),
-                  filled: true,
-                  fillColor: Colors.white,
-                ),
-                value: scrapController.dropdownValue.value.isEmpty
-                    ? null
-                    : scrapController.dropdownValue.value,
-                items: const [
-                  DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
-                  DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
-                  DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
-                ],
-                onChanged: (value) {
-                  scrapController.dropdownValue.value = value ?? '';
-                },
-              ),
-            )),
+                );
+              } else {
+                return Text('No BOM Item selected.');
+              }
+            }),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,15 +186,15 @@ class _ScrapScreenState extends State<ScrapScreen> {
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: () {
-                  if (scrapController.quantityController.text.isEmpty ||
-                      scrapController.dropdownValue.value.isEmpty) {
-                    Get.snackbar(
-                      'Validation Error',
-                      'Please select an option and enter a quantity.',
-                      snackPosition: SnackPosition.BOTTOM,
-                    );
-                    return;
-                  }
+                  // if (scrapController.quantityController.text.isEmpty ||
+                  //     scrapController.selectedBomItem.value.isEmpty) {
+                  //   Get.snackbar(
+                  //     'Validation Error',
+                  //     'Please select an option and enter a quantity.',
+                  //     snackPosition: SnackPosition.BOTTOM,
+                  //   );
+                  //   return;
+                  // }
 
                   scrapController.addRecord();
                 },

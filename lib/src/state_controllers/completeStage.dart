@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../api/Models/POModel.dart';
+import '../../api/Models/bomItems.dart';
 
 class StageController extends GetxController {
   var startDate = Rxn<DateTime>();
@@ -88,17 +89,17 @@ class StageController extends GetxController {
 class ScrapController extends GetxController {
   var records = <Record>[].obs;
 
-  var dropdownValue = ''.obs;
+  var selectedBomItem = Rx<BomItems?>(null);
   var quantityController = TextEditingController();
   var currentQtyController = TextEditingController(text: '10'); // Example of pre-filled current qty
   var descriptionController = TextEditingController();
 
   void addRecord() {
-    if (dropdownValue.value.isNotEmpty &&
+    if (selectedBomItem.value != null &&
         quantityController.text.isNotEmpty &&
         descriptionController.text.isNotEmpty) {
       var newRecord = Record(
-        dropdownValue: dropdownValue.value,
+        dropdownValue: "",
         quantity: quantityController.text,
         currentQty: currentQtyController.text,
         description: descriptionController.text,
@@ -107,11 +108,15 @@ class ScrapController extends GetxController {
 
       quantityController.clear();
       descriptionController.clear();
-      dropdownValue.value = '';
+      selectedBomItem.value = null;
     } else {
       Get.snackbar('Error', 'Please fill all fields',
           snackPosition: SnackPosition.BOTTOM);
     }
+  }
+
+  void onBomItemSelected(BomItems? newValue) {
+    selectedBomItem.value = newValue;
   }
 
   void deleteRecord(int index) {

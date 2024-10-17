@@ -110,6 +110,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             record.saveRecord(item);
                             record.saveStage(stage);
                             record.saveBomItems(item.items!.first.getAllBomItems());
+                            print("BOM ITEMS : ${item.items!.first.getAllBomItems().length}");
                             navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),
