@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
@@ -203,7 +205,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
 
 Widget completeButton({onTap}){
   return Positioned(
-    bottom: 40,
+    bottom: Platform.isIOS ? 40 : 30,
     left: 0,
     right: 0,
     child: GestureDetector(

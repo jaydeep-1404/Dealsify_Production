@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/snackbars.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
@@ -213,7 +215,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ),
               _completeButton(
                 onTap: () {
-                  print("object");
                   if (scrapController.records.isEmpty){
                     Open.openDateErrorSnackbar("Add items");
                   } else {
@@ -246,7 +247,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
 
   Widget _completeButton({onTap}){
     return Positioned(
-      bottom: 40,
+      bottom: Platform.isIOS ? 40 : 30,
       left: 0,
       right: 0,
       child: GestureDetector(
