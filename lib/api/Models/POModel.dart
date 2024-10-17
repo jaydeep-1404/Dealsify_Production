@@ -1,6 +1,7 @@
 
 import 'package:dealsify_production/api/Models/customer.dart';
 import 'package:dealsify_production/api/Models/items.dart';
+import 'package:dealsify_production/api/Models/stages.dart';
 
 class ProductionOrderModel {
   String? id;
@@ -16,6 +17,7 @@ class ProductionOrderModel {
   String? createdAt;
   String? updatedAt;
   String? productionOrderNo;
+  ActiveStage? activeStage;
   String? v;
   Customer? customerId;
   ProductionOrderStatus? productionOrderStatus;
@@ -23,6 +25,7 @@ class ProductionOrderModel {
 
   ProductionOrderModel({
     this.id,
+    this.activeStage,
     this.orderDate,
     this.dispatchDate,
     this.expectedDate,
@@ -44,6 +47,7 @@ class ProductionOrderModel {
   factory ProductionOrderModel.fromJson(Map<String, dynamic> json) {
     return ProductionOrderModel(
       id: json['_id']?.toString() ?? '',
+      activeStage: json['activeStage'] != null ? ActiveStage.fromJson(json['activeStage']) : null,
       orderDate: json['orderDate']?.toString() ?? '',
       dispatchDate: json['dispatchDate']?.toString() ?? '',
       expectedDate: json['expectedDate']?.toString() ?? '',
@@ -61,12 +65,7 @@ class ProductionOrderModel {
       productionOrderStatus: json['productionOrderStatus'] != null
           ? ProductionOrderStatus.fromJson(json['productionOrderStatus'])
           : null,
-      items: json['items'] != null
-          ? Item.fromJson(json['items'])
-          : null,
-      // items: json['items'] != null
-      //     ? List<Item>.from(json['items'].map((x) => Item.fromJson(x)))
-      //     : null,
+      items: json['items'] != null ? Item.fromJson(json['items']) : null,
     );
   }
 }

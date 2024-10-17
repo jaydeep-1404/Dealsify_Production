@@ -1,3 +1,102 @@
+
+class ActiveStage {
+  String stageId;
+  String label;
+  int priority;
+  String inspector;
+  bool isStageCompleted;
+  List<ProductionChildStage> productionChildStages;
+  List<String> mandatoryStages;
+  String id;
+
+  ActiveStage({
+    required this.stageId,
+    required this.label,
+    required this.priority,
+    required this.inspector,
+    required this.isStageCompleted,
+    required this.productionChildStages,
+    required this.mandatoryStages,
+    required this.id,
+  });
+
+  factory ActiveStage.fromJson(Map<String, dynamic> json) {
+    var stages = json['productionChildStages'] as List;
+    List<ProductionChildStage> childStagesList =
+    stages.map((stage) => ProductionChildStage.fromJson(stage)).toList();
+
+    return ActiveStage(
+      stageId: json['stageId'] ?? '',
+      label: json['label'] ?? '',
+      priority: json['priority'] ?? 0,
+      inspector: json['inspector'] ?? '',
+      isStageCompleted: json['isStageCompleted'] ?? false,
+      productionChildStages: childStagesList,
+      mandatoryStages: List<String>.from(json['mandatoryStages'] ?? []),
+      id: json['_id'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'stageId': stageId,
+      'label': label,
+      'priority': priority,
+      'inspector': inspector,
+      'isStageCompleted': isStageCompleted,
+      'productionChildStages': productionChildStages.map((stage) => stage.toJson()).toList(),
+      'mandatoryStages': mandatoryStages,
+      '_id': id,
+    };
+  }
+}
+
+
+class ProductionChildStage {
+  String label;
+  String labelSlug;
+  String worker;
+  bool isRequired;
+  int priority;
+  int approxProcessTimeInHours;
+  String id;
+
+  ProductionChildStage({
+    required this.label,
+    required this.labelSlug,
+    required this.worker,
+    required this.isRequired,
+    required this.priority,
+    required this.approxProcessTimeInHours,
+    required this.id,
+  });
+
+  factory ProductionChildStage.fromJson(Map<String, dynamic> json) {
+    return ProductionChildStage(
+      label: json['label'] ?? '',
+      labelSlug: json['labelSlug'] ?? '',
+      worker: json['worker'] ?? '',
+      isRequired: json['isRequired'] ?? false,
+      priority: json['priority'] ?? 0,
+      approxProcessTimeInHours: json['approxProcessTimeInHours'] ?? 0,
+      id: json['_id'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'label': label,
+      'labelSlug': labelSlug,
+      'worker': worker,
+      'isRequired': isRequired,
+      'priority': priority,
+      'approxProcessTimeInHours': approxProcessTimeInHours,
+      '_id': id,
+    };
+  }
+}
+
+
 class ProductionStages {
   String? id;
   String? stageId;
