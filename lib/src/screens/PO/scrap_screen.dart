@@ -1,3 +1,6 @@
+import 'package:dealsify_production/api/auth/login.dart';
+import 'package:dealsify_production/core/services/extensions.dart';
+import 'package:dealsify_production/src/common_functions/snackbars.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:dealsify_production/src/state_controllers/scrap_controller.dart';
 import 'package:flutter/material.dart';
@@ -200,7 +203,11 @@ class _ScrapScreenState extends State<ScrapScreen> {
             ),
             _completeButton(
               onTap: () {
-
+                if (scrapController.records.isEmpty){
+                  Open.openDateErrorSnackbar("Add items");
+                } else {
+                  scrapController.payload().printFormattedJson();
+                }
               },
             )
           ],

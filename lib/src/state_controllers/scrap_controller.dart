@@ -1,5 +1,6 @@
 
 import 'package:dealsify_production/api/Models/bomItems.dart';
+import 'package:dealsify_production/src/state_controllers/production_order_states.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,8 +54,37 @@ class ScrapController extends GetxController {
     descriptionController = TextEditingController();
   }
 
-  void createPayload() {
+  Map<String,dynamic> payload() {
+    final i = Get.put(PORecordCtrl());
+    return {
+      "productionStagesId": i.activeStage.value.id,
+      "inspector": i.activeStage.value.inspector,
+      "isScrapMaterialEnable": false,
+      "isAddOnMaterialEnable": false,
+      "isStageCompleted": false,
+      "scrapMaterial": records.map((i) {
+        return {
+          "bomItemId": i.bomItemId,
+          "itemId": i.itemId,
+          "currentStock": convertToNumber(i.currentQty),
+          "categoryId": i.categoryId,
+          "scrapStock": i.quantity,
+        };
+      }).toList(),
+    };
+  }
 
+  num? convertToNumber(dynamic value) {
+    double? number = double.tryParse(value.toString());
+    if (number != null) {
+      if (number == number.toInt()) {
+        return number.toInt();
+      } else {
+        return number;
+      }
+    } else {
+      return null;
+    }
   }
 
 }
