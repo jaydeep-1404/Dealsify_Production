@@ -135,6 +135,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 stage.endingDate?.toString() ?? '',
                                 stage.endingTime?.toString() ?? '',
                               );
+                              po.clear();
                               navigateToPage(context, const ProductionOrderView());
                             }
                           },
