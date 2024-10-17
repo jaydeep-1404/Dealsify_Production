@@ -26,132 +26,143 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void clearData(){
     record.clearAll();
     stageController.clearAll();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Obx(() {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return WillPopScope(
+      onWillPop: () async {
+        clearData();
+        navigateToPage(context, const DashboardScreen());
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Obx(() {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '${record.poRecord.value.items!.first.itemName}',
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '${record.activeStage.value.label}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            );
+          }),
+          toolbarHeight: 80,
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              clearData();
+              navigateToPage(context, const DashboardScreen());
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        body: Obx(() {
+          final stage = record.activeStage.value;
+          return Stack(
             children: [
-              Text(
-                '${record.poRecord.value.items!.first.itemName}',
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  Text(
+                    'Inspector: ${stage.inspector ?? ''}',
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  buildDateTimePicker(
+                    onSave: () {
+                      if (stageController.startDate.value == null) {
+                        Open.openDateErrorSnackbar("Select Start Date");
+                      } else {
+
+                      }
+                    },
+                    context,
+                    'Start date', 'Start time',
+                    stageController.startDate.value,
+                        () => stageController.pickStartDate(context),
+                    stageController.startTime.value,
+                        () => stageController.pickStartTime(context),
+                  ),
+                  const SizedBox(height: 10),
+                  buildDateTimePicker(
+                    onSave: () {
+                      if (stageController.startDate.value == null) {
+                        Open.openDateErrorSnackbar("Select Start Date");
+                      } else if (stageController.endDate.value == null) {
+                        Open.openDateErrorSnackbar("Select End Date");
+                      } else {
+
+                      }
+                    },
+                    context,
+                    'End date', 'End time',
+                    stageController.endDate.value,
+                        () => stageController.pickEndDate(context),
+                    stageController.endTime.value,
+                        () => stageController.pickEndTime(context),
+                  ),
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        navigateToPage(context, const ScrapScreen());
+                      },
+                      icon: const Icon(Icons.add, color: Colors.black87),
+                      label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                '${record.activeStage.value.label}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
-                ),
+              completeButton(
+                onTap: (){
+                  if (stageController.startDate.value == null) {
+                    Open.openDateErrorSnackbar("Select Start Date");
+                  } else if (stageController.endDate.value == null) {
+                    Open.openDateErrorSnackbar("End Start Date");
+                  } else {
+
+                  }
+                }
               ),
             ],
           );
         }),
-        toolbarHeight: 80,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            navigateToPage(context, const DashboardScreen());
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black54,
-          ),
-        ),
       ),
-      body: Obx(() {
-        final stage = record.activeStage.value;
-        return Stack(
-          children: [
-            ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                Text(
-                  'Inspector: ${stage.inspector ?? ''}',
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                buildDateTimePicker(
-                  onSave: () {
-                    if (stageController.startDate.value == null) {
-                      Open.openDateErrorSnackbar("Select Start Date");
-                    } else {
-
-                    }
-                  },
-                  context,
-                  'Start date', 'Start time',
-                  stageController.startDate.value,
-                      () => stageController.pickStartDate(context),
-                  stageController.startTime.value,
-                      () => stageController.pickStartTime(context),
-                ),
-                const SizedBox(height: 10),
-                buildDateTimePicker(
-                  onSave: () {
-                    if (stageController.startDate.value == null) {
-                      Open.openDateErrorSnackbar("Select Start Date");
-                    } else if (stageController.endDate.value == null) {
-                      Open.openDateErrorSnackbar("Select End Date");
-                    } else {
-
-                    }
-                  },
-                  context,
-                  'End date', 'End time',
-                  stageController.endDate.value,
-                      () => stageController.pickEndDate(context),
-                  stageController.endTime.value,
-                      () => stageController.pickEndTime(context),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      navigateToPage(context, const ScrapScreen());
-                    },
-                    icon: const Icon(Icons.add, color: Colors.black87),
-                    label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            completeButton(
-              onTap: (){
-                if (stageController.startDate.value == null) {
-                  Open.openDateErrorSnackbar("Select Start Date");
-                } else if (stageController.endDate.value == null) {
-                  Open.openDateErrorSnackbar("End Start Date");
-                } else {
-
-                }
-              }
-            ),
-          ],
-        );
-      }),
     );
   }
 }
