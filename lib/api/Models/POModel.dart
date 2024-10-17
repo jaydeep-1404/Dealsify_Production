@@ -47,7 +47,7 @@ class ProductionOrderModel {
   factory ProductionOrderModel.fromJson(Map<String, dynamic> json) {
     return ProductionOrderModel(
       id: json['_id']?.toString() ?? '',
-      activeStage: json['activeStage'] != null ? ActiveStage.fromJson(json['activeStage']) : null,
+      // activeStage: json['activeStage'] != null ? ActiveStage.fromJson(json['activeStage']) : null,
       orderDate: json['orderDate']?.toString() ?? '',
       dispatchDate: json['dispatchDate']?.toString() ?? '',
       expectedDate: json['expectedDate']?.toString() ?? '',

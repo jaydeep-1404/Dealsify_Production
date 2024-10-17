@@ -41,7 +41,6 @@ class PurchaseOrderController extends GetxController {
       if (startIndex != null) loading(true);
       final response = await ApiRequest.get(Uri.parse((ConstUrl.po) + Uri(queryParameters: parameters).query));
       Map<String,dynamic> data = json.decode(response.body);
-      // data.printFormattedJson();
       AccessToken.expired(data);
       if (data[BKD.status] == true) {
         final items = List<ProductionOrderModel>.from(data[BKD.data].map((item) => ProductionOrderModel.fromJson(item)));
