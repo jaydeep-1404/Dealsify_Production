@@ -4,10 +4,13 @@ class ProductionStages {
   String? label;
   num? priority;
   String? inspector;
+  String? startingDate;
+  String? endingDate;
+  String? startingTime;
+  String? endingTime;
   bool? isStageCompleted;
   List<ProductionChildStages>? productionChildStages;
   List<dynamic>? mandatoryStages;
-
 
   ProductionStages({
     this.id,
@@ -18,6 +21,10 @@ class ProductionStages {
     this.isStageCompleted,
     this.productionChildStages,
     this.mandatoryStages,
+    this.startingDate,
+    this.endingDate,
+    this.startingTime,
+    this.endingTime,
   });
 
   factory ProductionStages.fromJson(Map<String, dynamic> json) {
@@ -27,6 +34,10 @@ class ProductionStages {
       label: json['label']?.toString() ?? '',
       priority: json['priority'] ?? 0,
       inspector: json['inspector']?.toString() ?? '',
+      startingDate: json['startingDate']?.toString() ?? '',
+      endingDate: json['endingDate']?.toString() ?? '',
+      startingTime: json['startingTime']?.toString() ?? '',
+      endingTime: json['endingTime']?.toString() ?? '',
       isStageCompleted: json['isStageCompleted'] ?? false,
       productionChildStages: json['productionChildStages'] != null
           ? List<ProductionChildStages>.from(json['productionChildStages'].map((x) => ProductionChildStages.fromJson(x)))

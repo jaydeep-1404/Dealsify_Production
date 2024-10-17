@@ -5,6 +5,7 @@ import '../../../api/Models/bomItems.dart';
 import '../../../api/get/get_po_list.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
+import '../../state_controllers/stage_controller.dart';
 import 'po_view.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -17,7 +18,10 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final po = Get.put(PurchaseOrderController());
   final record = Get.put(PORecordCtrl());
+  final stageController = Get.put(StageController());
+
   final searchCtrl = TextEditingController();
+
   int _selectedIndex = 0;
   Timer? _timer;
 
@@ -118,6 +122,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             } else {
                               record.saveBomItems(item.items!.first.getAllBomItems());
                             }
+
+                            stageController.setStartDateTime(
+                                stage.startingDate?.toString() ?? '',
+                                stage.startingTime?.toString() ?? '',
+                            );
+
+                            stageController.setEndDateTime(
+                              stage.endingDate?.toString() ?? '',
+                              stage.endingTime?.toString() ?? '',
+                            );
+
                             navigateToPage(context, const ProductionOrderView());
                           },
                           orderNo: item.productionOrderNo.toString(),

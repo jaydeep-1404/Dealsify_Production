@@ -52,36 +52,55 @@ class StageController extends GetxController {
     }
   }
 
-  void saveData() {
-    if (startDate.value == null) {
-      Get.snackbar(
-        'Error',
-        'Please select a start date',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    } else if (endDate.value == null) {
-      Get.snackbar(
-        'Error',
-        'Please select an end date',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    } else {
-      // Data is valid, perform saving action
-      Get.snackbar(
-        'Success',
-        'Data saved successfully!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
+  void setStartDateTime(String dateString, String timeString) {
+    if (dateString.isNotEmpty){
+      try {
+        DateTime parsedDate = DateTime.parse(dateString);
+        startDate.value = parsedDate;
+      } catch (e) {
+        print("$e");
+      }
+    }
+    if (timeString.isNotEmpty){
+      try {
+        List<String> timeParts = timeString.split(':');
+        if (timeParts.length == 3) {
+          int hour = int.parse(timeParts[0]);
+          int minute = int.parse(timeParts[1]);
+          startTime.value = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e, s) {
+        print(s);
+      }
     }
   }
 
-  Map<String,dynamic> payloadStartStage() {
+  void setEndDateTime(String dateString, String timeString) {
+    if (dateString.isNotEmpty){
+      try {
+        DateTime parsedDate = DateTime.parse(dateString);
+        endDate.value = parsedDate;
+      } catch (e) {
+        print("$e");
+      }
+    }
+    if (timeString.isNotEmpty){
+      try {
+        List<String> timeParts = timeString.split(':');
+        if (timeParts.length == 3) {
+          int hour = int.parse(timeParts[0]);
+          int minute = int.parse(timeParts[1]);
+          endTime.value = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e, s) {
+        print(s);
+      }
+    }
+  }
+
+
+
+  Map<String, dynamic> payloadStartStage() {
     final i = Get.put(PORecordCtrl());
     return {
       "productionStagesId": i.activeStage.value.id,
@@ -94,7 +113,7 @@ class StageController extends GetxController {
     };
   }
 
-  Map<String,dynamic> payloadEndStage() {
+  Map<String, dynamic> payloadEndStage() {
     final i = Get.put(PORecordCtrl());
     return {
       "productionStagesId": i.activeStage.value.id,
@@ -109,7 +128,7 @@ class StageController extends GetxController {
     };
   }
 
-  Map<String,dynamic> payloadCompleteStage() {
+  Map<String, dynamic> payloadCompleteStage() {
     final i = Get.put(PORecordCtrl());
     return {
       "productionStagesId": i.activeStage.value.id,
@@ -124,13 +143,10 @@ class StageController extends GetxController {
     };
   }
 
-  void clearAll(){
-    startDate = Rxn<DateTime>();
-    startTime = Rxn<TimeOfDay>();
-    endDate = Rxn<DateTime>();
-    endTime = Rxn<TimeOfDay>();
+  void clearAll() {
+    startDate.value = null;
+    startTime.value = null;
+    endDate.value = null;
+    endTime.value = null;
   }
-
 }
-
-
