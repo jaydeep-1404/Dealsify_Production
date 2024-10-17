@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../../core/services/api_handler.dart';
 import '../../core/services/server_urls.dart';
+import '../../src/common_functions/snackbars.dart';
 import '../../src/state_controllers/production_order_states.dart';
 import '../../src/state_controllers/stage_controller.dart';
 
@@ -27,8 +28,11 @@ class CompleteStageController extends GetxController {
         Get.put(StageController()).clearAll();
         Get.put(ScrapController()).clearAll();
         navigateToPage(context, const DashboardScreen());
+      } else {
+        Open.openDateErrorSnackbar(responseData["message"]);
       }
     } on Exception catch (e, s) {
+      Open.openDateErrorSnackbar("Fail");
       e.show();
       s.show();
     } finally {

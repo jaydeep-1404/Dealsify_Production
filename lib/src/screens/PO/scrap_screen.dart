@@ -6,6 +6,7 @@ import 'package:dealsify_production/src/state_controllers/scrap_controller.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
+import '../../../api/post/comlete_stage.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
 
@@ -19,6 +20,7 @@ class ScrapScreen extends StatefulWidget {
 class _ScrapScreenState extends State<ScrapScreen> {
   final record = Get.put(PORecordCtrl());
   final scrapController = Get.put(ScrapController());
+  final save = Get.put(CompleteStageController());
 
   @override
   Widget build(BuildContext context) {
@@ -182,9 +184,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
                                 Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
                                 Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
                                 Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
-                                // Text('itemId: ${record.itemId}', style: const TextStyle(color: Colors.black87)),
-                                // Text('bomItemId: ${record.bomItemId}', style: const TextStyle(color: Colors.black87)),
-                                // Text('categoryId: ${record.categoryId}', style: const TextStyle(color: Colors.black87)),
                               ],
                             ),
                             trailing: IconButton(
@@ -207,6 +206,11 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   Open.openDateErrorSnackbar("Add items");
                 } else {
                   scrapController.payload().printFormattedJson();
+                  save.post(
+                    record.poRecord.value.id,
+                    scrapController.payload(),
+                    context,
+                  );
                 }
               },
             )

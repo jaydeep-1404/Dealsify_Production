@@ -107,11 +107,11 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                         Open.openDateErrorSnackbar("Select Start Date");
                       } else {
                         stageController.payloadStartStage().printFormattedJson();
-                        // save.post(
-                        //   record.poRecord.value.,
-                        //   stageController.payloadStartStage(),
-                        //   context,
-                        // );
+                        save.post(
+                          record.poRecord.value.id,
+                          stageController.payloadStartStage(),
+                          context,
+                        );
                       }
                     },
                     context,
@@ -128,6 +128,11 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                         Open.openDateErrorSnackbar("Select End Date");
                       } else {
                         stageController.payloadEndStage().printFormattedJson();
+                        save.post(
+                          record.poRecord.value.id,
+                          stageController.payloadEndStage(),
+                          context,
+                        );
                       }
                     },
                     context,
@@ -163,6 +168,11 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                     Open.openDateErrorSnackbar("Select End Date");
                   } else {
                     stageController.payloadCompleteStage().printFormattedJson();
+                    save.post(
+                      record.poRecord.value.id,
+                      stageController.payloadCompleteStage(),
+                      context,
+                    );
                   }
                 }
               ),
