@@ -30,6 +30,8 @@ class ScrapController extends GetxController {
       currentQtyController.clear();
       descriptionController.clear();
       selectedBomItem.value = null;
+      FocusManager.instance.primaryFocus?.unfocus();
+
     } else {
       Open.openDateErrorSnackbar("Fill Required Fields");
     }

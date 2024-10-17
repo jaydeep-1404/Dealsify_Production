@@ -109,31 +109,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         final stage = item.items!.first.findFirstIncompleteStage();
                         return ProductionOrderBox(
                           onTap: () {
-                            record.saveRecord(item);
-                            record.saveStage(stage);
-                            if (item.items!.first.getAllBomItems().isEmpty){
-                              BomItems i = BomItems(
-                                materialId: item.items!.first.id,
-                                categoryId: item.items!.first.categoryId,
-                                materialName: item.items!.first.itemName,
-                                quantity: item.items!.first.qty,
-                              );
-                              record.saveBomItems([i]);
-                            } else {
-                              record.saveBomItems(item.items!.first.getAllBomItems());
-                            }
+                            if (item.items!.first.incompleteStages().isNotEmpty){
+                              record.saveRecord(item);
+                              record.saveStage(stage);
+                              if (item.items!.first.getAllBomItems().isEmpty){
+                                BomItems i = BomItems(
+                                  materialId: item.items!.first.id,
+                                  categoryId: item.items!.first.categoryId,
+                                  materialName: item.items!.first.itemName,
+                                  quantity: item.items!.first.qty,
+                                );
+                                record.saveBomItems([i]);
+                              } else {
+                                record.saveBomItems(item.items!.first.getAllBomItems());
+                              }
 
-                            stageController.setStartDateTime(
+                              stageController.setStartDateTime(
                                 stage.startingDate?.toString() ?? '',
                                 stage.startingTime?.toString() ?? '',
-                            );
+                              );
 
-                            stageController.setEndDateTime(
-                              stage.endingDate?.toString() ?? '',
-                              stage.endingTime?.toString() ?? '',
-                            );
-
-                            navigateToPage(context, const ProductionOrderView());
+                              stageController.setEndDateTime(
+                                stage.endingDate?.toString() ?? '',
+                                stage.endingTime?.toString() ?? '',
+                              );
+                              navigateToPage(context, const ProductionOrderView());
+                            }
                           },
                           orderNo: item.productionOrderNo.toString(),
                           itemName: item.items!.first.itemName.toString(),
@@ -223,7 +224,7 @@ class ProductionOrderBox extends StatelessWidget {
                 ),
                 const Spacer(),
                 _buildCompactInfoRow(
-                  icon: Icons.widgets,
+                  // icon: Icons.widgets,
                   label: itemName,
                   iconColor: Colors.orange.shade300,
                 ),
@@ -233,10 +234,10 @@ class ProductionOrderBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if(currentStage.isNotEmpty)
+                // if(currentStage.isNotEmpty)
                 _buildCompactInfoRow(
-                  icon: Icons.assignment,
-                  label: currentStage,
+                  icon: currentStage.isNotEmpty ? Icons.assignment : Icons.check_circle,
+                  label: currentStage.isNotEmpty ? currentStage : "All stages completed",
                   iconColor: Colors.green.shade300,
                 ),
                 const Spacer(),
@@ -254,16 +255,16 @@ class ProductionOrderBox extends StatelessWidget {
   }
 
   Widget _buildCompactInfoRow({
-    required IconData icon,
-    required String label,
-    required Color iconColor,
+    IconData? icon,
+    String? label,
+    Color? iconColor,
   }) {
     return Row(
       children: [
-        Icon(icon, color: iconColor, size: 18),
+        if (icon != null)Icon(icon, color: iconColor, size: 18),
         const SizedBox(width: 6),
         Text(
-          label,
+          label!,
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
