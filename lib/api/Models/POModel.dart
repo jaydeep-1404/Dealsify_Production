@@ -19,7 +19,7 @@ class ProductionOrderModel {
   String? v;
   Customer? customerId;
   ProductionOrderStatus? productionOrderStatus;
-  List<Item>? items;
+  Item? items;
 
   ProductionOrderModel({
     this.id,
@@ -62,8 +62,11 @@ class ProductionOrderModel {
           ? ProductionOrderStatus.fromJson(json['productionOrderStatus'])
           : null,
       items: json['items'] != null
-          ? List<Item>.from(json['items'].map((x) => Item.fromJson(x)))
+          ? Item.fromJson(json['items'])
           : null,
+      // items: json['items'] != null
+      //     ? List<Item>.from(json['items'].map((x) => Item.fromJson(x)))
+      //     : null,
     );
   }
 }

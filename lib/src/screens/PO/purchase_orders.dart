@@ -108,22 +108,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       itemCount: po.items.length,
                       itemBuilder: (context, index) {
                         final item = po.items[index];
-                        final stage = item.items!.first.findFirstIncompleteStage();
+                        final stage = item.items!.findFirstIncompleteStage();
                         return ProductionOrderBox(
                           onTap: () {
-                            if (item.items!.first.incompleteStages().isNotEmpty){
+                            if (item.items!.incompleteStages().isNotEmpty){
                               record.saveRecord(item);
                               record.saveStage(stage);
-                              if (item.items!.first.getAllBomItems().isEmpty){
+                              if (item.items!.getAllBomItems().isEmpty){
                                 BomItems i = BomItems(
-                                  materialId: item.items!.first.id,
-                                  categoryId: item.items!.first.categoryId,
-                                  materialName: item.items!.first.itemName,
-                                  quantity: item.items!.first.qty,
+                                  materialId: item.items!.id,
+                                  categoryId: item.items!.categoryId,
+                                  materialName: item.items!.itemName,
+                                  quantity: item.items!.qty,
                                 );
                                 record.saveBomItems([i]);
                               } else {
-                                record.saveBomItems(item.items!.first.getAllBomItems());
+                                record.saveBomItems(item.items!.getAllBomItems());
                               }
 
                               stageController.setStartDateTime(
@@ -139,7 +139,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             }
                           },
                           orderNo: item.productionOrderNo.toString(),
-                          itemName: item.items!.first.itemName.toString(),
+                          itemName: item.items!.itemName.toString(),
                           priority: item.productionPriorityLevel.toString(),
                           currentStage: stage!.label?.toString() ?? "",
                         );

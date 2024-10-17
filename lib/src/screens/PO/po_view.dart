@@ -54,7 +54,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '${record.poRecord.value.items!.first.itemName}',
+                  '${record.poRecord.value.items!.itemName}',
                   style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 18,
