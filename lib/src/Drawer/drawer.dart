@@ -48,12 +48,12 @@ class _MyDrawerState extends State<MyDrawer> {
               currentAccountPicture: const CircleAvatar(
                 backgroundImage: AssetImage('assets/dealsify new Logo-02.png'),
               ),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.white,Colors.blue.shade100],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+              decoration: const BoxDecoration(
+                // gradient: LinearGradient(
+                  // colors: [Colors.white,Colors.blue.shade100],
+                  // begin: Alignment.topLeft,
+                  // end: Alignment.bottomRight,
+                // ),
               ),
             ),
             // ListTile(

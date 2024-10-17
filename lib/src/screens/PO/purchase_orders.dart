@@ -152,29 +152,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-              switch (index) {
-                case 0:
-                  break;
-                case 1:
-                  break;
-                case 2:
-                  break;
-              }
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Settings'),
-          ],
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.teal,
-          backgroundColor: Colors.white,
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   currentIndex: _selectedIndex,
+        //   onTap: (index) {
+        //     setState(() {
+        //       _selectedIndex = index;
+        //       switch (index) {
+        //         case 0:
+        //           break;
+        //         case 1:
+        //           break;
+        //         case 2:
+        //           break;
+        //       }
+        //     });
+        //   },
+        //   items: const [
+        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Production orders'),
+        //     BottomNavigationBarItem(icon: Icon(Icons.list), label: 'More'),
+        //   ],
+        //   unselectedItemColor: Colors.grey,
+        //   selectedItemColor: Colors.teal,
+        //   backgroundColor: Colors.white,
+        // ),
       ),
     );
   }
