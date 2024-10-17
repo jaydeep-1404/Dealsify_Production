@@ -28,7 +28,7 @@ class CompleteStageController extends GetxController {
         Get.put(StageController()).clearAll();
         Get.put(ScrapController()).clearAll();
         navigateToPage(context, const DashboardScreen());
-        Open.openDateErrorSnackbar(responseData["message"]);
+        Open.stageUpdated();
       } else {
         Open.openDateErrorSnackbar(responseData["message"]);
       }
