@@ -100,8 +100,7 @@ class ScrapController extends GetxController {
 
   void addRecord() {
     if (selectedBomItem.value != null &&
-        quantityController.text.isNotEmpty &&
-        descriptionController.text.isNotEmpty) {
+        quantityController.text.isNotEmpty) {
       var newRecord = Record(
         dropdownValue: "",
         quantity: quantityController.text,
@@ -111,6 +110,7 @@ class ScrapController extends GetxController {
       records.add(newRecord);
 
       quantityController.clear();
+      currentQtyController.clear();
       descriptionController.clear();
       selectedBomItem.value = null;
     } else {
@@ -121,7 +121,9 @@ class ScrapController extends GetxController {
 
   void onBomItemSelected(BomItems? newValue) {
     selectedBomItem.value = newValue;
-    print("ITEM NAME : ${selectedBomItem.value!.id}");
+    currentQtyController.text = selectedBomItem.value!.quantity?.toString() ?? "";
+    quantityController.clear();
+    descriptionController.clear();
   }
 
   void deleteRecord(int index) {

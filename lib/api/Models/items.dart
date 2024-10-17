@@ -98,18 +98,29 @@ class Item {
 
   }
 
+  // List<BomItems> getAllBomItems() {
+  //   try {
+  //     List<BomItems> allBomItems = [];
+  //     for (var meta in metaList!) {
+  //       for (var groupBomItem in meta.groupBomItems ?? []) {
+  //         allBomItems.addAll(groupBomItem.bomItems ?? []);
+  //       }
+  //     }
+  //     return allBomItems;
+  //   } catch (e, s) {
+  //     print(s);
+  //     return [];
+  //   }
+  // }
+
   List<BomItems> getAllBomItems() {
-    try {
-      List<BomItems> allBomItems = [];
-      for (var meta in metaList!) {
-        for (var groupBomItem in meta.groupBomItems ?? []) {
-          allBomItems.addAll(groupBomItem.bomItems ?? []);
-        }
+    List<BomItems> allBomItems = [];
+    for (var meta in productionMeta ?? []) {
+      for (var groupBomItem in meta.groupBomItems ?? []) {
+        allBomItems.addAll(groupBomItem.bomItems ?? []);
       }
-      return allBomItems;
-    } catch (e, s) {
-      print(s);
-      return [];
     }
+    return allBomItems;
   }
+
 }

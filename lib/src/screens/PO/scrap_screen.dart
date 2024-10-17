@@ -86,7 +86,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
             //   ),
             // )),
             Obx(() {
-              print("ITEMS : ${record.bomItems.length}");
               return DropdownButtonFormField<BomItems>(
                 hint: const Text('Select Item'),
                 isExpanded: true,
@@ -102,34 +101,14 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
                   return DropdownMenuItem<BomItems>(
                     value: item,
-                    child: Text('${item.materialName} - Qty: ${item.quantity}'), // Display material name and quantity
+                    child: Text('${item.materialName}'),
                   );
                 }).toList(),
               );
             }),
-            const SizedBox(height: 20),
-            Obx(() {
-              if (scrapController.selectedBomItem.value != null) {
-                return Card(
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Selected BOM Item Details:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 10),
-                        Text('ID: ${scrapController.selectedBomItem.value!.categoryName}'),
-                        Text('Material Name: ${scrapController.selectedBomItem.value!.materialName}'),
-                        Text('Quantity: ${scrapController.selectedBomItem.value!.quantity}'),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return const Text('No BOM Item selected.');
-              }
-            }),
+            // Obx(() {
+            //   return Text("Selected BOM Item Group ID: ${scrapController.selectedBomItem.value!.groupId ?? 'None'}");
+            // }),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -180,7 +159,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
               style: const TextStyle(fontSize: 14),
               decoration: InputDecoration(
                 labelText: 'Description',
-                contentPadding: const EdgeInsets.symmetric(vertical: 10), // Adjusted input height
+                contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                   borderSide: BorderSide(color: Colors.grey.shade400),
