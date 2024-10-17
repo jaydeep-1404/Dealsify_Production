@@ -55,9 +55,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
           ),
         ),
       ),
-      body: ListView(
-        children: const [
-
+      body: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text("Coming soon!"),
+          )
         ],
       ),
     );

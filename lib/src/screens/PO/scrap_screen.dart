@@ -157,7 +157,14 @@ class _ScrapScreenState extends State<ScrapScreen> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        scrapController.addRecord();
+                        if (compareStringDoubles(
+                          scrapController.quantityController.text,
+                          scrapController.currentQtyController.text,
+                        ) == false){
+                          Open.openDateErrorSnackbar("Quantity is bigger than Current Quantity");
+                        } else {
+                          scrapController.addRecord();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF78909C),
@@ -206,6 +213,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ),
               _completeButton(
                 onTap: () {
+                  print("object");
                   if (scrapController.records.isEmpty){
                     Open.openDateErrorSnackbar("Add items");
                   } else {
@@ -223,6 +231,17 @@ class _ScrapScreenState extends State<ScrapScreen> {
         ),
       ),
     );
+  }
+
+  bool compareStringDoubles(String firstString, String secondString) {
+    try {
+      double firstDouble = double.parse(firstString);
+      double secondDouble = double.parse(secondString);
+      return firstDouble <= secondDouble;
+    } catch (e) {
+      print("Invalid input: ${e.toString()}");
+      return false;
+    }
   }
 
   Widget _completeButton({onTap}){
