@@ -81,9 +81,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 }).toList(),
               );
             }),
-            // Obx(() {
-            //   return Text("Selected BOM Item Group ID: ${scrapController.selectedBomItem.value!.groupId ?? 'None'}");
-            // }),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,16 +146,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: () {
-                  // if (scrapController.quantityController.text.isEmpty ||
-                  //     scrapController.selectedBomItem.value.isEmpty) {
-                  //   Get.snackbar(
-                  //     'Validation Error',
-                  //     'Please select an option and enter a quantity.',
-                  //     snackPosition: SnackPosition.BOTTOM,
-                  //   );
-                  //   return;
-                  // }
-
                   scrapController.addRecord();
                 },
                 style: ElevatedButton.styleFrom(
@@ -172,7 +159,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Divider(),
+            const Divider(),
             Expanded(
               child: Obx(() {
                 return ListView.builder(
@@ -190,6 +177,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
                             Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
                             Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
                             Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
+                            // Text('itemId: ${record.itemId}', style: const TextStyle(color: Colors.black87)),
+                            // Text('bomItemId: ${record.bomItemId}', style: const TextStyle(color: Colors.black87)),
+                            // Text('categoryId: ${record.categoryId}', style: const TextStyle(color: Colors.black87)),
                           ],
                         ),
                         trailing: IconButton(

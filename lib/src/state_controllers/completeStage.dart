@@ -100,10 +100,12 @@ class ScrapController extends GetxController {
   var descriptionController = TextEditingController();
 
   void addRecord() {
-    if (selectedBomItem.value != null &&
-        quantityController.text.isNotEmpty) {
+    if (selectedBomItem.value != null && quantityController.text.isNotEmpty) {
       var newRecord = Record(
-        dropdownValue: "",
+        dropdownValue: selectedBomItem.value!.materialName?.toString() ?? "",
+        itemId: selectedBomItem.value!.materialId?.toString() ?? "",
+        categoryId: selectedBomItem.value!.categoryId?.toString() ?? "",
+        bomItemId: selectedBomItem.value!.groupId?.toString() ?? "",
         quantity: quantityController.text,
         currentQty: currentQtyController.text,
         description: descriptionController.text,
@@ -133,12 +135,18 @@ class ScrapController extends GetxController {
 
 class Record {
   final String dropdownValue;
+  final String itemId;
+  final String bomItemId;
+  final String categoryId;
   final String quantity;
   final String currentQty;
   final String description;
 
   Record({
     required this.dropdownValue,
+    required this.itemId,
+    required this.bomItemId,
+    required this.categoryId,
     required this.quantity,
     required this.currentQty,
     required this.description,
