@@ -21,7 +21,6 @@ class ProfileController extends GetxController {
     try {
         final response = await ApiRequest.get(Uri.parse(ConstUrl.my_profile));
         final Map<String, dynamic> data = json.decode(response.body);
-        data.printFormattedJson();
         AccessToken.expired(data);
         if (data[BKD.status].toString().isSuccess) {
           userData.value = UserData.fromJson(data[BKD.data]);
