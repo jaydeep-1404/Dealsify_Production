@@ -21,17 +21,30 @@ class _ScrapScreenState extends State<ScrapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
         title: Obx(() {
-          return Text(
-            '${record.poRecord.value.items!.first.itemName}',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                '${record.poRecord.value.items!.first.itemName}',
+                style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '${record.activeStage.value.label}',
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
           );
         }),
+        toolbarHeight: 80,
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -39,7 +52,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.black54,
           ),
         ),
       ),
@@ -47,44 +60,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Obx(() => Container(
-            //   decoration: BoxDecoration(
-            //     borderRadius: BorderRadius.circular(12),
-            //     boxShadow: [
-            //       BoxShadow(
-            //         color: Colors.grey.withOpacity(0.1),
-            //         spreadRadius: 1,
-            //         blurRadius: 4,
-            //       ),
-            //     ],
-            //   ),
-            //   child: DropdownButtonFormField(
-            //     isExpanded: true,
-            //     decoration: const InputDecoration(
-            //       labelText: 'Select Option',
-            //       border: OutlineInputBorder(),
-            //       labelStyle: TextStyle(color: Colors.black54),
-            //       filled: true,
-            //       fillColor: Colors.white,
-            //     ),
-            //     value: scrapController.dropdownValue.value.isEmpty ? null : scrapController.dropdownValue.value,
-            //     // items: const [
-            //     //   DropdownMenuItem(value: 'Option 1', child: Text('Option 1')),
-            //     //   DropdownMenuItem(value: 'Option 2', child: Text('Option 2')),
-            //     //   DropdownMenuItem(value: 'Option 3', child: Text('Option 3')),
-            //     // ],
-            //     items: record.bomItems.map<DropdownMenuItem<String>>((BomItems item) {
-            //       return DropdownMenuItem<String>(
-            //         value: item.id,
-            //         child: Text('${item.materialName} - Qty: ${item.quantity}'), // Display material name and quantity
-            //       );
-            //     }).toList(),
-            //     onChanged: (value) {
-            //       scrapController.dropdownValue.value = value ?? '';
-            //
-            //     },
-            //   ),
-            // )),
             Obx(() {
               return DropdownButtonFormField<BomItems>(
                 hint: const Text('Select Item'),
@@ -197,6 +172,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
               ),
             ),
             const SizedBox(height: 20),
+            Divider(),
             Expanded(
               child: Obx(() {
                 return ListView.builder(

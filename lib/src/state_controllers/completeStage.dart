@@ -1,3 +1,4 @@
+import 'package:dealsify_production/src/common_functions/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../api/Models/bomItems.dart';
@@ -114,8 +115,7 @@ class ScrapController extends GetxController {
       descriptionController.clear();
       selectedBomItem.value = null;
     } else {
-      Get.snackbar('Error', 'Please fill all fields',
-          snackPosition: SnackPosition.BOTTOM);
+      Open.openDateErrorSnackbar("Fill Required Fields");
     }
   }
 
