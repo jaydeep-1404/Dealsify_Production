@@ -33,7 +33,8 @@ class PurchaseOrderController extends GetxController {
     Map<String, String> parameters = {
       BKD.companyId  : prefData!.company_id?.toString() ?? '',
       BKD.pageSize   : BKD.size,
-      if (searchValue.toString().isNotEmpty && searchValue != null)BKD.filters    : filterJson(value: searchValue,log: true),
+      if (searchValue.toString().isNotEmpty && searchValue != null)"columnSearchInput"   : searchValue,
+      // if (searchValue.toString().isNotEmpty && searchValue != null)BKD.filters    : filterJson(value: searchValue,log: true),
     };
 
 
