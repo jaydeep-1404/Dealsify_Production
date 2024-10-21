@@ -248,7 +248,28 @@ class _ScrapScreenState extends State<ScrapScreen> {
                             elevation: 2,
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              title: Text('Item: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
+                              // title: Text('Item: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
+                              title: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Item : ${record.dropdownValue}',
+                                      style: const TextStyle(
+                                        color: Colors.black87,
+                                        fontFamily: FontFamily.regularMulish,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: record.description.isNotEmpty ? record.description : "-",
+                                      style: const TextStyle(
+                                        color: Colors.black87,
+                                        fontFamily: FontFamily.regularMulish,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -256,7 +277,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                                     text: TextSpan(
                                       children: [
                                         const TextSpan(
-                                          text: 'Quantity: ',
+                                          text: 'Quantity : ',
                                           style: TextStyle(
                                             color: Colors.black87,
                                             fontFamily: FontFamily.regularMulish,
@@ -277,7 +298,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                                     text: TextSpan(
                                       children: [
                                         const TextSpan(
-                                          text: 'Current Qty: ',
+                                          text: 'Current Qty : ',
                                           style: TextStyle(
                                             color: Colors.black87,
                                             fontFamily: FontFamily.regularMulish,
@@ -298,7 +319,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                                     text: TextSpan(
                                       children: [
                                         const TextSpan(
-                                          text: 'Description: ',
+                                          text: 'Description : ',
                                           style: TextStyle(
                                             color: Colors.black87,
                                             fontFamily: FontFamily.regularMulish,
