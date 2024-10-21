@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
       hintText: hint,
       hintStyle: const TextStyle(
         fontSize: 14,
-        color: Colors.grey,
+        color: Colors.black,
         fontFamily: FontFamily.regularMulish,
       ),
       suffixIcon: suffixIcon,
