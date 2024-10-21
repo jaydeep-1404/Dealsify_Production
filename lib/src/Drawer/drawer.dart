@@ -42,7 +42,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
-                fontFamily: FontFamily.regularMulish,
+                fontFamily: FontFamily.boldMulish,
               ),
             ),
             accountEmail: Text(
@@ -50,6 +50,7 @@ class _MyDrawerState extends State<MyDrawer> {
               // profileController.userData.value.email?.toString() ?? "",
               style: TextStyle(
                 color: Colors.black87,
+                fontWeight: FontWeight.bold,
                 fontFamily: FontFamily.regularMulish,
               ),
             ), 
@@ -106,6 +107,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 'Logout',
                 style: TextStyle(
                   color: Colors.white,
+                  fontWeight: FontWeight.bold,
                   fontFamily: FontFamily.regularMulish,
                 ),),
               style: ElevatedButton.styleFrom(
@@ -116,86 +118,6 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
         ],
       ),
-      // child: Obx(() {
-      //   return Column(
-      //     crossAxisAlignment: CrossAxisAlignment.stretch,
-      //     children: [
-      //       UserAccountsDrawerHeader(
-      //         accountName: Text(
-      //           "",
-      //           // profileController.userData.value.name?.toString() ?? "",
-      //           style: const TextStyle(
-      //             fontSize: 18,
-      //             fontWeight: FontWeight.bold,
-      //             color: Colors.black87,
-      //           ),
-      //         ),
-      //         accountEmail: Text(
-      //           "connect@dealsify.in",
-      //           // profileController.userData.value.email?.toString() ?? "",
-      //           style: const TextStyle(color: Colors.black87),
-      //         ),
-      //         // currentAccountPicture: const CircleAvatar(
-      //         //   backgroundImage: AssetImage('assets/dealsify-02.png'),
-      //         // ),
-      //         currentAccountPicture: Container(
-      //           decoration: const BoxDecoration(
-      //             color: Colors.black12,
-      //             shape: BoxShape.circle,
-      //           ),
-      //           child: const Center(
-      //             child: Text(
-      //               "D",
-      //               style: TextStyle(fontSize: 25),
-      //             ),
-      //           ),
-      //         ),
-      //         decoration: const BoxDecoration(
-      //         ),
-      //       ),
-      //       // ListTile(
-      //       //   leading: Icon(Icons.settings, color: Colors.blue.shade100),
-      //       //   title: const Text('Settings'),
-      //       //   onTap: () {},
-      //       // ),
-      //       // const Divider(),
-      //       // ListTile(
-      //       //   leading: Icon(Icons.info, color: Colors.blue.shade100),
-      //       //   title: const Text('About'),
-      //       //   onTap: () {},
-      //       // ),
-      //       const Spacer(),
-      //       Padding(
-      //         padding: const EdgeInsets.all(8.0),
-      //         child: ElevatedButton.icon(
-      //           onPressed: () {
-      //             Get.defaultDialog(
-      //               title: 'Logout',
-      //               middleText: 'Are you sure you want to logout?',
-      //               textCancel: 'Cancel',
-      //               textConfirm: 'Logout',
-      //               confirmTextColor: Colors.white,
-      //               onConfirm: () async {
-      //                 final LocalDataModel? userInfo = await pref.get();
-      //                 userInfo!.access_token = "";
-      //                 userInfo.user_id = "";
-      //                 userInfo.company_id = "";
-      //                 pref.set(userInfo);
-      //                 Get.off(const LoginScreen());
-      //               },
-      //             );
-      //           },
-      //           icon: const Icon(Icons.logout, color: Colors.white),
-      //           label: const Text('Logout',style: TextStyle(color: Colors.white),),
-      //           style: ElevatedButton.styleFrom(
-      //             backgroundColor: Colors.red[300],
-      //             padding: const EdgeInsets.symmetric(vertical: 12),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   );
-      // },),
     );
   }
 }
