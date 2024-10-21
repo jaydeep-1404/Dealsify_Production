@@ -19,57 +19,63 @@ class _TimelineScreenState extends State<TimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Obx(() {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '${record.poRecord.value.items!.itemName}',
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 18,
-                  fontFamily: FontFamily.boldMulish,
-                  fontWeight: FontWeight.bold,
+    return WillPopScope(
+      onWillPop: () async {
+        navigateToPage(context, const ProductionOrderView());
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Obx(() {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '${record.poRecord.value.items!.itemName}',
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18,
+                    fontFamily: FontFamily.boldMulish,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              Text(
-                '${record.activeStage.value.label}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontFamily: FontFamily.regularMulish,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+                Text(
+                  '${record.activeStage.value.label}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: FontFamily.regularMulish,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ],
-          );
-        }),
-        toolbarHeight: 80,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            navigateToPage(context, const ProductionOrderView());
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black87,
+              ],
+            );
+          }),
+          toolbarHeight: 80,
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              navigateToPage(context, const ProductionOrderView());
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black87,
+            ),
           ),
         ),
-      ),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text(
-                "Coming soon!",
-              style: TextStyle(
-                fontFamily: FontFamily.regularMulish,
+        body: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                  "Coming soon!",
+                style: TextStyle(
+                  fontFamily: FontFamily.regularMulish,
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

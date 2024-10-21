@@ -4,6 +4,7 @@ import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/snackbars.dart';
 import 'package:dealsify_production/src/screens/PO/po_view.dart';
 import 'package:dealsify_production/src/state_controllers/scrap_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
@@ -84,12 +85,25 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 children: [
                   Obx(() {
                     return DropdownButtonFormField<BomItems>(
-                      hint: const Text('Select Item...'),
+                      hint: const Text(
+                          'Select Item...',
+                        style: TextStyle(
+                          fontFamily: FontFamily.regularMulish,
+                        ),
+                      ),
                       isExpanded: true,
+                      style: const TextStyle(
+                        fontFamily: FontFamily.regularMulish,
+                        color: Colors.black87,
+                        fontSize: 15
+                      ),
                       decoration: const InputDecoration(
                         labelText: 'Select Item',
                         border: OutlineInputBorder(),
-                        labelStyle: TextStyle(color: Colors.black54),
+                        labelStyle: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: FontFamily.regularMulish,
+                        ),
                         filled: true,
                         fillColor: Colors.transparent,
                       ),
@@ -98,7 +112,12 @@ class _ScrapScreenState extends State<ScrapScreen> {
                       items: record.bomItems.map<DropdownMenuItem<BomItems>>((BomItems item) {
                         return DropdownMenuItem<BomItems>(
                           value: item,
-                          child: Text('${item.materialName}'),
+                          child: Text(
+                            '${item.materialName}',
+                            style: const TextStyle(
+                                fontFamily: FontFamily.regularMulish
+                            ),
+                          ),
                         );
                       }).toList(),
                     );
@@ -111,7 +130,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         child: TextFormField(
                           controller: scrapController.quantityController,
                           keyboardType: TextInputType.number,
-                          style: const TextStyle(fontSize: 14),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: FontFamily.regularRoboto,
+                          ),
                           decoration: InputDecoration(
                             labelText: 'Quantity',
                             contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
@@ -119,7 +141,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: Colors.grey.shade400),
                             ),
-                            labelStyle: const TextStyle(color: Colors.black54),
+                            labelStyle: const TextStyle(
+                              color: Colors.black54,
+                              fontFamily: FontFamily.regularMulish,
+                            ),
                             filled: true,
                             fillColor: Colors.transparent,
                           ),
@@ -130,7 +155,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         child: TextFormField(
                           controller: scrapController.currentQtyController,
                           readOnly: true,
-                          style: const TextStyle(fontSize: 14),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: FontFamily.regularRoboto,
+                          ),
                           decoration: InputDecoration(
                             labelText: 'Current Qty',
                             contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
@@ -138,7 +166,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                               borderRadius: BorderRadius.circular(8),
                               borderSide: BorderSide(color: Colors.grey.shade400),
                             ),
-                            labelStyle: const TextStyle(color: Colors.black54),
+                            labelStyle: const TextStyle(
+                              color: Colors.black54,
+                              fontFamily: FontFamily.regularMulish,
+                            ),
                             filled: true,
                             fillColor: Colors.transparent,
                           ),
@@ -150,7 +181,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   TextFormField(
                     controller: scrapController.descriptionController,
                     maxLines: null,
-                    style: const TextStyle(fontSize: 14),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: FontFamily.regularMulish,
+                    ),
                     decoration: InputDecoration(
                       labelText: 'Description',
                       contentPadding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10), // Adjusted input height
@@ -158,7 +192,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
-                      labelStyle: const TextStyle(color: Colors.black54),
+                      labelStyle: const TextStyle(
+                        color: Colors.black54,
+                        fontFamily: FontFamily.regularMulish,
+                      ),
                       filled: true,
                       fillColor: Colors.transparent,
                     ),
@@ -168,7 +205,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (compareStringDoubles(
+                        if (scrapController.quantityController.text.trim().isEmpty){
+                          Open.openDateErrorSnackbar("Enter Quantity");
+                        } else if (compareStringDoubles(
                           scrapController.quantityController.text,
                           scrapController.currentQtyController.text,
                         ) == false){
@@ -184,7 +223,13 @@ class _ScrapScreenState extends State<ScrapScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text('Add', style: TextStyle(color: Colors.white, fontSize: 16)),
+                      child: const Text(
+                          'Add',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: FontFamily.regularMulish,
+                          )),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -199,13 +244,73 @@ class _ScrapScreenState extends State<ScrapScreen> {
                             elevation: 2,
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             child: ListTile(
-                              title: Text('Option: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
+                              title: Text('Item: ${record.dropdownValue}', style: const TextStyle(color: Color(0xFF455A64))),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Quantity: ${record.quantity}', style: const TextStyle(color: Colors.black87)),
-                                  Text('Current Qty: ${record.currentQty}', style: const TextStyle(color: Colors.black87)),
-                                  Text('Description: ${record.description}', style: const TextStyle(color: Colors.black87)),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Quantity: ',
+                                          style: TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularMulish,
+                                            fontWeight: FontWeight.bold, // Optional: To make the label bold
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: record.quantity,
+                                          style: const TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularRoboto,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Current Qty: ',
+                                          style: TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularMulish,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: record.currentQty,
+                                          style: const TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularRoboto,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        const TextSpan(
+                                          text: 'Description: ',
+                                          style: TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularMulish,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: record.description.isNotEmpty ? record.description : "-",
+                                          style: const TextStyle(
+                                            color: Colors.black87,
+                                            fontFamily: FontFamily.regularMulish,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                               trailing: IconButton(
@@ -254,7 +359,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
       double secondDouble = double.parse(secondString);
       return firstDouble <= secondDouble;
     } catch (e) {
-      print("Invalid input: ${e.toString()}");
+      if (kDebugMode) {
+        print("Invalid input: ${e.toString()}");
+      }
       return false;
     }
   }
@@ -288,6 +395,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
               style: TextStyle(
                 color: Colors.blue.shade700,
                 fontSize: 15,
+                fontFamily: FontFamily.regularMulish,
                 fontWeight: FontWeight.w500,
               ),
             ),
