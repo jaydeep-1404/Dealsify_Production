@@ -54,7 +54,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
           },
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.black54,
+            color: Colors.black87,
           ),
         ),
       ),

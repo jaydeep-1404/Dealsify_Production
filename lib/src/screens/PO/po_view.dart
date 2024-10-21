@@ -91,7 +91,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
             },
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.black54,
+              color: Colors.black87,
             ),
           ),
         ),

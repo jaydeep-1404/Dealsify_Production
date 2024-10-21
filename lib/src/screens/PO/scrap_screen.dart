@@ -72,7 +72,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
             },
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.black54,
+              color: Colors.black87,
             ),
           ),
         ),
