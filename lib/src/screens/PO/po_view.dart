@@ -97,13 +97,23 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
         ),
         body: Obx(() {
           final stage = record.activeStage.value;
+
+          String getInspectorDisplay(dynamic inspector) {
+            if (inspector is String) {
+              return inspector;
+            } else if (inspector is List) {
+              return inspector.join(', ');
+            }
+            return '';
+          }
+
           return Stack(
             children: [
               ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   Text(
-                    'Inspector : ${stage.inspector ?? ''}',
+                    'Flore Inspector : ${getInspectorDisplay(stage.inspector)}',
                     style: const TextStyle(
                       color: Colors.black87,
                       fontFamily: FontFamily.regularMulish,
@@ -173,6 +183,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                             height: 40,
                             padding: const EdgeInsets.only(left: 10,right: 10),
                             decoration: BoxDecoration(
+                              // color: Color(0xffd4e0e3),
                               borderRadius: BorderRadius.circular(6),
                               border: Border.all(color: green_high,width: 1.5)
                             ),
@@ -309,7 +320,8 @@ Widget completeButton({onTap,loading}){
         width: Get.width / 1.2,
         margin: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
-          color: Colors.green.shade100,
+          color: Colors.green.shade700,
+          // color: Colors.green.shade100,
           border: Border.all(color: green_high),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
@@ -324,7 +336,7 @@ Widget completeButton({onTap,loading}){
           child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
             'Complete',
             style: TextStyle(
-              color: green_high,
+              color: Colors.white,
               fontFamily: FontFamily.regularMulish,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -401,7 +413,7 @@ Widget buildDateTimePicker(
                       child: Text(
                         (date == null) ? "Select date..." : "${date.day}-${date.month}-${date.year}",
                         style: TextStyle(
-                          color: date == null ? Colors.grey : Colors.black,
+                          color: date == null ? Colors.grey.shade600 : Colors.black,
                           fontFamily: FontFamily.regularMulish,
                         ),
                       ),
@@ -434,7 +446,7 @@ Widget buildDateTimePicker(
                       child: Text(
                         (time == null) ? "Select time..." : "${time.hour}:${time.minute}",
                         style: TextStyle(
-                          color: time == null ? Colors.grey : Colors.black,
+                          color: time == null ? Colors.grey.shade600 : Colors.black,
                           fontFamily: FontFamily.regularMulish,
                         ),
                       ),
@@ -454,21 +466,21 @@ Widget buildDateTimePicker(
                   height: 35,
                   width: Get.width * 0.3,
                   decoration: BoxDecoration(
-                    color: Colors.pink.shade50,
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(
-                      color: pink_high,
-                      width: 1,
-                    ),
+                    // border: Border.all(
+                      // color: pink_high,
+                      // width: 1,
+                    // ),
                   ),
                   child: Center(
                     child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
                       'Save',
                       style: TextStyle(
-                        color: pink_high,
+                        color: Colors.white,
                         fontSize: 14,
                         fontFamily: FontFamily.regularMulish,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

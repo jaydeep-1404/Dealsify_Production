@@ -102,7 +102,7 @@ class ProductionStages {
   String? stageId;
   String? label;
   num? priority;
-  String? inspector;
+  List<String>? inspector;
   String? startingDate;
   String? endingDate;
   String? startingTime;
@@ -132,7 +132,12 @@ class ProductionStages {
       stageId: json['stageId']?.toString() ?? '',
       label: json['label']?.toString() ?? '',
       priority: json['priority'] ?? 0,
-      inspector: json['inspector']?.toString() ?? '',
+      // inspector: json['inspector']?.toString() ?? '',
+      inspector: (json['inspector'] is List)
+          ? List<String>.from(json['inspector']) // If it's a list, convert it to List<String>
+          : (json['inspector'] is String) // If it's a string, wrap it in a list
+          ? [json['inspector'].toString()]
+          : [],
       startingDate: json['startingDate']?.toString() ?? '',
       endingDate: json['endingDate']?.toString() ?? '',
       startingTime: json['startingTime']?.toString() ?? '',
