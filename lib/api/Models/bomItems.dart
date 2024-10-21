@@ -58,6 +58,7 @@ class BomItems {
   factory BomItems.fromJson(Map<String, dynamic> json,{String? groupId}) {
 
     return BomItems(
+      id: json['_id']?.toString() ?? '',
       categoryId: json['categoryId']?.toString() ?? '',
       categoryName: json['categoryName']?.toString() ?? '',
       description: json['description']?.toString() ?? '',
