@@ -3,6 +3,7 @@ import 'package:dealsify_production/core/colors_and_icons/images.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/colors_and_icons/colors.dart';
 import '../../state_controllers/login.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -224,7 +225,8 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       suffixIcon: suffixIcon,
       labelStyle: const TextStyle(
-        color: Colors.blueAccent,
+        // color: Colors.blueAccent,
+        color: green_high,
         fontWeight: FontWeight.bold,
         fontFamily: FontFamily.regularMulish,
       ),
