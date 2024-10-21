@@ -104,7 +104,7 @@ class Open {
           padding: only(b: 5),
           child: Text( msg ?? "Stage Updated successfully." ,style: const TextStyle(color: Colors.white,fontSize: 13),),
         ),
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 4),
       );
   }
 
