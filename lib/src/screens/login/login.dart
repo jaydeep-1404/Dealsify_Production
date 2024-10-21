@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                        "assets/dealsify new Logo-02.png",
+                        "assets/dealsify-02.png",
                       width: 200,
                     ),
                     const Text(
