@@ -45,15 +45,22 @@ class _MyDrawerState extends State<MyDrawer> {
                 profileController.userData.value.email?.toString() ?? "",
                 style: const TextStyle(color: Colors.black87),
               ),
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: AssetImage('assets/dealsify new Logo-02.png'),
+              // currentAccountPicture: const CircleAvatar(
+              //   backgroundImage: AssetImage('assets/dealsify new Logo-02.png'),
+              // ),
+              currentAccountPicture: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black12,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Text(
+                    "D",
+                    style: TextStyle(fontSize: 25),
+                  ),
+                ),
               ),
               decoration: const BoxDecoration(
-                // gradient: LinearGradient(
-                  // colors: [Colors.white,Colors.blue.shade100],
-                  // begin: Alignment.topLeft,
-                  // end: Alignment.bottomRight,
-                // ),
               ),
             ),
             // ListTile(
