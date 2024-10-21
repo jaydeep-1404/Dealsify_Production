@@ -243,7 +243,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
                     ),
                   ),
                   // const SizedBox(height: 10),
-                  const Divider(),
                   Expanded(
                     child: Obx(() {
                       return ListView.builder(
@@ -421,7 +420,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
             ],
           ),
           child: Center(
-            child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
+            child: loading == true ?
+            const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,color: Colors.white,)) :
+            const Text(
               'Save',
               style: TextStyle(
                 color: Colors.white,

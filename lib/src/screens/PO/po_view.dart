@@ -333,7 +333,9 @@ Widget completeButton({onTap,loading}){
           ],
         ),
         child: Center(
-          child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
+          child: loading == true ?
+          const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,color: Colors.white,)) :
+          const Text(
             'Complete',
             style: TextStyle(
               color: Colors.white,
@@ -388,14 +390,16 @@ Widget buildDateTimePicker(
                             fontSize: 16,
                             fontFamily: FontFamily.regularMulish,
                             fontWeight: FontWeight.bold,
-                          )),
+                          )
+                      ),
                       Text(
                           "*",
                           style: TextStyle(
                             color: Colors.red.shade700,
                             fontFamily: FontFamily.regularMulish,
                             fontSize: 15,
-                          )),
+                          )
+                      ),
                     ],
                   ),
                   GestureDetector(
@@ -430,7 +434,8 @@ Widget buildDateTimePicker(
                         fontSize: 16,
                         fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.bold,
-                      )),
+                      )
+                  ),
                   GestureDetector(
                     onTap: onTimeTapped,
                     child: Container(
@@ -474,7 +479,9 @@ Widget buildDateTimePicker(
                     // ),
                   ),
                   child: Center(
-                    child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
+                    child: loading == true ?
+                    const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,color: Colors.white,)) :
+                    const Text(
                       'Save',
                       style: TextStyle(
                         color: Colors.white,
