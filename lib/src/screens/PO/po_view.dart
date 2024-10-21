@@ -390,10 +390,10 @@ Widget buildDateTimePicker(
                   height: 35,
                   width: Get.width * 0.3,
                   decoration: BoxDecoration(
-                    color: Colors.blue.shade100,
+                    color: Colors.pink.shade100,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: Colors.blue.shade700,
+                      color: pink_high,
                       width: 1,
                     ),
                   ),
@@ -401,7 +401,7 @@ Widget buildDateTimePicker(
                     child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
                       'Save',
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: pink_high,
                         fontSize: 14,
                         fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.w500,

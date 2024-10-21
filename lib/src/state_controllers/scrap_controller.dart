@@ -21,7 +21,7 @@ class ScrapController extends GetxController {
         itemName: selectedBomItem.value!.materialName?.toString() ?? "",
         categoryId: selectedBomItem.value!.categoryId?.toString() ?? "",
         categoryName: selectedBomItem.value!.categoryName?.toString() ?? "",
-        bomItemId: selectedBomItem.value!.groupId?.toString() ?? "",
+        bomItemId: selectedBomItem.value!.id?.toString() ?? "",
         quantity: quantityController.text,
         currentQty: currentQtyController.text,
         description: descriptionController.text,
