@@ -59,6 +59,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
+                  // 'Item Name',
                   '${record.poRecord.value.items!.itemName}',
                   maxLines: 3,
                   style: const TextStyle(
@@ -70,6 +71,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   ),
                 ),
                 Text(
+                  // 'Stage',
                   '${record.activeStage.value.label}',
                   maxLines: 3,
                   style: const TextStyle(
@@ -113,6 +115,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   Text(
+                    // 'Floor Manager : User 1',
                     'Floor Manager : ${getInspectorDisplay(stage.inspector)}',
                     style: const TextStyle(
                       color: Colors.black87,

@@ -39,11 +39,11 @@ class _ScrapScreenState extends State<ScrapScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  'Scrap Material',
-                  // '${record.poRecord.value.items!.itemName}',
+                Text(
+                  // 'Scrap Material',
+                  '${record.poRecord.value.items!.itemName}',
                   maxLines: 3,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 18,
                     fontFamily: FontFamily.boldMulish,
@@ -53,7 +53,6 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 ),
                 Text(
                   '${record.poRecord.value.items!.itemName}',
-                  // '${record.activeStage.value.label}',
                   maxLines: 3,
                   style: const TextStyle(
                     fontSize: 15,

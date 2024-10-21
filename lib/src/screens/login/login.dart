@@ -199,10 +199,10 @@ class _LoginScreenState extends State<LoginScreen> {
             fontFamily: FontFamily.regularMulish,
           ),
         ),
-        TextButton(
-          onPressed: () {},
+        GestureDetector(
+          onTap: () {},
           child: const Text(
-            'Sign Up',
+            ' Sign Up',
             style: TextStyle(
               color: Colors.blueAccent,
               fontWeight: FontWeight.bold,
