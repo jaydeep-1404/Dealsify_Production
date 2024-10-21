@@ -38,17 +38,21 @@ class _ScrapScreenState extends State<ScrapScreen> {
               children: [
                 Text(
                   '${record.poRecord.value.items!.itemName}',
+                  maxLines: 3,
                   style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 18,
+                    overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
                   '${record.activeStage.value.label}',
+                  maxLines: 3,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                     color: Colors.grey,
                   ),
                 ),

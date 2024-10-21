@@ -60,7 +60,7 @@ class ScrapController extends GetxController {
     final i = Get.put(PORecordCtrl());
     return {
       "productionStagesId": i.activeStage.value.id,
-      "inspector": i.activeStage.value.inspector,
+      "inspector": [i.activeStage.value.inspector],
       "isScrapMaterialEnable": true,
       "isAddOnMaterialEnable": false,
       "isStageCompleted": false,

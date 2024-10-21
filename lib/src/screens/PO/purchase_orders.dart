@@ -237,7 +237,6 @@ class ProductionOrderBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // if(currentStage.isNotEmpty)
                 _buildCompactInfoRow(
                   icon: currentStage.isNotEmpty ? Icons.assignment : Icons.check_circle,
                   label: currentStage.isNotEmpty ? currentStage : "All stages completed",
