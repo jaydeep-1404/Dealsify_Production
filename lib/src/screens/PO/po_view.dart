@@ -160,111 +160,114 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                     stageController.endTime.value, () => stageController.pickEndTime(context),
                   ),
                   const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          navigateToPage(context, const TimelineScreen());
-                        },
-                        child: Container(
-                          height: 40,
-                          padding: const EdgeInsets.only(left: 10,right: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: green_high,width: 1.5)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            navigateToPage(context, const TimelineScreen());
+                          },
+                          child: Container(
+                            height: 40,
+                            padding: const EdgeInsets.only(left: 10,right: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: green_high,width: 1.5)
+                            ),
+                            child: const Center(
+                              child: Row(
+                                children: [
+                                  Icon(Icons.timelapse,color: green_high,size: 18,),
+                                  SizedBox(width: 5),
+                                  Text(
+                                      "Timeline",
+                                      style: TextStyle(
+                                        color: green_high,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: FontFamily.regularMulish,
+                                      ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          child: const Center(
-                            child: Row(
-                              children: [
-                                Icon(Icons.timelapse,color: green_high,size: 18,),
-                                SizedBox(width: 5),
-                                Text(
-                                    "Timeline",
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            navigateToPage(context, const ScrapScreen());
+                          },
+                          child: Container(
+                            height: 40,
+                            padding: const EdgeInsets.only(left: 10,right: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: green_high,width: 1.5)
+                            ),
+                            child: const Center(
+                              child: Row(
+                                children: [
+                                  Icon(Icons.add,color: green_high,size: 17,),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    "Add Scrap",
                                     style: TextStyle(
                                       color: green_high,
                                       fontWeight: FontWeight.bold,
                                       fontFamily: FontFamily.regularMulish,
                                     ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          navigateToPage(context, const ScrapScreen());
-                        },
-                        child: Container(
-                          height: 40,
-                          padding: const EdgeInsets.only(left: 10,right: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: green_high,width: 1.5)
-                          ),
-                          child: const Center(
-                            child: Row(
-                              children: [
-                                Icon(Icons.add,color: green_high,size: 17,),
-                                SizedBox(width: 5),
-                                Text(
-                                  "Add Scrap",
-                                  style: TextStyle(
-                                    color: green_high,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: FontFamily.regularMulish,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
 
-                      // ElevatedButton.icon(
-                      //   onPressed: () {
-                      //     navigateToPage(context, const TimelineScreen());
-                      //   },
-                      //   icon: const Icon(Icons.timelapse, color: Colors.black87),
-                      //   label: const Text(
-                      //       "Timeline",
-                      //       style: TextStyle(
-                      //         color: Colors.black87,
-                      //         fontWeight: FontWeight.bold,
-                      //         fontFamily: FontFamily.regularMulish,
-                      //       )),
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                      //     // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(8),
-                      //     ),
-                      //
-                      //   ),
-                      // ),
-                      // ElevatedButton.icon(
-                      //   onPressed: () {
-                      //     navigateToPage(context, const ScrapScreen());
-                      //   },
-                      //   icon: const Icon(Icons.add, color: Colors.black87),
-                      //   label: const Text(
-                      //       "Add Scrap",
-                      //       style: TextStyle(
-                      //         color: Colors.black87,
-                      //         fontWeight: FontWeight.bold,
-                      //         fontFamily: FontFamily.regularMulish,
-                      //       )
-                      //   ),
-                      //   style: ElevatedButton.styleFrom(
-                      //     backgroundColor: const Color(0xFFBBDEFB), // Light Blue
-                      //     // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(8),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                        // ElevatedButton.icon(
+                        //   onPressed: () {
+                        //     navigateToPage(context, const TimelineScreen());
+                        //   },
+                        //   icon: const Icon(Icons.timelapse, color: Colors.black87),
+                        //   label: const Text(
+                        //       "Timeline",
+                        //       style: TextStyle(
+                        //         color: Colors.black87,
+                        //         fontWeight: FontWeight.bold,
+                        //         fontFamily: FontFamily.regularMulish,
+                        //       )),
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                        //     // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(8),
+                        //     ),
+                        //
+                        //   ),
+                        // ),
+                        // ElevatedButton.icon(
+                        //   onPressed: () {
+                        //     navigateToPage(context, const ScrapScreen());
+                        //   },
+                        //   icon: const Icon(Icons.add, color: Colors.black87),
+                        //   label: const Text(
+                        //       "Add Scrap",
+                        //       style: TextStyle(
+                        //         color: Colors.black87,
+                        //         fontWeight: FontWeight.bold,
+                        //         fontFamily: FontFamily.regularMulish,
+                        //       )
+                        //   ),
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: const Color(0xFFBBDEFB), // Light Blue
+                        //     // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(8),
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -452,7 +455,7 @@ Widget buildDateTimePicker(
                   width: Get.width * 0.3,
                   decoration: BoxDecoration(
                     color: Colors.pink.shade50,
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(6),
                     border: Border.all(
                       color: pink_high,
                       width: 1,
