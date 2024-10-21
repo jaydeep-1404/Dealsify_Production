@@ -226,7 +226,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         minimumSize: const Size(100,35),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(6),
                         ),
                       ),
                       child: const Text(
@@ -406,9 +406,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
           width: Get.width / 1.2,
           margin: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
-            color: Colors.green.shade100,
-            border: Border.all(color: green_high),
-            borderRadius: BorderRadius.circular(8),
+            color: Colors.green.shade700,
+            // border: Border.all(color: green_high),
+            borderRadius: BorderRadius.circular(6),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
@@ -421,7 +421,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
             child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
               'Save',
               style: TextStyle(
-                color: green_high,
+                color: Colors.white,
                 fontSize: 15,
                 fontFamily: FontFamily.regularMulish,
                 fontWeight: FontWeight.bold,

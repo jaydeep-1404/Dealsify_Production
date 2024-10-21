@@ -41,11 +41,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ),
                 Text(
                   '${record.activeStage.value.label}',
+                  maxLines: 3,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: FontFamily.regularMulish,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey,
+                    fontSize: 15,
+                    fontFamily: FontFamily.boldMulish,
+                    overflow: TextOverflow.ellipsis,
+                    color: Colors.black87,
                   ),
                 ),
               ],

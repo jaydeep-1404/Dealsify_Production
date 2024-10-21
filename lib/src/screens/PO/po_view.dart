@@ -322,7 +322,7 @@ Widget completeButton({onTap,loading}){
         decoration: BoxDecoration(
           color: Colors.green.shade700,
           // color: Colors.green.shade100,
-          border: Border.all(color: green_high),
+          // border: Border.all(color: green_high),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
