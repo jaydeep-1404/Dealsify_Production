@@ -73,11 +73,10 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   '${record.activeStage.value.label}',
                   maxLines: 3,
                   style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: FontFamily.regularMulish,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    fontFamily: FontFamily.boldMulish,
                     overflow: TextOverflow.ellipsis,
-                    color: Colors.grey,
+                    color: Colors.black87,
                   ),
                 ),
               ],
@@ -104,7 +103,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   Text(
-                    'Inspector: ${stage.inspector ?? ''}',
+                    'Inspector : ${stage.inspector ?? ''}',
                     style: const TextStyle(
                       color: Colors.black87,
                       fontFamily: FontFamily.regularMulish,
@@ -131,7 +130,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                       }
                     },
                     context,
-                    'Start date', 'Start time',
+                    'Start Date', 'Start Time',
                     stageController.startDate.value, () => stageController.pickStartDate(context),
                     stageController.startTime.value, () => stageController.pickStartTime(context),
                   ),
@@ -156,7 +155,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                       }
                     },
                     context,
-                    'End date', 'End time',
+                    'End Date', 'End Time',
                     stageController.endDate.value, () => stageController.pickEndDate(context),
                     stageController.endTime.value, () => stageController.pickEndTime(context),
                   ),
@@ -173,6 +172,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                             "Timeline",
                             style: TextStyle(
                               color: Colors.black87,
+                              fontWeight: FontWeight.bold,
                               fontFamily: FontFamily.regularMulish,
                             )),
                         style: ElevatedButton.styleFrom(
@@ -192,6 +192,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                             "Add Scrap",
                             style: TextStyle(
                               color: Colors.black87,
+                              fontWeight: FontWeight.bold,
                               fontFamily: FontFamily.regularMulish,
                             )
                         ),
@@ -263,7 +264,7 @@ Widget completeButton({onTap,loading}){
               color: green_high,
               fontFamily: FontFamily.regularMulish,
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

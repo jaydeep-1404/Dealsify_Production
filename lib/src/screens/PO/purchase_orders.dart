@@ -79,13 +79,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   });
                 },
                 style: const TextStyle(
-                  fontFamily: FontFamily.regularMulish
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: FontFamily.regularMulish
                 ),
                 decoration: InputDecoration(
                   hintText: 'Search...',
                   filled: true,
                   fillColor: Colors.white,
                   hintStyle: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
                     fontFamily: FontFamily.regularMulish,
                   ),
                   border: OutlineInputBorder(
@@ -248,7 +252,7 @@ class ProductionOrderBox extends StatelessWidget {
                         fontSize: 12,
                         fontFamily: FontFamily.regularRoboto,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Colors.black,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -266,7 +270,7 @@ class ProductionOrderBox extends StatelessWidget {
                         fontSize: 12,
                         fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Colors.black87,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -289,7 +293,7 @@ class ProductionOrderBox extends StatelessWidget {
                         fontSize: 12,
                         fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Colors.black87,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -307,7 +311,7 @@ class ProductionOrderBox extends StatelessWidget {
                         fontSize: 12,
                         fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black54,
+                        color: Colors.black87,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
