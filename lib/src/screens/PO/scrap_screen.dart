@@ -88,6 +88,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                       hint: const Text(
                           'Select Item...',
                         style: TextStyle(
+                          fontSize: 14,
                           fontFamily: FontFamily.regularMulish,
                         ),
                       ),
@@ -143,6 +144,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                             ),
                             labelStyle: const TextStyle(
                               color: Colors.black54,
+                              fontSize: 14,
                               fontFamily: FontFamily.regularMulish,
                             ),
                             filled: true,
@@ -168,6 +170,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                             ),
                             labelStyle: const TextStyle(
                               color: Colors.black54,
+                              fontSize: 14,
                               fontFamily: FontFamily.regularMulish,
                             ),
                             filled: true,
@@ -194,6 +197,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                       ),
                       labelStyle: const TextStyle(
                         color: Colors.black54,
+                        fontSize: 14,
                         fontFamily: FontFamily.regularMulish,
                       ),
                       filled: true,
