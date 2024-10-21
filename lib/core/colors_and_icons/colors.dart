@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-const Color green_dark  = Color(0xFF014957);
-const Color pink_dark  = Color(0xFF901E6A);
+const Color green_high  = Color(0xFF014957);
+const Color pink_high  = Color(0xFF901E6A);
 
 
 // MaterialColor mainAppColor = const MaterialColor(0xFF2D5562, <int, Color>{
