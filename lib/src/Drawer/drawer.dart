@@ -52,34 +52,34 @@ class _MyDrawerState extends State<MyDrawer> {
                 color: Colors.black87,
                 fontFamily: FontFamily.regularMulish,
               ),
-            ),
+            ), 
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(ConstImg.appLogoFull),
             ),
             decoration: BoxDecoration(
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.settings, color: Colors.black45),
-            title: const Text(
-              'Settings',
-              style: TextStyle(
-                fontFamily: FontFamily.regularMulish,
-              ),
-            ),
-            onTap: () {},
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.info, color: Colors.black45),
-            title: const Text(
-              'About',
-              style: TextStyle(
-                fontFamily: FontFamily.regularMulish,
-              ),
-            ),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.settings, color: Colors.black45),
+          //   title: const Text(
+          //     'Settings',
+          //     style: TextStyle(
+          //       fontFamily: FontFamily.regularMulish,
+          //     ),
+          //   ),
+          //   onTap: () {},
+          // ),
+          // const Divider(),
+          // ListTile(
+          //   leading: const Icon(Icons.info, color: Colors.black54),
+          //   title: const Text(
+          //     'About',
+          //     style: TextStyle(
+          //       fontFamily: FontFamily.regularMulish,
+          //     ),
+          //   ),
+          //   onTap: () {},
+          // ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),

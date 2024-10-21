@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Login',
                       style: TextStyle(
                         fontSize: 36,
+                        fontFamily: FontFamily.boldMulish,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
@@ -85,6 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: focusNodeEmail,
           onChanged: controller.updateEmail,
           validator: controller.validatorEmail,
+          style: TextStyle(
+            fontFamily: FontFamily.regularMulish,
+          ),
           onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
           autofillHints: const [AutofillHints.email],
           keyboardType: TextInputType.emailAddress,
@@ -104,6 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: focusNodePass,
           obscureText: !controller.passwordVisible.value,
           validator: controller.validatorPassword,
+          style: TextStyle(
+            fontFamily: FontFamily.regularMulish,
+          ),
           autofillHints: const [AutofillHints.password],
           decoration: _inputDecoration(
             label: 'Password',
@@ -157,6 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'Login',
           style: TextStyle(
             fontSize: 16,
+            fontFamily: FontFamily.regularMulish,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -167,11 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildForgotPassword() {
     return TextButton(
-      onPressed: () {
-      },
+      onPressed: () {},
       child: const Text(
         'Forgot Password?',
-        style: TextStyle(color: Colors.black, fontSize: 14),
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontFamily: FontFamily.regularMulish,
+        ),
       ),
     );
   }
@@ -182,14 +193,20 @@ class _LoginScreenState extends State<LoginScreen> {
       children: [
         const Text(
           'Don\'t have an account? ',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: FontFamily.regularMulish,
+          ),
         ),
         TextButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           child: const Text(
             'Sign Up',
-            style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.bold,
+              fontFamily: FontFamily.regularMulish,
+            ),
           ),
         ),
       ],
@@ -200,11 +217,16 @@ class _LoginScreenState extends State<LoginScreen> {
     return InputDecoration(
       labelText: label,
       hintText: hint,
-      hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
+      hintStyle: const TextStyle(
+        fontSize: 14,
+        color: Colors.grey,
+        fontFamily: FontFamily.regularMulish,
+      ),
       suffixIcon: suffixIcon,
       labelStyle: const TextStyle(
         color: Colors.blueAccent,
         fontWeight: FontWeight.bold,
+        fontFamily: FontFamily.regularMulish,
       ),
       border: InputBorder.none,
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
