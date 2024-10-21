@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:dealsify_production/core/colors_and_icons/colors.dart';
 import 'package:dealsify_production/core/colors_and_icons/images.dart';
-import 'package:dealsify_production/src/common_functions/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
@@ -25,7 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final searchCtrl = TextEditingController();
 
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   Timer? _timer;
 
   @override
@@ -92,7 +92,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: const BorderSide(color: Colors.teal),
                   ),
-                  prefixIcon: const Icon(Icons.search, color: Colors.teal),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: green_high,
+                  ),
                 ),
               ),
             ),
@@ -315,29 +318,6 @@ class ProductionOrderBox extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildCompactInfoRow({
-    IconData? icon,
-    String? label,
-    Color? iconColor,
-  }) {
-    return Row(
-      children: [
-        if (icon != null)Icon(icon, color: iconColor, size: 18),
-        const SizedBox(width: 6),
-        Text(
-          label!,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Colors.black54,
-            overflow: TextOverflow.ellipsis,
-          ),
-          maxLines: 1,
-        ),
-      ],
     );
   }
 

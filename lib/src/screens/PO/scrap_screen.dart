@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
 import '../../../api/post/comlete_stage.dart';
+import '../../../core/colors_and_icons/colors.dart';
 import '../../../core/colors_and_icons/images.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
@@ -204,7 +205,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                       fillColor: Colors.transparent,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
@@ -221,8 +222,9 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF78909C),
-                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                        backgroundColor: Colors.blue,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        minimumSize: const Size(100,35),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -353,7 +355,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                 ],
               ),
               Obx(() {
-                return _completeButton(
+                return _saveButton(
                   loading: save.loadingScrap.value,
                   onTap: () {
                     if (scrapController.records.isEmpty){
@@ -391,7 +393,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
     }
   }
 
-  Widget _completeButton({onTap,loading}){
+  Widget _saveButton({onTap,loading}){
     return Positioned(
       bottom: Platform.isIOS ? 40 : 30,
       left: 0,
@@ -403,8 +405,8 @@ class _ScrapScreenState extends State<ScrapScreen> {
           width: Get.width / 1.2,
           margin: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
-            color: Colors.blue.shade100,
-            border: Border.all(color: Colors.blue.shade700),
+            color: Colors.green.shade100,
+            border: Border.all(color: green_high),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
@@ -415,10 +417,10 @@ class _ScrapScreenState extends State<ScrapScreen> {
             ],
           ),
           child: Center(
-            child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : Text(
+            child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
               'Save',
               style: TextStyle(
-                color: Colors.blue.shade700,
+                color: green_high,
                 fontSize: 15,
                 fontFamily: FontFamily.regularMulish,
                 fontWeight: FontWeight.w500,

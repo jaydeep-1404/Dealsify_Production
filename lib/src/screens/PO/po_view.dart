@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dealsify_production/core/colors_and_icons/colors.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:dealsify_production/src/common_functions/animations.dart';
 import 'package:dealsify_production/src/screens/PO/purchase_orders.dart';
@@ -245,7 +246,7 @@ Widget completeButton({onTap,loading}){
         margin: const EdgeInsets.symmetric(horizontal: 15),
         decoration: BoxDecoration(
           color: Colors.green.shade100,
-          border: Border.all(color: Colors.green.shade700),
+          border: Border.all(color: green_high),
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
@@ -256,10 +257,10 @@ Widget completeButton({onTap,loading}){
           ],
         ),
         child: Center(
-          child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : Text(
+          child: loading == true ? const SizedBox(height: 20,width: 20,child: CircularProgressIndicator(strokeWidth: 1.5,)) : const Text(
             'Complete',
             style: TextStyle(
-              color: Colors.green.shade700,
+              color: green_high,
               fontFamily: FontFamily.regularMulish,
               fontSize: 15,
               fontWeight: FontWeight.w500,
