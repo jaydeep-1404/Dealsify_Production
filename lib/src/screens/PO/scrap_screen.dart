@@ -255,16 +255,16 @@ class _ScrapScreenState extends State<ScrapScreen> {
                               title: RichText(
                                 text: TextSpan(
                                   children: [
-                                    TextSpan(
-                                      text: 'Item : ${record.dropdownValue}',
-                                      style: const TextStyle(
+                                    const TextSpan(
+                                      text: 'Item : ',
+                                      style: TextStyle(
                                         color: Colors.black87,
                                         fontFamily: FontFamily.regularMulish,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     TextSpan(
-                                      text: record.description.isNotEmpty ? record.description : "-",
+                                      text: record.dropdownValue,
                                       style: const TextStyle(
                                         color: Colors.black87,
                                         fontFamily: FontFamily.regularMulish,

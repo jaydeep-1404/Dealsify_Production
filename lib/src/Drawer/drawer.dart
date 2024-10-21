@@ -3,7 +3,6 @@ import 'package:dealsify_production/core/services/local_storage.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../core/colors_and_icons/images.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -109,7 +108,8 @@ class _MyDrawerState extends State<MyDrawer> {
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontFamily: FontFamily.regularMulish,
-                ),),
+                ),
+              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red[300],
                 padding: const EdgeInsets.symmetric(vertical: 12),
