@@ -33,7 +33,6 @@ class _MyDrawerState extends State<MyDrawer> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const UserAccountsDrawerHeader(
-
             accountName: Text(
               "Dealsify",
               // profileController.userData.value.name?.toString() ?? "",
@@ -54,10 +53,11 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ), 
             currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage(ConstImg.appLogoFull),
+              backgroundImage: AssetImage(
+                ConstImg.appLogoSingleChar,
+              ),
             ),
-            decoration: BoxDecoration(
-            ),
+            decoration: BoxDecoration(),
           ),
           // ListTile(
           //   leading: const Icon(Icons.settings, color: Colors.black45),

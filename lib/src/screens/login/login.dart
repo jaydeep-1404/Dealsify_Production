@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: focusNodeEmail,
           onChanged: controller.updateEmail,
           validator: controller.validatorEmail,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: FontFamily.regularMulish,
           ),
           onFieldSubmitted: (_) => FocusScope.of(context).requestFocus(focusNodePass),
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: focusNodePass,
           obscureText: !controller.passwordVisible.value,
           validator: controller.validatorPassword,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: FontFamily.regularMulish,
           ),
           autofillHints: const [AutofillHints.password],

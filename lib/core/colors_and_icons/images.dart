@@ -11,6 +11,7 @@ class FontFamily {
 
 class ConstImg {
   static const String splash = 'assets/splash_photo.gif',
-      appLogoSingleChar = 'assets/dealsify Logo only-03.svg',
+      emptyProfile = 'assets/empty_profile.jpg',
+      appLogoSingleChar = 'assets/dealsify Logo-03.png',
       appLogoFull = 'assets/dealsify new Logo-02.png';
 }
