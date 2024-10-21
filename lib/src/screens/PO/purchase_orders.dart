@@ -108,7 +108,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 10),
               Obx(() {
                 if (po.loading.value) {
-                  return const Expanded(child: Center(child: CircularProgressIndicator()));
+                  return const Expanded(child: Center(child: CircularProgressIndicator(color: green_high,)));
                 }
 
                 if (po.items.isEmpty) {
