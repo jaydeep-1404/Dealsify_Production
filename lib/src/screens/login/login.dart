@@ -229,6 +229,9 @@ class _LoginScreenState extends State<LoginScreen> {
         fontFamily: FontFamily.regularMulish,
       ),
       border: InputBorder.none,
+      errorStyle: const TextStyle(
+        fontFamily: FontFamily.regularMulish,
+      ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
     );
   }

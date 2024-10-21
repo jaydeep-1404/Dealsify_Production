@@ -102,7 +102,7 @@ class Open {
         titleText: const Stack(),
         messageText: Padding(
           padding: only(b: 5),
-          child: Text( msg ?? "Stage Updated successfully." ,style: TextStyle(color: Colors.white,fontSize: 13),),
+          child: Text( msg ?? "Stage Updated successfully." ,style: const TextStyle(color: Colors.white,fontSize: 13),),
         ),
         duration: const Duration(seconds: 3),
       );
@@ -139,13 +139,20 @@ class Open {
 
   static credential_true_snackBar(context) {
     final snackBar = SnackBar(
-      content: const Text(
-        "Welcome! You've logged in successfully.",
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontFamily: FontFamily.regularMulish,
-        ),
+      content: const Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.check_circle,color: Colors.white,),
+          SizedBox(width: 8,),
+          Text(
+            "Welcome! You've logged in successfully.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: FontFamily.regularMulish,
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.teal,
       duration: const Duration(seconds: 2),
@@ -162,13 +169,20 @@ class Open {
 
   static credential_fail_snackBar(context) {
     final errorSnackBar = SnackBar(
-      content: const Text(
-        "Wrong username and password",
-        style: TextStyle(
-          color: Colors.white,
-          fontFamily: FontFamily.regularMulish,
-          fontSize: 16,
-        ),
+      content: const Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.cancel,color: Colors.white,),
+          SizedBox(width: 8,),
+          Text(
+            "Wrong username and password",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: FontFamily.regularMulish,
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.red, // Error background color
       duration: const Duration(seconds: 3),
