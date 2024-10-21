@@ -103,7 +103,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         labelText: 'Select Item',
                         border: OutlineInputBorder(),
                         labelStyle: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black,
                           fontFamily: FontFamily.regularMulish,
                         ),
                         filled: true,
@@ -134,6 +134,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                           keyboardType: TextInputType.number,
                           style: const TextStyle(
                             fontSize: 14,
+                            color: Colors.black,
                             fontFamily: FontFamily.regularRoboto,
                           ),
                           decoration: InputDecoration(
@@ -144,7 +145,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                               borderSide: BorderSide(color: Colors.grey.shade400),
                             ),
                             labelStyle: const TextStyle(
-                              color: Colors.black54,
+                              color: Colors.black,
                               fontSize: 14,
                               fontFamily: FontFamily.regularMulish,
                             ),
@@ -160,6 +161,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                           readOnly: true,
                           style: const TextStyle(
                             fontSize: 14,
+                            color: Colors.black,
                             fontFamily: FontFamily.regularRoboto,
                           ),
                           decoration: InputDecoration(
@@ -170,7 +172,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                               borderSide: BorderSide(color: Colors.grey.shade400),
                             ),
                             labelStyle: const TextStyle(
-                              color: Colors.black54,
+                              color: Colors.black,
                               fontSize: 14,
                               fontFamily: FontFamily.regularMulish,
                             ),
@@ -187,6 +189,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                     maxLines: null,
                     style: const TextStyle(
                       fontSize: 14,
+                      color: Colors.black,
                       fontFamily: FontFamily.regularMulish,
                     ),
                     decoration: InputDecoration(
@@ -197,7 +200,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                         borderSide: BorderSide(color: Colors.grey.shade400),
                       ),
                       labelStyle: const TextStyle(
-                        color: Colors.black54,
+                        color: Colors.black,
                         fontSize: 14,
                         fontFamily: FontFamily.regularMulish,
                       ),
@@ -239,7 +242,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                           )),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  // const SizedBox(height: 10),
                   const Divider(),
                   Expanded(
                     child: Obx(() {
