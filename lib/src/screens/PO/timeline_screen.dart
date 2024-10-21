@@ -4,6 +4,7 @@ import 'package:dealsify_production/src/state_controllers/production_order_state
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import '../../../core/colors_and_icons/images.dart';
 import '../../common_functions/animations.dart';
 
 class TimelineScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 18,
+                  fontFamily: FontFamily.boldMulish,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -36,6 +38,7 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 '${record.activeStage.value.label}',
                 style: const TextStyle(
                   fontSize: 16,
+                  fontFamily: FontFamily.regularMulish,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey,
                 ),
@@ -59,7 +62,12 @@ class _TimelineScreenState extends State<TimelineScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text("Coming soon!"),
+            child: Text(
+                "Coming soon!",
+              style: TextStyle(
+                fontFamily: FontFamily.regularMulish,
+              ),
+            ),
           )
         ],
       ),

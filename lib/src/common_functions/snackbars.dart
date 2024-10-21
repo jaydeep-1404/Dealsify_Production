@@ -2,6 +2,8 @@ import 'package:dealsify_production/src/common_functions/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/colors_and_icons/images.dart';
+
 class Open {
 
   static successSnackBar(msg,{withoutIcon}){
@@ -122,7 +124,14 @@ class Open {
       titleText: const Stack(),
       messageText: Padding(
         padding: only(b: 5),
-        child: Text(msg ?? "" ,style: const TextStyle(color: Colors.white,fontSize: 13),),
+        child: Text(
+          msg ?? "" ,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 13,
+            fontFamily: FontFamily.regularMulish,
+          ),
+        ),
       ),
       duration: const Duration(seconds: 3),
     );
@@ -132,7 +141,11 @@ class Open {
     final snackBar = SnackBar(
       content: const Text(
         "Welcome! You've logged in successfully.",
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontFamily: FontFamily.regularMulish,
+        ),
       ),
       backgroundColor: Colors.teal,
       duration: const Duration(seconds: 2),
@@ -151,7 +164,11 @@ class Open {
     final errorSnackBar = SnackBar(
       content: const Text(
         "Wrong username and password",
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: FontFamily.regularMulish,
+          fontSize: 16,
+        ),
       ),
       backgroundColor: Colors.red, // Error background color
       duration: const Duration(seconds: 3),

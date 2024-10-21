@@ -68,6 +68,8 @@ class ScrapController extends GetxController {
         return {
           "bomItemId": i.bomItemId,
           "itemId": i.itemId,
+          "categoryName": i.itemId,
+          "itemName": i.itemId,
           "currentStock": convertToNumber(i.currentQty),
           "categoryId": i.categoryId,
           "scrapStock": i.quantity,

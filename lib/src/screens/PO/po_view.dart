@@ -10,6 +10,7 @@ import 'package:dealsify_production/src/state_controllers/stage_controller.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/post/comlete_stage.dart';
+import '../../../core/colors_and_icons/images.dart';
 import '../../common_functions/snackbars.dart';
 import '../../state_controllers/production_order_states.dart';
 
@@ -62,6 +63,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   style: const TextStyle(
                     color: Colors.black87,
                     fontSize: 18,
+                    fontFamily: FontFamily.boldMulish,
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                   ),
@@ -71,6 +73,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                   maxLines: 3,
                   style: const TextStyle(
                     fontSize: 16,
+                    fontFamily: FontFamily.regularMulish,
                     fontWeight: FontWeight.w500,
                     overflow: TextOverflow.ellipsis,
                     color: Colors.grey,
@@ -103,6 +106,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                     'Inspector: ${stage.inspector ?? ''}',
                     style: const TextStyle(
                       color: Colors.black87,
+                      fontFamily: FontFamily.regularMulish,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -164,7 +168,12 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                           navigateToPage(context, const TimelineScreen());
                         },
                         icon: const Icon(Icons.timelapse, color: Colors.black87),
-                        label: const Text("Timeline", style: TextStyle(color: Colors.black87)),
+                        label: const Text(
+                            "Timeline",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontFamily: FontFamily.regularMulish,
+                            )),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFBBDEFB), // Light Blue
                           // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -178,7 +187,13 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                           navigateToPage(context, const ScrapScreen());
                         },
                         icon: const Icon(Icons.add, color: Colors.black87),
-                        label: const Text("Add Scrap", style: TextStyle(color: Colors.black87)),
+                        label: const Text(
+                            "Add Scrap",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontFamily: FontFamily.regularMulish,
+                            )
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFBBDEFB), // Light Blue
                           // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -245,6 +260,7 @@ Widget completeButton({onTap,loading}){
             'Complete',
             style: TextStyle(
               color: Colors.green.shade700,
+              fontFamily: FontFamily.regularMulish,
               fontSize: 15,
               fontWeight: FontWeight.w500,
             ),
@@ -289,8 +305,20 @@ Widget buildDateTimePicker(
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("*", style: TextStyle(color: Colors.red.shade700,fontSize: 15)),
+                      Text(
+                          label,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: FontFamily.regularMulish,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Text(
+                          "*",
+                          style: TextStyle(
+                            color: Colors.red.shade700,
+                            fontFamily: FontFamily.regularMulish,
+                            fontSize: 15,
+                          )),
                     ],
                   ),
                   GestureDetector(
@@ -307,7 +335,10 @@ Widget buildDateTimePicker(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         (date == null) ? "Select date..." : "${date.day}-${date.month}-${date.year}",
-                        style: TextStyle(color: date == null ? Colors.grey : Colors.black),
+                        style: TextStyle(
+                          color: date == null ? Colors.grey : Colors.black,
+                          fontFamily: FontFamily.regularMulish,
+                        ),
                       ),
                     ),
                   ),
@@ -316,7 +347,13 @@ Widget buildDateTimePicker(
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label2, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(
+                      label2,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: FontFamily.regularMulish,
+                        fontWeight: FontWeight.bold,
+                      )),
                   GestureDetector(
                     onTap: onTimeTapped,
                     child: Container(
@@ -331,7 +368,10 @@ Widget buildDateTimePicker(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         (time == null) ? "Select time..." : "${time.hour}:${time.minute}",
-                        style: TextStyle(color: time == null ? Colors.grey : Colors.black),
+                        style: TextStyle(
+                          color: time == null ? Colors.grey : Colors.black,
+                          fontFamily: FontFamily.regularMulish,
+                        ),
                       ),
                     ),
                   ),
@@ -361,7 +401,8 @@ Widget buildDateTimePicker(
                       'Save',
                       style: TextStyle(
                         color: Colors.blue,
-                        fontSize: 15,
+                        fontSize: 14,
+                        fontFamily: FontFamily.regularMulish,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -376,29 +417,3 @@ Widget buildDateTimePicker(
   );
 }
 
-Widget buildDateTimeField(String label, dynamic value, VoidCallback onTapped) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-      GestureDetector(
-        onTap: onTapped,
-        child: Container(
-          height: 40,
-          width: Get.width / 2.8,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          alignment: Alignment.centerLeft,
-          child: Text(
-            (value == null) ? "Select..." : "${value.day}-${value.month}-${value.year}",
-            style: TextStyle(color: value == null ? Colors.grey : Colors.black),
-          ),
-        ),
-      ),
-    ],
-  );
-}

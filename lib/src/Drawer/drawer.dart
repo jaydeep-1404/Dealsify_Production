@@ -42,12 +42,16 @@ class _MyDrawerState extends State<MyDrawer> {
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
+                fontFamily: FontFamily.regularMulish,
               ),
             ),
             accountEmail: Text(
               "connect@dealsify.in",
               // profileController.userData.value.email?.toString() ?? "",
-              style: TextStyle(color: Colors.black87),
+              style: TextStyle(
+                color: Colors.black87,
+                fontFamily: FontFamily.regularMulish,
+              ),
             ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(ConstImg.appLogoFull),
@@ -56,14 +60,24 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.settings, color: Colors.blue.shade100),
-            title: const Text('Settings'),
+            leading: const Icon(Icons.settings, color: Colors.black45),
+            title: const Text(
+              'Settings',
+              style: TextStyle(
+                fontFamily: FontFamily.regularMulish,
+              ),
+            ),
             onTap: () {},
           ),
           const Divider(),
           ListTile(
-            leading: Icon(Icons.info, color: Colors.blue.shade100),
-            title: const Text('About'),
+            leading: const Icon(Icons.info, color: Colors.black45),
+            title: const Text(
+              'About',
+              style: TextStyle(
+                fontFamily: FontFamily.regularMulish,
+              ),
+            ),
             onTap: () {},
           ),
           const Spacer(),
@@ -88,7 +102,12 @@ class _MyDrawerState extends State<MyDrawer> {
                 );
               },
               icon: const Icon(Icons.logout, color: Colors.white),
-              label: const Text('Logout',style: TextStyle(color: Colors.white),),
+              label: const Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: FontFamily.regularMulish,
+                ),),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red[300],
                 padding: const EdgeInsets.symmetric(vertical: 12),

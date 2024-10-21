@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dealsify_production/core/colors_and_icons/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
@@ -50,7 +51,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('Dashboard',style: TextStyle(fontWeight: FontWeight.bold),),
+              Text(
+                'Dashboard',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: FontFamily.boldMulish,
+                ),
+              ),
           ],),
           centerTitle: true,
           bottom: PreferredSize(
@@ -70,10 +77,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     }
                   });
                 },
+                style: const TextStyle(
+                  fontFamily: FontFamily.regularMulish
+                ),
                 decoration: InputDecoration(
                   hintText: 'Search...',
                   filled: true,
                   fillColor: Colors.white,
+                  hintStyle: const TextStyle(
+                    fontFamily: FontFamily.regularMulish,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: const BorderSide(color: Colors.teal),
@@ -220,16 +233,40 @@ class ProductionOrderBox extends StatelessWidget {
           children: [
             Row(
               children: [
-                _buildCompactInfoRow(
-                  icon: Icons.numbers,
-                  label: orderNo,
-                  iconColor: Colors.blue.shade300,
+                Row(
+                  children: [
+                    Icon(Icons.numbers, color: Colors.blue.shade300, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      orderNo,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: FontFamily.regularRoboto,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(),
-                _buildCompactInfoRow(
-                  // icon: Icons.widgets,
-                  label: itemName,
-                  iconColor: Colors.orange.shade300,
+                Row(
+                  children: [
+                    // Icon(Icons.numbers, color: Colors.orange.shade300, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      itemName,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: FontFamily.regularMulish,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -237,16 +274,40 @@ class ProductionOrderBox extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildCompactInfoRow(
-                  icon: currentStage.isNotEmpty ? Icons.assignment : Icons.check_circle,
-                  label: currentStage.isNotEmpty ? currentStage : "All stages completed",
-                  iconColor: Colors.green.shade300,
+                Row(
+                  children: [
+                    Icon(currentStage.isNotEmpty ? Icons.assignment : Icons.check_circle, color: Colors.green.shade300, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      currentStage.isNotEmpty ? currentStage : "All stages completed",
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: FontFamily.regularMulish,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(),
-                _buildCompactInfoRow(
-                  icon: Icons.warning_amber_rounded,
-                  label: _getPriorityLabel(priority),
-                  iconColor: _getPriorityColor(priority),
+                Row(
+                  children: [
+                    Icon(Icons.warning_amber_rounded, color: _getPriorityColor(priority), size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      _getPriorityLabel(priority),
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontFamily: FontFamily.regularMulish,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

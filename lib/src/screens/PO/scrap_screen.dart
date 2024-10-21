@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../api/Models/bomItems.dart';
 import '../../../api/post/comlete_stage.dart';
+import '../../../core/colors_and_icons/images.dart';
 import '../../common_functions/animations.dart';
 import '../../state_controllers/production_order_states.dart';
 
@@ -43,6 +44,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 18,
+                    fontFamily: FontFamily.boldMulish,
                     overflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.bold,
                   ),
@@ -53,6 +55,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                   maxLines: 3,
                   style: const TextStyle(
                     fontSize: 16,
+                    fontFamily: FontFamily.regularMulish,
                     fontWeight: FontWeight.w500,
                     overflow: TextOverflow.ellipsis,
                     color: Colors.grey,
