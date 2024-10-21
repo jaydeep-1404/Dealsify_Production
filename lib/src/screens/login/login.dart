@@ -1,4 +1,5 @@
 import 'package:dealsify_production/api/auth/login.dart';
+import 'package:dealsify_production/core/colors_and_icons/images.dart';
 import 'package:dealsify_production/core/services/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,9 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            color: Colors.lightBlue[50],
-          ),
+          Container(color: Colors.lightBlue[50],),
           Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -46,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                        "assets/dealsify-02.png",
+                      ConstImg.appLogoFull,
                       width: 200,
                     ),
                     const Text(

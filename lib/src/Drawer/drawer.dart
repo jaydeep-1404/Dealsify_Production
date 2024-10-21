@@ -52,32 +52,20 @@ class _MyDrawerState extends State<MyDrawer> {
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage(ConstImg.appLogoFull),
             ),
-            // currentAccountPicture: Container(
-            //   decoration: const BoxDecoration(
-            //     color: Colors.black12,
-            //     shape: BoxShape.circle,
-            //   ),
-            //   child: const Center(
-            //     child: Text(
-            //       "D",
-            //       style: TextStyle(fontSize: 25),
-            //     ),
-            //   ),
-            // ),
             decoration: BoxDecoration(
             ),
           ),
-          // ListTile(
-          //   leading: Icon(Icons.settings, color: Colors.blue.shade100),
-          //   title: const Text('Settings'),
-          //   onTap: () {},
-          // ),
-          // const Divider(),
-          // ListTile(
-          //   leading: Icon(Icons.info, color: Colors.blue.shade100),
-          //   title: const Text('About'),
-          //   onTap: () {},
-          // ),
+          ListTile(
+            leading: Icon(Icons.settings, color: Colors.blue.shade100),
+            title: const Text('Settings'),
+            onTap: () {},
+          ),
+          const Divider(),
+          ListTile(
+            leading: Icon(Icons.info, color: Colors.blue.shade100),
+            title: const Text('About'),
+            onTap: () {},
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(8.0),

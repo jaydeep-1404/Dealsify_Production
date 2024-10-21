@@ -33,6 +33,22 @@ flutter:
     - .env
     - assets/
 
+#  fonts:
+#    - family: Filter
+#      fonts:
+#        - asset: assets/flutter-icons-ca9dd09d/flutter-icons-ca9dd09d/fonts/CustomIcon.ttf
+#    - family: Poppins
+#      fonts:
+#        - asset: assets/Poppins/Poppins-Regular.ttf
+#    - family: PoppinsSemiBold
+#      fonts:
+#        - asset: assets/Poppins/Poppins-SemiBold.ttf
+#
+#    - family: PoppinsBold
+#      fonts:
+#        - asset: assets/Poppins/Poppins-Bold.ttf
+
+
   # fonts:
   #   - family: Schyler
   #     fonts:
