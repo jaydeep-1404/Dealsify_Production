@@ -102,7 +102,7 @@ class ProductionStages {
   String? stageId;
   String? label;
   num? priority;
-  List<String>? inspector;
+  List<dynamic>? inspector;
   String? startingDate;
   String? endingDate;
   String? startingTime;
@@ -134,8 +134,8 @@ class ProductionStages {
       priority: json['priority'] ?? 0,
       // inspector: json['inspector']?.toString() ?? '',
       inspector: (json['inspector'] is List)
-          ? List<String>.from(json['inspector']) // If it's a list, convert it to List<String>
-          : (json['inspector'] is String) // If it's a string, wrap it in a list
+          ? List<String>.from(json['inspector'].map((item) => item.toString()))
+          : (json['inspector'] is String)
           ? [json['inspector'].toString()]
           : [],
       startingDate: json['startingDate']?.toString() ?? '',

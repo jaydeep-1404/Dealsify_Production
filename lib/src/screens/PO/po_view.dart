@@ -113,7 +113,7 @@ class _ProductionOrderViewState extends State<ProductionOrderView> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   Text(
-                    'Flore Inspector : ${getInspectorDisplay(stage.inspector)}',
+                    'Floor Manager : ${getInspectorDisplay(stage.inspector)}',
                     style: const TextStyle(
                       color: Colors.black87,
                       fontFamily: FontFamily.regularMulish,

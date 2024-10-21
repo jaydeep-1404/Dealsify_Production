@@ -242,6 +242,7 @@ class _ScrapScreenState extends State<ScrapScreen> {
                           )),
                     ),
                   ),
+                  const Divider(),
                   // const SizedBox(height: 10),
                   Expanded(
                     child: Obx(() {
