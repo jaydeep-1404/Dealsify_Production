@@ -18,7 +18,9 @@ class ScrapController extends GetxController {
       var newRecord = Record(
         dropdownValue: selectedBomItem.value!.materialName?.toString() ?? "",
         itemId: selectedBomItem.value!.materialId?.toString() ?? "",
+        itemName: selectedBomItem.value!.materialName?.toString() ?? "",
         categoryId: selectedBomItem.value!.categoryId?.toString() ?? "",
+        categoryName: selectedBomItem.value!.categoryName?.toString() ?? "",
         bomItemId: selectedBomItem.value!.groupId?.toString() ?? "",
         quantity: quantityController.text,
         currentQty: currentQtyController.text,
@@ -68,8 +70,8 @@ class ScrapController extends GetxController {
         return {
           "bomItemId": i.bomItemId,
           "itemId": i.itemId,
-          "categoryName": i.itemId,
-          "itemName": i.itemId,
+          "categoryName": i.categoryName,
+          "itemName": i.itemName,
           "currentStock": convertToNumber(i.currentQty),
           "categoryId": i.categoryId,
           "scrapStock": i.quantity,
@@ -96,8 +98,10 @@ class ScrapController extends GetxController {
 class Record {
   final String dropdownValue;
   final String itemId;
+  final String itemName;
   final String bomItemId;
   final String categoryId;
+  final String categoryName;
   final String quantity;
   final String currentQty;
   final String description;
@@ -105,8 +109,10 @@ class Record {
   Record({
     required this.dropdownValue,
     required this.itemId,
+    required this.itemName,
     required this.bomItemId,
     required this.categoryId,
+    required this.categoryName,
     required this.quantity,
     required this.currentQty,
     required this.description,
