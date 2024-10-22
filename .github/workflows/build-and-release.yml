@@ -1,6 +1,5 @@
 name: "Build & Release Android and iOS"
 
-
 on:
   push:
     branches:
@@ -26,7 +25,7 @@ jobs:
         uses: actions/checkout@v3
 
   build_apk:
-    name: "📱 Build APK"
+    name: "📱 Build APK & AAB"
     runs-on: macos-latest
     needs: set_up_environment
 
@@ -49,12 +48,16 @@ jobs:
       - name: "⚙️ Build APK (Release)"
         run: flutter build apk --release
 
-      - name: "⬆️ Upload APK to GitHub Releases"
+      - name: "⚙️ Build AAB (Release)"
+        run: flutter build appbundle --release
+
+      - name: "⬆️ Upload APK & AAB to GitHub Releases"
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
             build/app/outputs/apk/release/*.apk
-          tag: apk-${{ github.run_number }}-${{ github.sha }}
+            build/app/outputs/bundle/release/*.aab
+          tag: release-${{ github.run_number }}-${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
 #  upload_on_playstore:
