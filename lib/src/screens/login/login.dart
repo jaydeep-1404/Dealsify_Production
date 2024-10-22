@@ -160,8 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Get.put(AuthController()).isLoading.isTrue
             ? const CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-        )
-            : const Text(
+        ) : const Text(
           'Login',
           style: TextStyle(
             fontSize: 16,
