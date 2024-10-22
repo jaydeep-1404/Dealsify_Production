@@ -1,4 +1,5 @@
 import 'package:dealsify_production/api/get/get_profile.dart';
+import 'package:dealsify_production/core/colors_and_icons/colors.dart';
 import 'package:dealsify_production/core/services/local_storage.dart';
 import 'package:dealsify_production/src/screens/login/login.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ), 
             currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.transparent,
               backgroundImage: AssetImage(
                 ConstImg.appLogoSingleChar,
               ),
@@ -111,7 +113,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red[300],
+                backgroundColor: green_high,
                 padding: const EdgeInsets.symmetric(vertical: 12),
               ),
             ),
