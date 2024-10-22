@@ -1,0 +1,41 @@
+name: "Feature Request"
+description: Create a new ticket for a new feature request
+title: "title"
+assignees:
+  - octocat
+body:
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: "Acceptance Criteria"
+      description: Provide a acceptance criteria of the feature
+      placeholder: Describe in a few lines...
+    validations:
+      required: false
+  - type: dropdown
+    id: story_points
+    attributes:
+      label: Story Point
+      multiple: false
+      options:
+        - 0.5
+        - 1
+        - 2
+        - 3
+        - 5
+  - type: input
+    id: start_date
+    attributes:
+      label: "Start Date"
+      description: Start of development
+      placeholder: "month/day/year"
+    validations:
+      required: false
+  - type: input
+    id: end_date
+    attributes:
+      label: "End Date"
+      description: End-Date of development
+      placeholder: "month/day/year"
+    validations:
+      required: false

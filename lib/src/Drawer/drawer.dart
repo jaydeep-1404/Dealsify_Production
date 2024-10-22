@@ -30,95 +30,98 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const UserAccountsDrawerHeader(
-            accountName: Text(
-              "Dealsify",
-              // profileController.userData.value.name?.toString() ?? "",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-                fontFamily: FontFamily.boldMulish,
+      child: Obx((){
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: Text(
+                  // "Dealsify",
+                  profileController.userData.value.name?.toString() ?? "",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    fontFamily: FontFamily.boldMulish,
+                  ),
+                ),
+                accountEmail: Text(
+                  // "connect@dealsify.in",
+                  profileController.userData.value.email?.toString() ?? "",
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: FontFamily.regularMulish,
+                  ),
+                ),
+                currentAccountPicture: const CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  backgroundImage: AssetImage(
+                    ConstImg.appLogoSingleChar,
+                  ),
+                ),
+                decoration: const BoxDecoration(),
               ),
-            ),
-            accountEmail: Text(
-              "connect@dealsify.in",
-              // profileController.userData.value.email?.toString() ?? "",
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontFamily: FontFamily.regularMulish,
-              ),
-            ), 
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.transparent,
-              backgroundImage: AssetImage(
-                ConstImg.appLogoSingleChar,
-              ),
-            ),
-            decoration: BoxDecoration(),
-          ),
-          // ListTile(
-          //   leading: const Icon(Icons.settings, color: Colors.black45),
-          //   title: const Text(
-          //     'Settings',
-          //     style: TextStyle(
-          //       fontFamily: FontFamily.regularMulish,
-          //     ),
-          //   ),
-          //   onTap: () {},
-          // ),
-          // const Divider(),
-          // ListTile(
-          //   leading: const Icon(Icons.info, color: Colors.black54),
-          //   title: const Text(
-          //     'About',
-          //     style: TextStyle(
-          //       fontFamily: FontFamily.regularMulish,
-          //     ),
-          //   ),
-          //   onTap: () {},
-          // ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton.icon(
-              onPressed: () {
-                Get.defaultDialog(
-                  title: 'Logout',
-                  middleText: 'Are you sure you want to logout?',
-                  textCancel: 'Cancel',
-                  textConfirm: 'Logout',
-                  confirmTextColor: Colors.white,
-                  onConfirm: () async {
-                    final LocalDataModel? userInfo = await pref.get();
-                    userInfo!.access_token = "";
-                    userInfo.user_id = "";
-                    userInfo.company_id = "";
-                    pref.set(userInfo);
-                    Get.off(const LoginScreen());
+              // ListTile(
+              //   leading: const Icon(Icons.settings, color: Colors.black45),
+              //   title: const Text(
+              //     'Settings',
+              //     style: TextStyle(
+              //       fontFamily: FontFamily.regularMulish,
+              //     ),
+              //   ),
+              //   onTap: () {},
+              // ),
+              // const Divider(),
+              // ListTile(
+              //   leading: const Icon(Icons.info, color: Colors.black54),
+              //   title: const Text(
+              //     'About',
+              //     style: TextStyle(
+              //       fontFamily: FontFamily.regularMulish,
+              //     ),
+              //   ),
+              //   onTap: () {},
+              // ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Get.defaultDialog(
+                      title: 'Logout',
+                      middleText: 'Are you sure you want to logout?',
+                      textCancel: 'Cancel',
+                      textConfirm: 'Logout',
+                      confirmTextColor: Colors.white,
+                      onConfirm: () async {
+                        final LocalDataModel? userInfo = await pref.get();
+                        userInfo!.access_token = "";
+                        userInfo.user_id = "";
+                        userInfo.company_id = "";
+                        pref.set(userInfo);
+                        Get.off(const LoginScreen());
+                      },
+                    );
                   },
-                );
-              },
-              icon: const Icon(Icons.logout, color: Colors.white),
-              label: const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: FontFamily.regularMulish,
+                  icon: const Icon(Icons.logout, color: Colors.white),
+                  label: const Text(
+                    'Logout',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: FontFamily.regularMulish,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: green_high,
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: green_high,
-                padding: const EdgeInsets.symmetric(vertical: 12),
-              ),
-            ),
-          ),
-        ],
+            ],
+          );
+        }
       ),
     );
   }

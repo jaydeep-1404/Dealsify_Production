@@ -1,0 +1,177 @@
+name: "Build & Release Android and iOS"
+
+
+on:
+  push:
+    branches:
+      - main
+      - text-overflow
+
+  pull_request:
+    branches:
+      - main
+      - text-overflow
+
+permissions:
+  contents: write
+
+jobs:
+
+  set_up_environment:
+    name: "🔧 Checkout Repository"
+    runs-on: macos-latest
+
+    steps:
+      - name: "📂 Checkout Repository"
+        uses: actions/checkout@v3
+
+  build_apk:
+    name: "📱 Build APK"
+    runs-on: macos-latest
+    needs: set_up_environment
+
+    steps:
+      - name: "📂 Checkout Repository"
+        uses: actions/checkout@v3
+
+      - name: "☕ Set up Java (Zulu JDK 17)"
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: "🛠️ Set up Flutter (Stable Channel)"
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      - name: "⚙️ Build APK (Release)"
+        run: flutter build apk --release
+
+      - name: "⬆️ Upload APK to GitHub Releases"
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            build/app/outputs/apk/release/*.apk
+          tag: apk-${{ github.run_number }}-${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+#  upload_on_playstore:
+#    name: "☁️ Upload on Playstore"
+#    runs-on: macos-latest
+#    needs: build_apk
+#
+#    steps:
+#      - name: "📂 Checkout Repository"
+#        uses: actions/checkout@v3
+#
+#      - name: "☕ Set up Java (Zulu JDK 17)"
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu'
+#          java-version: '17'
+#
+#      - name: "🛠️ Set up Flutter (Stable Channel)"
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#          architecture: x64
+#
+#      - name: "🔐 Decode Keystore"
+#        env:
+#          KEYSTORE: ${{ secrets.KEYSTORE }}
+#        run: echo "$KEYSTORE" | base64 --decode > /tmp/keystore.jks
+#
+#      - name: "🔄 Bump Version Code and Version Name"
+#        run: |
+#          # Extract current versionCode and versionName from build.gradle
+#          VERSION_CODE=$(grep -o "versionCode [0-9]*" android/app/build.gradle | awk '{print $2}')
+#          VERSION_NAME=$(grep -o 'versionName "[0-9.]*"' android/app/build.gradle | awk '{print $2}' | tr -d '"')
+#
+#          # Increment versionCode
+#          NEW_VERSION_CODE=$((VERSION_CODE + 1))
+#
+#          # Split versionName into major, minor, and patch
+#          IFS='.' read -r major minor patch <<< "$VERSION_NAME"
+#
+#          # Update versionName based on the patch logic
+#          if [ "$patch" -lt 9 ]; then
+#            NEW_VERSION_NAME="$major.$minor.$((patch + 1))"
+#          else
+#            NEW_VERSION_NAME="$major.$((minor + 1)).0"
+#          fi
+#
+#          # Update the build.gradle with new versionCode and versionName
+#          sed -i '' "s/versionCode $VERSION_CODE/versionCode $NEW_VERSION_CODE/" android/app/build.gradle
+#          sed -i '' "s/versionName \"$VERSION_NAME\"/versionName \"$NEW_VERSION_NAME\"/" android/app/build.gradle
+#
+#          # Print the new version for reference
+#          echo "Updated versionCode to: $NEW_VERSION_CODE"
+#          echo "Updated versionName to: $NEW_VERSION_NAME"
+#
+#      - name: "🔄 Commit Version Bump"
+#        run: |
+#          git config --global user.email "actions@github.com"
+#          git config --global user.name "GitHub Actions"
+#          git add android/app/build.gradle
+#          git commit -m "Bump versionCode to $NEW_VERSION_CODE and versionName to $NEW_VERSION_NAME"
+#          git push
+#
+#      - name: "⚙️ Build AAB (Release)"
+#        run: flutter build appbundle
+#
+#      - name: "🔐 Sign AAB"
+#        env:
+#          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+#          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+#          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+#        run: |
+#          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+#          -keystore /tmp/keystore.jks \
+#          -storepass $KEYSTORE_PASSWORD \
+#          -keypass $KEY_PASSWORD \
+#          build/app/outputs/bundle/release/app-release.aab $KEY_ALIAS
+#
+#      - name: "☁️ Upload to Playstore"
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT }}
+#          packageName: com.analogcloudtech.dealsify
+#          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+#          track: ${{ secrets.TRACK }}
+#          changesNotSentForReview: true
+#
+#  build_ipa:
+#    name: "🍏 Build IPA"
+#    runs-on: macos-latest
+#    needs: set_up_environment
+#
+#    steps:
+#      - name: "📂 Checkout Repository"
+#        uses: actions/checkout@v3
+#
+#      - name: "🛠️ Set up Xcode"
+#        run: sudo xcode-select --switch /Applications/Xcode_14.3.app
+#
+#      - name: "🛠️ Set up Flutter (Stable Channel)"
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: 'stable'
+#          architecture: x64
+#
+#      - name: "🍏 Build iOS IPA"
+#        run: |
+#          flutter build ios --release --no-codesign
+#          cd build/ios/iphoneos
+#          mkdir Payload
+#          cp -r Runner.app Payload/
+#          zip -r app.ipa Payload
+#
+#      - name: "⬆️ Upload IPA to GitHub Releases"
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: |
+#            build/ios/iphoneos/app.ipa
+#          tag: ipa-${{ github.run_number }}-${{ github.sha }}
+#          token: ${{ secrets.GITHUB_TOKEN }}
