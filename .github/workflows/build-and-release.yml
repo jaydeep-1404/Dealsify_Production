@@ -45,19 +45,32 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      - name: "⚙️ Build APK (Release)"
+      # Release builds
+      - name: "⚙️ Build Release APK"
         run: flutter build apk --release
 
-      - name: "⚙️ Build AAB (Release)"
+      - name: "⚙️ Build Release AAB"
         run: flutter build appbundle --release
 
-      - name: "⬆️ Upload APK & AAB to GitHub Releases"
+      - name: "⬆️ Upload Release APK & AAB to GitHub Releases"
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
             build/app/outputs/apk/release/*.apk
             build/app/outputs/bundle/release/*.aab
           tag: release-${{ github.run_number }}-${{ github.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Debug builds
+      - name: "⚙️ Build Debug APK"
+        run: flutter build apk --debug
+
+      - name: "⬆️ Upload Debug APK & AAB to GitHub Releases"
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            build/app/outputs/apk/debug/*.apk
+          tag: debug-${{ github.run_number }}-${{ github.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
 #  upload_on_playstore:
