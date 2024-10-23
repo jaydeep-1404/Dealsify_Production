@@ -1,4 +1,4 @@
-package com.example.dealsify_production
+package com.analogcloudtech.dealsify_production
 
 import io.flutter.embedding.android.FlutterActivity
 
